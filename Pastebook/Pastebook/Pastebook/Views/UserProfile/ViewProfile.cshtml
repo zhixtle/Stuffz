@@ -1,0 +1,163 @@
+﻿@model Pastebook.Models.UserProfileModel
+
+@{
+    var viewUsername = Html.DisplayFor(model => model.Username);
+}
+
+@if (Model.IsFriend == "Y")
+{
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="content-item">
+                    <div>
+                        <h3>@Html.DisplayFor(model => model.Username)</h3>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Username)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Username)
+                                <input type="hidden" id="username" value="@Html.DisplayFor(model => model.Username)" />
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.FirstName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.LastName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Birthday)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Birthday)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CountryID)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CountryID)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MobileNumber)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MobileNumber)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Gender)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Gender)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.AboutMe)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.AboutMe)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EmailAddress)
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div>
+    @Html.Partial("AddPost")
+    @Html.Action("TimelinePosts", "UserProfile", new { username = viewUsername })
+</div>
+}
+
+else
+{
+
+    <div class="content-main">
+        <div class="row margin-b-30">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="content-item">
+                        <div>
+                            <h3>@Html.DisplayFor(model => model.Username)</h3>
+                            <input type="hidden" id="username" value="@Html.DisplayFor(model => model.Username)" />
+                            <hr />
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Username)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Username)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+                                
+                            </dl>
+                            @if (Model.IsFriend == "N")
+                            {
+                            <button type="button" id="btnFriendRequest">Add Friend</button>
+                            }
+                            else
+                            {
+                            <button type="button" id="btnFriendRequest" disabled>Pending Friend Request</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+}
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/addPostToTimeline.js")"></script>
+    <script src="@Url.Content("~/Scripts/addLikeToTimeline.js")"></script>
+    <script src="@Url.Content("~/Scripts/addCommentToTimeline.js")"></script>
+    <script src="@Url.Content("~/Scripts/sendFriendRequest.js")"></script>
+}
+
