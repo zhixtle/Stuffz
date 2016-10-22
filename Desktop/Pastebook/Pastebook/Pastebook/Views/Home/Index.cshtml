@@ -1,0 +1,9 @@
+﻿@Html.Partial("AddPost")
+@Html.Action("NewsFeedPosts", "Home")
+
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/addPost.js")"></script>
+    <script src="@Url.Content("~/Scripts/addLikeToNewsFeed.js")"></script>
+    <script src="@Url.Content("~/Scripts/addCommentToNewsFeed.js")"></script>
+}

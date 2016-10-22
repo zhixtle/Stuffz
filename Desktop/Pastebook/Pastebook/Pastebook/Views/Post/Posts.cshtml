@@ -1,0 +1,69 @@
+﻿@model Pastebook.Models.PostModel
+
+@{
+    var viewPostID = Html.DisplayFor(model => model.PostID);
+}
+
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="banner-main-home">
+                <div class="banner-main-home-text">
+                    <div id="userPost">
+                        <div class="heading">
+                            @if (Model.PosterID == Model.ProfileOwnerID)
+                            {
+                                <h1>@Html.DisplayFor(model => model.PosterName)</h1>
+                            }
+                            else
+                            {
+                                <h4> @Html.DisplayFor(model => model.PosterName) > @Html.DisplayFor(model => model.ProfileOwnerName) </h4>
+                            }
+                            <p class="text-uppercase">@Html.DisplayFor(model => model.DateCreated)</p>
+                        </div>
+                        <div class="desc">
+                            <p>@Html.DisplayFor(model => model.Content)</p>
+                        </div>
+
+                        @{
+                            string tooltipText = Model.LikesCount + " Likes";
+                            string toolTipContent = Html.Action("Likes", "Post", new { postID = viewPostID }).ToString(); 
+                         }
+
+                        <div>
+                            <button type="button" data-toggle="tooltip" data-placement="right" title="@toolTipContent">
+                                @tooltipText
+                            </button>
+                        </div>
+
+                        @if (Model.IsLiked == true)
+                        {
+                            <button type="button" class="btnLike" id="@viewPostID" disabled>Like</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btnLike" id="@viewPostID">Like</button>
+                        }
+
+                        @Html.Action("PostComments", "Post", new { postID = viewPostID })
+
+                        <div class="row comment-add">
+                            <div class="col-md-10 comment-add-content-area">
+                                <input type="text" class="comment-add-content" placeholder="Write a comment..." />
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" id="@viewPostID" class="btnComment btn comment-button">Comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/addLike.js")"></script>
+    <script src="@Url.Content("~/Scripts/addComment.js")"></script>
+}
+

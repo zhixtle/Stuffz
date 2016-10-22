@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6d49d22f240b41fe9b04e7bc32e687cc" Name="Diagram1">
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.COMMENT" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.FRIEND" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.LIKE" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.NOTIFICATION" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.POST" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.REF_COUNTRY" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_LIZBETHModel.USER" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_COMMENT_POST" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_COMMENT_POSTER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_NOTIFICATION_COMMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_FRIEND_FRIENDID" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_FRIEND_USERID" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_LIKE_POST" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_LIKE_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_NOTIFICATION_POST" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_NOTIFICATION_RECEIVER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_NOTIFICATION_SENDER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_POST_USER_POSTER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_POST_USER_PROFILE_OWNER" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_LIZBETHModel.FK_USER_REF_COUNTRY" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

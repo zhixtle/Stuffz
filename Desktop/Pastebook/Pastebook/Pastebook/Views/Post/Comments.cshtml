@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Pastebook.Models.CommentModel>
+
+<div class="comment-list" id="comment-list">
+    @foreach (var item in Model)
+    {
+        var viewPostID = Html.DisplayFor(comment => item.PostID);
+        <div class="comment-item">
+            <div class="comment-date">
+                <p class="text-uppercase">@Html.DisplayFor(comment => item.DateCreated)</p>
+            </div>
+            <div class="comment-user">
+                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.PosterUsername})">
+                    @Html.DisplayFor(comment => item.PosterName)
+                </a>
+                <div class="comment-content">
+                    <p>@Html.DisplayFor(comment => item.Content)</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

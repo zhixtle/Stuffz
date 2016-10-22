@@ -1,0 +1,10 @@
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\Pastebook_BL.dll
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\Pastebook_BL.pdb
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\obj\Debug\Pastebook_BL.csprojResolveAssemblyReference.cache
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\obj\Debug\Pastebook_BL.dll
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\obj\Debug\Pastebook_BL.pdb
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\Pastebook_BL.dll.config
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\EntityFramework.dll
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\EntityFramework.xml
+C:\Users\Bootcamp\Source\Repos\CASESTUDY2016-10MS1\Pastebook\Pastebook_BL\bin\Debug\EntityFramework.SqlServer.xml

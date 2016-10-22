@@ -1,0 +1,105 @@
+﻿@model Pastebook.Models.UserModel
+
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="banner-main-home">
+                <div class="banner-main-home-text">
+
+                    @*LOGIN*@
+
+                    <div class="heading">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="desc">
+                        <div class="form-group">
+                            @Html.Label("Email Address:", new { @class = "desc" })
+                            @Html.TextBox("txtboxLoginEmail", "", new { id = "txtLoginEmail", @class = "form-control" })
+                            @Html.ValidationMessage("", new { id = "validationLoginEmail", @class = "" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Password:", new { @class = "desc" })
+                            @Html.TextBox("txtboxloginPassword", "", new { id = "txtLoginPassword", type = "password", @class = "form-control" })
+                            @Html.ValidationMessage("", new { id = "validationLoginPassword", @class = "" })
+                        </div>
+                        <button type="button" class="" id="btnLogin">Login</button>
+                        <span id="loginStatus"> </span>
+                    </div>
+
+                    @*REGISTER*@
+
+                    @using (Html.BeginForm("ValidateRegistration", "LoginRegister", FormMethod.Post, new { id = "registrationForm", name = "registrationForm" }))
+                    {
+                        <div class="heading">
+                            <h1>Register</h1>
+                        </div>
+                        <div class="desc">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Username, "Username*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.Username, new { id = "txtUsername", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { id = "validationUsername" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FirstName, "First Name*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstName", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.FirstName, "", new { id = "validationFirstName" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LastName, "Last Name*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.LastName, new { id = "txtLastName", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.LastName, "", new { id = "validationLastName" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.EmailAddress, "Email Address*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.EmailAddress, new { id = "txtEmail", type = "email", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.EmailAddress, "", new { id = "validationEmail" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, "Password*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.Password, new { id = "txtPassword", type = "password", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { id = "validationPassword" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, "Confirm Password*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.ConfirmPassword, new { id = "txtConfirmPassword", type = "password", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { id = "validationConfirmPassword" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Birthday, "Birthday*:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.Birthday, new { id = "txtBirthday", type = "date", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Birthday, "", new { id = "validationBirthday" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CountryID, "Country:", new { @class = "desc" })
+                                @Html.DropDownListFor(m => m.CountryID, new SelectList((System.Collections.IEnumerable)ViewData["Countries"], "CountryID", "CountryName"), new { id = "selCountry", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CountryID)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MobileNumber, "Mobile Number:", new { @class = "desc" })
+                                @Html.TextBoxFor(m => m.MobileNumber, new { id = "txtNumber", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.MobileNumber, "", new { id = "validationNumber" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Gender, "Gender:", new { @class = "desc" })
+                                <div class="form-inline">
+                                    @Html.RadioButtonFor(m => m.Gender, "M") Male
+                                </div>
+                                <div class="form-inline">
+                                    @Html.RadioButtonFor(m => m.Gender, "F") Female
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Gender)
+                            </div>
+                            <button type="submit" class="" id="btnRegister">Register</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/loginChecker.js")"></script>
+    <script src="@Url.Content("~/Scripts/registerChecker.js")"></script>
+}

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Pastebook.Models.NotificationModel>
+
+    @foreach (var item in Model)
+    {
+        if (item.NotifType == "L")
+        {
+                <a href='@Url.Action("Posts", "Post", new { id = item.PostID })'>
+                    <h4>@Html.DisplayFor(notif => item.SenderName) has liked your post.</h4>
+                    <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+                <hr />
+        }
+        else if (item.NotifType == "C")
+        {
+                <a href='@Url.Action("Posts", "Post", new { id = item.PostID })'>
+                    <h4>@Html.DisplayFor(notif => item.SenderName) has commented on your post.</h4>
+                    <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+            <hr/>
+        }
+        else if (item.NotifType == "F")
+        {
+                <a href='@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.SenderUsername })'>
+                    <h4>@Html.DisplayFor(notif => item.SenderName) has sent you a friend request.</h4>
+                    <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+            <hr />
+        }
+        @*if (item.NotifType == "L")
+        {
+            <div>
+                <a href="@Url.Action("Posts", "Post", new { id = item.PostID })">
+                    <h4>@Html.DisplayFor(notif => item.SenderName) has liked your post.</h4>
+                    <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+                <hr />
+            </div>
+        }
+        else if (item.NotifType == "C")
+        {
+            <div>
+                <a href="@Url.Action("Posts", "Post", new { id = item.PostID })">
+                    <h4>@Html.DisplayFor(notif => item.SenderName) has commented on your post.</h4>
+                    <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+            </div>
+            <hr />
+        }
+        else if (item.NotifType == "F")
+        {
+            <div>
+                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.SenderUsername })">
+                <h4>@Html.DisplayFor(notif => item.SenderName) has sent you a friend request.</h4>
+                <h5>@Html.DisplayFor(notif => item.DateCreated)</h5>
+                </a>
+            </div>
+            <hr />
+        }*@
+    }

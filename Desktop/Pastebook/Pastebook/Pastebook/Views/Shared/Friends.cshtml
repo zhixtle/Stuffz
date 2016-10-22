@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Pastebook.Models.FriendModel>
+
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="banner-main-home">
+                <div class="banner-main-home-text">
+                    <div id="friendsList">
+                        @foreach (var item in Model)
+                        {
+                            <div>
+                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = Html.DisplayFor(friend => item.Username)})">
+                                    @Html.DisplayFor(friend => item.FirstName) @Html.DisplayFor(friend => item.LastName)
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,90 @@
+﻿.main-navigation {
+	padding-top: 0; 
+    padding-right: 0;
+	width: 310px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.main-menu {
+	float: left;
+	width: 100%;
+}
+
+.main-menu-link {
+	color: #fff;
+	display: block;
+	font-weight: 300;
+	font-size: 15px;	
+}
+
+.main-menu-link-text {
+	margin-bottom: 0;
+	position: absolute;
+	left: 20px;
+	bottom: 15px;
+}
+
+.menu-container {	
+	padding-left: 0;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+.menu-container:last-child { 
+    margin-bottom: 0; 
+}
+
+.block-keep-ratio {	
+    position: relative; 
+}
+	
+.block-keep-ratio-content {
+	position: absolute;
+	top: 0; 
+    bottom: 0; 
+    right: 0; 
+    left: 0;
+	}
+
+.block-keep-ratio:after {
+	display: block;
+	content: '';
+}
+
+.block-width-full {	width: 100%; }
+.block-width-half { width: 150px; }
+
+.block-keep-ratio-1-1:after {	padding-top: 80%; }
+.block-keep-ratio-2-1:after {	padding-top: 40%; }
+
+.home {
+	background-color: #21839A;
+}
+
+.profile{
+    background-color: #F86330;
+}
+
+.friends{
+    background-color: #22AD6A;
+}
+
+.notifications{
+    background-color: #F89330;
+}
+
+.search{
+    background-color: #21839A;
+}
+
+.settings{
+    background-color: #F86330;
+}
+
+.logout{
+    background-color: #22AD6A;
+}
+
+.main-menu-link:hover {	color: #66FFFF; }
+.main-menu-link:focus {	color: #fff; }

@@ -1,0 +1,81 @@
+﻿a:hover, a:focus { 
+    text-decoration: none;
+}
+
+.margin-b-30 {
+    margin-bottom: 30px; 
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	font-family: 'Open Sans', sans-serif;
+	overflow-x: hidden;
+}
+
+body {
+	background-image: url(images/diagmonds.png);
+}
+
+.main-body {
+	position: relative;
+	margin-top: 80px;
+}
+.content-item {
+	background-color: white;
+    border-top: 7px solid #21839A;
+}
+
+.content-main{
+    padding-left: 340px;
+}
+
+.copyright {
+	color: #fff;
+	font-size: 12px;
+	margin-bottom: 20px;
+    margin-right: 15px;
+	text-align: right;
+}
+
+
+
+@media (max-width:1000px) {
+
+	.main-navigation{
+		float: none;
+		position: static;
+		overflow: auto;
+    	margin: 0 auto 80px;   
+    	padding-right: 0;
+    	width: 310px;
+    	max-width: 100%;
+	}
+
+	.content-main { padding-left: 0; }
+}
+
+
+
+.form-group { margin-bottom: 25px; }
+.form-control {
+	border-radius: 0;
+	height:43px;
+}
+.form-control:focus {
+    border-color: rgb(25, 192, 200);
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(25,192,200,.6);
+}
+
+
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}
+
+.popover{
+    width: 500px;
+    max-width: 500px;
+}
