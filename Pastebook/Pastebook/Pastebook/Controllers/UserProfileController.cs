@@ -26,10 +26,25 @@ namespace Pastebook.Controllers
             return View(model);
         }
 
-        public JsonResult SaveAboutMe(string content)
+        public JsonResult SaveAboutMe(string username, string aboutMeContent)
         {
             Managers.UserManager userManager = new Managers.UserManager();
-            return Json(new { Status = "" }, JsonRequestBehavior.AllowGet);
+            bool saveSuccess = userManager.EditAboutMe(username, aboutMeContent);
+            return Json(new { Status = saveSuccess }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SaveProfilePicture(HttpPostedFileBase file)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            Managers.ImageManager imageManager = new Managers.ImageManager();
+            byte[] picByteArray = null;
+            if (file != null)
+            {
+                System.Drawing.Image picImage = System.Drawing.Image.FromStream(file.InputStream);
+                picByteArray = imageManager.imageToByteArray(picImage);
+            }
+            bool saveSuccess = userManager.EditProfilePicture(Session["user"].ToString(), picByteArray);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public JsonResult SendFriendRequest(string profileUsername)
