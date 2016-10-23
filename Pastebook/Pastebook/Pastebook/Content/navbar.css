@@ -55,11 +55,16 @@
 .block-width-full {	width: 100%; }
 .block-width-half { width: 150px; }
 
-.block-keep-ratio-1-1:after {	padding-top: 80%; }
+.block-keep-ratio-1-1:after {	padding-top: 80%;
+}
 .block-keep-ratio-2-1:after {	padding-top: 40%; }
 
 .home {
 	background-color: #21839A;
+}
+
+span.main-menu-link-text{
+    opacity: 1;
 }
 
 .profile{

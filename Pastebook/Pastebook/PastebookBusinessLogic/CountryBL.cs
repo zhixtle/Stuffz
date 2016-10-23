@@ -16,5 +16,11 @@ namespace PastebookBusinessLogic
         {
             return countryDataAccess.GetAll();
         }
+
+        public string GetCountryName(int? countryID)
+        {
+            string country = countryDataAccess.GetSingle(c => c.ID == countryID).COUNTRY;
+            return country;
+        }
     }
 }

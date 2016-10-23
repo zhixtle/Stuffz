@@ -23,7 +23,7 @@ $(document).ready(function () {
 
         function PostSuccess(data) {
             $('#postValidation').text(' ');
-            if (postData.content == '') {
+            if (postData.content.trim == '') {
                 $('#postValidation').text('You haven\'t written anything!');
             }
             else if (data.Status == false) {

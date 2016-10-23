@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,10 @@ namespace Pastebook.Models
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0: MMMM d, yyyy}")]
         public DateTime Birthday { get; set; }
+
         public int? CountryID { get; set; }
         public string Country { get; set; }
         public string MobileNumber { get; set; }

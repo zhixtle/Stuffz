@@ -30,16 +30,17 @@ namespace Pastebook.Managers
 
         public bool ConfirmFriendRequest(string username, string profileUsername)
         {
-            FRIEND friendToAdd = new FRIEND()
-            {
-                USER_ID = userBL.GetIDByUsername(username),
-                FRIEND_ID = userBL.GetIDByUsername(profileUsername),
-                CREATED_DATE = DateTime.Now,
-                REQUEST = "N",
-                BLOCKED = "N"
-            };
+            FRIEND friendToAdd = friendBL.GetFriendEntry(username, profileUsername);
+            friendToAdd.REQUEST = "N";
             bool requestSent = friendBL.EditFriend(friendToAdd);
             return requestSent;
+        }
+
+        public bool  DeleteFriendRequest(string username, string profileUsername)
+        {
+            FRIEND friendToDelete = friendBL.GetFriendEntry(username, profileUsername);
+            bool deleteSuccess = friendBL.DeleteFriend(friendToDelete);
+            return deleteSuccess;
         }
 
         public  List<Models.FriendModel> GetFriendsList(string username)

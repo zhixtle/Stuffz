@@ -48,11 +48,11 @@
                             </dd>
 
                             <dt>
-                                @Html.DisplayNameFor(model => model.CountryID)
+                                @Html.DisplayNameFor(model => model.Country)
                             </dt>
 
                             <dd>
-                                @Html.DisplayFor(model => model.CountryID)
+                                @Html.DisplayFor(model => model.Country)
                             </dd>
 
                             <dt>
@@ -88,6 +88,30 @@
                             </dd>
 
                         </dl>
+
+                        @if (Model.Username == Session["user"].ToString())
+                        {
+                            if (Model.AboutMe == null)
+                            {
+                                <button type="button" id="btnAddAboutMe" data-toggle="collapse" data-target="#textAboutMe">Add About Me</button>
+                            }
+                            else
+                            {
+                                <button type="button" id="btnEditAboutMe" data-toggle="collapse" data-target="#textAboutMe">Edit About Me</button>
+                            }
+
+                            if (Model.ProfilePic == null)
+                            {
+                                <button type="button" id="btnAddPicture">Add Profile Picture</button>
+                            }
+                            else
+                            {
+                                <button type="button" id="btnEditPicture">Edit Profile Picture</button>
+                            }
+
+                            <textarea id="textAboutMe" class="collapse">@Html.DisplayFor(model => model.AboutMe)</textarea>
+                            <button type="button" id="btnSaveAboutMe">Save</button>
+                        }
                     </div>
                 </div>
             </div>
@@ -141,9 +165,14 @@ else
                             {
                             <button type="button" id="btnFriendRequest">Add Friend</button>
                             }
+                            else if (Model.IsFriend == "R")
+                            {
+                            <button type="button" id="btnFriendRequest" disabled>Friend Request Sent</button>
+                            }
                             else
                             {
-                            <button type="button" id="btnFriendRequest" disabled>Pending Friend Request</button>
+                            <button type="button" id="btnFriendConfirm">Confirm Friend Request</button>
+                            <button type="button" id="btnFriendDelete">Delete Friend Request</button>
                             }
                         </div>
                     </div>
@@ -159,5 +188,6 @@ else
     <script src="@Url.Content("~/Scripts/addLikeToTimeline.js")"></script>
     <script src="@Url.Content("~/Scripts/addCommentToTimeline.js")"></script>
     <script src="@Url.Content("~/Scripts/sendFriendRequest.js")"></script>
+    <script src="@Url.Content("~/Scripts/confirmDeleteFriendRequest.js")"></script>
 }
 

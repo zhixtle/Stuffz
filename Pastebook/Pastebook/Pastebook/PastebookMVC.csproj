@@ -166,6 +166,7 @@
     <Compile Include="Managers\CommentManager.cs" />
     <Compile Include="Managers\CountryManager.cs" />
     <Compile Include="Managers\FriendManager.cs" />
+    <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\LikesManager.cs" />
     <Compile Include="Managers\LoginManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
@@ -209,6 +210,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\confirmDeleteFriendRequest.js" />
     <Content Include="Scripts\everywhere.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -254,6 +256,7 @@
     <Content Include="Views\Shared\Friends.cshtml" />
     <Content Include="Views\Shared\Notifications.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

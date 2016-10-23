@@ -140,5 +140,24 @@ namespace PastebookDataAccess
             }
             return editSuccess;
         }
+
+        public bool Delete(T item)
+        {
+            bool deleteSuccess = false;
+            try
+            {
+                using (var context = new PASTEBOOK_LIZBETHEntities())
+                {
+                    context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                    int deleteItemSuccess = context.SaveChanges();
+                    deleteSuccess = (deleteItemSuccess != 0) ? true : false;
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfExceptions.Add(ex);
+            }
+            return deleteSuccess;
+        }
     }
 }

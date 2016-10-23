@@ -44,6 +44,12 @@ namespace PastebookBusinessLogic
             return user;
         }
 
+        public bool EditUser(USER user)
+        {
+            bool editSuccess = userDataAccess.Edit(user);
+            return editSuccess;
+        }
+
         public string GetUsernameByEmail(string email)
         {
             USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);

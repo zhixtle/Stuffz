@@ -26,14 +26,27 @@ namespace PastebookBusinessLogic
             return editSuccess;
         }
 
+        public bool DeleteFriend(FRIEND friend)
+        {
+            bool deleteSuccess = friendDataAccess.Delete(friend);
+            return deleteSuccess;
+        }
+
+        public FRIEND GetFriendEntry(string username, string profileUsername)
+        {
+            int userID = userBL.GetIDByUsername(username);
+            int profileID = userBL.GetIDByUsername(profileUsername);
+            List<FRIEND> usersFriends = GetFriendsAndRequests(username);
+            FRIEND friend = usersFriends.Where(f => f.USER_ID == profileID || f.FRIEND_ID == profileID).SingleOrDefault();
+            return friend;
+        }
+
         public List<FRIEND> GetFriendsAndRequests(string username)
         {
             int userID = userBL.GetIDByUsername(username);
             List<FRIEND> friends = friendDataAccess.GetSelected(f => f.USER_ID == userID || f.FRIEND_ID == userID)
                                                    .ToList();
-
-            List<FRIEND> friendsSwapped = SwapFriends(friends, userID);
-            return friendsSwapped;
+            return friends;
         }
 
         public List<FRIEND> GetFriends(string username)
@@ -71,11 +84,15 @@ namespace PastebookBusinessLogic
             {
                 return "Y";
             }
-            else if (friendResults.Any(f => f.FRIEND_ID == profileID && f.REQUEST == "N"))
+            else if (friendResults.Any(f => (f.FRIEND_ID == profileID || f.USER_ID == profileID) && f.REQUEST == "N"))
             {
                 return "Y";
             }
-            else if (friendResults.Any(f => f.FRIEND_ID == profileID && f.REQUEST == "Y"))
+            else if (friendResults.Any(f => (f.FRIEND_ID == userID && f.USER_ID == profileID) && f.REQUEST == "Y"))
+            {
+                return "C";
+            }
+            else if (friendResults.Any(f => (f.USER_ID == userID && f.FRIEND_ID == profileID) && f.REQUEST == "Y"))
             {
                 return "R";
             }
