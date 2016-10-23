@@ -23,6 +23,16 @@ namespace PastebookBusinessLogic
             return registerSuccess;
         }
 
+        public bool EditUserEmailPassword(USER user)
+        {
+            string salt = null;
+            string passwordHash = passwordBL.GeneratePasswordHash(user.PASSWORD, out salt);
+            user.SALT = salt;
+            user.PASSWORD = passwordHash;
+            bool editSuccess = userDataAccess.Edit(user);
+            return editSuccess;
+        }
+
         public bool LoginUser(string email, string password)
         {
             USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);
@@ -42,6 +52,12 @@ namespace PastebookBusinessLogic
         {
             USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
             return user;
+        }
+
+        public List<USER> GetUserSearchResults(string searchQuery)
+        {
+            List<USER> userResults = userDataAccess.GetSelected(u => u.FIRST_NAME.Contains(searchQuery) || u.LAST_NAME.Contains(searchQuery));
+            return userResults;
         }
 
         public bool EditUser(USER user)

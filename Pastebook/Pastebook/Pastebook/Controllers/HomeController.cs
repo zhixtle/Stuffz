@@ -8,6 +8,9 @@ namespace Pastebook.Controllers
 {
     public class HomeController : Controller
     {
+        private static Managers.CountryManager countryManager = new Managers.CountryManager();
+        private static List<Models.CountryModel> countriesList = countryManager.GetCountriesList();
+
         public ActionResult Index()
         {
             if (Session["user" ] == null)
@@ -37,7 +40,43 @@ namespace Pastebook.Controllers
 
         public ActionResult Settings()
         {
+            Managers.UserManager userManager = new Managers.UserManager();
+            Models.UserModel model = userManager.GetUser(Session["user"].ToString());
+            ViewData["Countries"] = countriesList;
+            return View(model);
+        }
+
+        public ActionResult Search()
+        {
             return View();
+        }
+
+        public JsonResult GetSearchResults(string searchQuery)
+        {
+            return Json(new { results = searchQuery }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SearchResults(string searchQuery)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            List<Models.UserProfileModel> model = userManager.GetUsersSearchResults(searchQuery);
+            return PartialView("SearchResults", model);
+        }
+
+        public ActionResult EditDetails(Models.UserModel model)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool editSuccess = userManager.EditUser(model, Session["user"].ToString());
+            ViewData["Countries"] = countriesList;
+            return RedirectToAction("Settings", model);
+        }
+
+        public ActionResult EditEmailPassword(Models.UserModel model)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool editSuccess = userManager.EditEmailPassword(model, Session["user"].ToString());
+            ViewData["Countries"] = countriesList;
+            return RedirectToAction("Settings", model);
         }
 
         public ActionResult Friends()

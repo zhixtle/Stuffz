@@ -1,0 +1,121 @@
+﻿@model Pastebook.Models.UserModel
+
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="content-item">
+
+                @using (Html.BeginForm("EditDetails", "Home", FormMethod.Post, new { id = "editDetailsForm", name = "editDetailsForm" }))
+                {
+                    <div class="heading">
+                        <h1>Edit Details</h1>
+                    </div>
+                    <div class="desc">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Username, "Username:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.Username, new { id = "txtUsername", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Username, "", new { id = "validationUsername" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName, "First Name:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstName", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { id = "validationFirstName" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName, "Last Nam*:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.LastName, new { id = "txtLastName", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { id = "validationLastName" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Birthday, "Birthday:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.Birthday, new { id = "txtBirthday", type = "date", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Birthday, "", new { id = "validationBirthday" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CountryID, "Country:", new { @class = "desc" })
+                            @Html.DropDownListFor(m => m.CountryID, new SelectList((System.Collections.IEnumerable)ViewData["Countries"], "CountryID", "CountryName"), new { id = "selCountry", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CountryID)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.MobileNumber, "Mobile Number:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.MobileNumber, new { id = "txtNumber", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.MobileNumber, "", new { id = "validationNumber" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Gender, "Gender:", new { @class = "desc" })
+                            @if (Model.Gender == "Male")
+                            {
+                            <div class="form-inline">
+                                @Html.RadioButtonFor(m => m.Gender, "M", new { @checked = "checked" }) Male
+                            </div>
+                            <div class="form-inline">
+                                @Html.RadioButtonFor(m => m.Gender, "F") Female
+                            </div>
+                            }
+                            else
+                            {
+                                <div class="form-inline">
+                                    @Html.RadioButtonFor(m => m.Gender, "M") Male
+                                </div>
+                                <div class="form-inline">
+                                    @Html.RadioButtonFor(m => m.Gender, "F", new { @checked = "checked" }) Female
+                                </div>
+                            }
+                            @Html.ValidationMessageFor(m => m.Gender)
+                        </div>
+                        <button type="submit" class="" id="btnSaveProfile">Save</button>
+                    </div>
+                }
+                    <h2>
+                        EDIT EMAIL OR PASSWORD
+                </h2>
+
+                @{ 
+                    var passwordHash = Model.Password;
+                    Model.Password = "";
+                }
+
+                    @using (Html.BeginForm("EditEmailPassword", "Home", FormMethod.Post, new { id = "editDetailsForm", name = "editDetailsForm" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.EmailAddress, "Email Address*:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.EmailAddress, new { id = "txtEmail", type = "email", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EmailAddress, "", new { id = "validationEmail" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, "Password*:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.Password, new { id = "txtPassword", type = "password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { id = "validationPassword" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, "Confirm Password*:", new { @class = "desc" })
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { id = "txtConfirmPassword", type = "password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { id = "validationConfirmPassword" })
+                        </div>
+                        <button type="submit" class="" id="btnSaveEmailPassword">Save</button>
+                    }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*YOU WILL DO THIS AND CHECK AND VALIDATE
+    $("form").submit(function(e) {
+    e.preventDefault();
+
+    var self = this,
+        tray = $('select[name=tray_id]').val();
+
+    $.ajax({
+        type: "POST",
+        url: "modules/reserve-check.php",
+        data: {tray_id: tray},
+        cache: false
+    }).done(function(result) {
+        if (result == "") self.submit();
+    }).fail(function() {
+        alert('error');
+    });
+});*@

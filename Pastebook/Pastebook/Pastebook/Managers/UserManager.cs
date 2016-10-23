@@ -35,6 +35,49 @@ namespace Pastebook.Managers
             return user;
         }
 
+        public Models.UserModel GetUser(string username)
+        {
+            USER userResult = userBL.GetUserProfile(username);
+            Models.UserModel user = new Models.UserModel()
+            {
+                Username = userResult.USER_NAME,
+                FirstName = userResult.FIRST_NAME,
+                LastName = userResult.LAST_NAME,
+                Birthday = userResult.BIRTHDAY,
+                CountryID = userResult.COUNTRY_ID,
+                MobileNumber = userResult.MOBILE_NO,
+                Gender = GenderDisplay(userResult.GENDER),
+
+                Password = userResult.PASSWORD,
+                EmailAddress = userResult.EMAIL_ADDRESS
+            };
+            return user;
+        }
+
+        public bool EditUser(Models.UserModel model, string username)
+        {
+            USER userResult = userBL.GetUserProfile(username);
+            userResult.USER_NAME = model.Username;
+            userResult.FIRST_NAME = model.FirstName;
+            userResult.LAST_NAME = model.LastName;
+            userResult.BIRTHDAY = model.Birthday;
+            userResult.COUNTRY_ID = model.CountryID;
+            userResult.MOBILE_NO = model.MobileNumber;
+            userResult.GENDER = model.Gender;
+            bool editSuccess = userBL.EditUser(userResult);
+            return editSuccess;
+        }
+
+        public bool EditEmailPassword(Models.UserModel model, string username)
+        {
+            USER userResult = userBL.GetUserProfile(username);
+            userResult.EMAIL_ADDRESS = model.EmailAddress;
+            userResult.SALT = null;
+            userResult.PASSWORD = model.Password;
+            bool editSuccess = userBL.EditUserEmailPassword(userResult);
+            return editSuccess;
+        }
+
         public bool EditAboutMe(string username, string aboutMeContent)
         {
             USER user = userBL.GetUserProfile(username);
@@ -67,6 +110,23 @@ namespace Pastebook.Managers
                 genderDisplay = "Unspecified";
             }
             return genderDisplay;
+        }
+
+        public List<Models.UserProfileModel> GetUsersSearchResults(string searchQuery)
+        {
+            List<Models.UserProfileModel> searchResults = new List<Models.UserProfileModel>();
+            List<USER> searchUsers = userBL.GetUserSearchResults(searchQuery);
+            foreach (var item in searchUsers)
+            {
+                searchResults.Add(new Models.UserProfileModel()
+                {
+                    FirstName = item.FIRST_NAME,
+                    LastName = item.LAST_NAME,
+                    ProfilePic = item.PROFILE_PIC,
+                    Username = item.USER_NAME
+                });
+            }
+            return searchResults;
         }
     }
 }
