@@ -14,17 +14,24 @@ namespace Pastebook.Managers
         private static PostBL postBL = new PostBL();
         private static NotificationManager notifManager = new NotificationManager();
 
-        public bool LikeStatus(Models.LikeModel like)
+        public bool LikeStatus(string username, int postID)
         {
             LIKE newLike = new LIKE()
             {
-                POST_ID = like.PostID,
-                LIKED_BY = userBL.GetIDByUsername(like.LikedByUsername)
+                POST_ID = postID,
+                LIKED_BY = userBL.GetIDByUsername(username)
             };
             bool likeSuccess = likeBL.LikeStatus(newLike);
-            int postOwnerID = postBL.GetUserByPostID(like.PostID);
+            int postOwnerID = postBL.GetUserByPostID(postID);
             bool notifSent = notifManager.LikeNotification(newLike.LIKED_BY, postOwnerID, newLike.POST_ID);
             return (likeSuccess && notifSent);
+        }
+
+        public bool UnlikeStatus(string username, int postID)
+        {
+            LIKE newLike = likeBL.GetLike(postID, userBL.GetIDByUsername(username));
+            bool unlikeSuccess = likeBL.UnlikeStatus(newLike);
+            return unlikeSuccess;
         }
 
         public List<Models.LikeModel> GetLikesOnPost(int postID)

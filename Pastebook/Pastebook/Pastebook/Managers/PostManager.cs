@@ -35,8 +35,10 @@ namespace Pastebook.Managers
                 PostID = postResult.ID,
                 PosterID = postResult.POSTER_ID,
                 PosterName = userBL.GetUserByID(postResult.POSTER_ID),
+                PosterUsername = userBL.GetUsernameByID(postResult.POSTER_ID),
                 ProfileOwnerID = postResult.PROFILE_OWNER_ID,
                 ProfileOwnerName = userBL.GetUserByID(postResult.PROFILE_OWNER_ID),
+                ProfileOwnerUsername = userBL.GetUsernameByID(postResult.PROFILE_OWNER_ID),
                 LikesCount = postBL.GetLikesCountOnPost(postResult.ID)
             };
             return post;
@@ -55,7 +57,9 @@ namespace Pastebook.Managers
                     PostID = item.ID,
                     PosterID = item.POSTER_ID,
                     PosterName = userBL.GetUserByID(item.POSTER_ID),
+                    PosterUsername = userBL.GetUsernameByID(item.POSTER_ID),
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
+                    ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
                     ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
                     LikesCount = postBL.GetLikesCountOnPost(item.ID)
                 });
@@ -76,8 +80,10 @@ namespace Pastebook.Managers
                     PostID = item.ID,
                     PosterID = item.POSTER_ID,
                     PosterName = userBL.GetUserByID(item.POSTER_ID),
+                    PosterUsername = userBL.GetUsernameByID(item.POSTER_ID),
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
                     ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
+                    ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
                     LikesCount = postBL.GetLikesCountOnPost(item.ID)
                 });
             }

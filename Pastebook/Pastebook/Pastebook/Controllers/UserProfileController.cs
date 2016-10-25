@@ -28,8 +28,9 @@ namespace Pastebook.Controllers
 
         public JsonResult SaveAboutMe(string username, string aboutMeContent)
         {
+            string parsedContent = HttpUtility.HtmlDecode(aboutMeContent);
             Managers.UserManager userManager = new Managers.UserManager();
-            bool saveSuccess = userManager.EditAboutMe(username, aboutMeContent);
+            bool saveSuccess = userManager.EditAboutMe(username, parsedContent);
             return Json(new { Status = saveSuccess }, JsonRequestBehavior.AllowGet);
         }
 
@@ -38,12 +39,12 @@ namespace Pastebook.Controllers
             Managers.UserManager userManager = new Managers.UserManager();
             Managers.ImageManager imageManager = new Managers.ImageManager();
             byte[] picByteArray = null;
-            if (file != null)
+            if (file != null && imageManager.IsImage(file))
             {
                 System.Drawing.Image picImage = System.Drawing.Image.FromStream(file.InputStream);
                 picByteArray = imageManager.imageToByteArray(picImage);
+                bool saveSuccess = userManager.EditProfilePicture(Session["user"].ToString(), picByteArray);
             }
-            bool saveSuccess = userManager.EditProfilePicture(Session["user"].ToString(), picByteArray);
             return Redirect(Request.UrlReferrer.ToString());
         }
 

@@ -15,7 +15,7 @@ namespace Pastebook.Controllers
         {
             if (Session["user" ] == null)
             {
-                return RedirectToAction("Login", "LoginRegister");
+                return RedirectToAction("Login", "Account");
             }
             return View();
         }
@@ -58,25 +58,10 @@ namespace Pastebook.Controllers
 
         public ActionResult SearchResults(string searchQuery)
         {
+            string parsedQuery = HttpUtility.HtmlDecode(searchQuery);
             Managers.UserManager userManager = new Managers.UserManager();
-            List<Models.UserProfileModel> model = userManager.GetUsersSearchResults(searchQuery);
+            List<Models.UserProfileModel> model = userManager.GetUsersSearchResults(parsedQuery);
             return PartialView("SearchResults", model);
-        }
-
-        public ActionResult EditDetails(Models.UserModel model)
-        {
-            Managers.UserManager userManager = new Managers.UserManager();
-            bool editSuccess = userManager.EditUser(model, Session["user"].ToString());
-            ViewData["Countries"] = countriesList;
-            return RedirectToAction("Settings", model);
-        }
-
-        public ActionResult EditEmailPassword(Models.UserModel model)
-        {
-            Managers.UserManager userManager = new Managers.UserManager();
-            bool editSuccess = userManager.EditEmailPassword(model, Session["user"].ToString());
-            ViewData["Countries"] = countriesList;
-            return RedirectToAction("Settings", model);
         }
 
         public ActionResult Friends()
@@ -97,10 +82,32 @@ namespace Pastebook.Controllers
             return PartialView("Notifications", notifsList);
         }
 
-        public JsonResult SeeNotifications()
+        public ActionResult AllNotifications()
         {
             Managers.NotificationManager notifManager = new Managers.NotificationManager();
-            bool seenNotifs = notifManager.SeeNotifications(Session["user"].ToString());
+            List<Models.NotificationModel> notifsList = notifManager.GetAllNotifications(Session["user"].ToString());
+            if (notifsList == null)
+            {
+                return null;
+            }
+            return View("AllNotifications", notifsList);
+        }
+
+        public ActionResult NotificationsButton()
+        {
+            Managers.NotificationManager notifManager = new Managers.NotificationManager();
+            List<Models.NotificationModel> notifsList = notifManager.GetUnreadNotifications(Session["user"].ToString());
+            if (notifsList == null)
+            {
+                return null;
+            }
+            return PartialView("NotificationsButton", notifsList);
+        }
+
+        public JsonResult SeeNotification(int notifID)
+        {
+            Managers.NotificationManager notifManager = new Managers.NotificationManager();
+            bool seenNotifs = notifManager.SeeNotification(notifID);
             return Json(new { Status = seenNotifs }, JsonRequestBehavior.AllowGet);
         }
     }

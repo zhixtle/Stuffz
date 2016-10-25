@@ -1,0 +1,58 @@
+﻿.settings-head{
+    margin-left: 30px;
+    margin-top: 40px;
+}
+
+.settings-button{
+    background-color: #21839A;
+    color: #FFF;
+    width: 100%;
+}
+
+.settings-head h2{
+    color: #21839A;
+    font-weight: 600;
+}
+
+.settings-pills-area{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.settings-tabs-area{
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-bottom: 40px;
+}
+
+.settings-tab-head h3{
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+.settings-tab-body{
+
+}
+
+.nav-pills li a{
+    background-color: #CFE4E9;
+    color: #444;
+    margin-right: 10px;
+}
+
+.nav-pills li a:hover{
+    background-color: #65B3C5;
+    color: #fff;
+}
+
+.nav-pills li.active a{
+    background-color: #21839A;
+    color: #fff;
+}
+
+.nav-pills li.active a:hover{
+    background-color: #65B3C5;
+    color: #fff;
+}

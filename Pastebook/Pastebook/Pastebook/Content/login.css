@@ -1,0 +1,56 @@
+﻿.login-content-area{
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+}
+
+.login-head h1{
+    color: #21839A;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.register-head h1{
+    color: #21839A;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.login-body{
+    width: 50%;
+}
+
+.register-button{
+    background-color: #21839A;
+    color: #FFF;
+    width: 100%;
+}
+
+.login-button{
+    background-color: #21839A;
+    color: #FFF;
+    width: 100%;
+}
+
+.validation-heading{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.validation-heading h1{
+    color: #21839A;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.validation-body{
+    text-align: center;
+}
+
+.validation-button{
+    background-color: #21839A;
+    color: #FFF;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}

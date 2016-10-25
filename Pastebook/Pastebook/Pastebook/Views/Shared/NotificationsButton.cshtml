@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Pastebook.Models.NotificationModel>
+
+@{
+    var notifsCount = Model.Count();
+}
+
+<div class="block-keep-ratio  block-keep-ratio-1-1  block-width-half  pull-right  notifications" data-toggle="popover" data-placement="right" title="Notifications" data-content="@Html.Action("Notifications", "Home")">
+    <a id="notifsBlock" class="main-menu-link block-keep-ratio-content text-center">
+        <span class="main-menu-link-text">
+            <span class="badge"> @notifsCount </span>
+            NOTIFICATIONS
+        </span>
+    </a>
+</div>

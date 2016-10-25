@@ -40,3 +40,17 @@ C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookBusinessLogic\bi
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookBusinessLogic\obj\Debug\PastebookBusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookBusinessLogic\obj\Debug\Pastebook_BL.dll
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookBusinessLogic\obj\Debug\Pastebook_BL.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\Pastebook_BL.dll.config
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\Pastebook_BL.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\Pastebook_BL.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\EntityFramework.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\PastebookDataAccess.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\PastebookDataAccess.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\EntityFramework.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Debug\PastebookBusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Debug\Pastebook_BL.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Debug\Pastebook_BL.pdb

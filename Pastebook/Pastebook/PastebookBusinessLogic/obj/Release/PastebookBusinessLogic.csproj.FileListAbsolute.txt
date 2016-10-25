@@ -1,0 +1,14 @@
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\Pastebook_BL.dll.config
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\Pastebook_BL.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\Pastebook_BL.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\EntityFramework.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\PastebookDataAccess.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\PastebookDataAccess.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\EntityFramework.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Release\PastebookBusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Release\Pastebook_BL.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookBusinessLogic\obj\Release\Pastebook_BL.pdb

@@ -23,7 +23,13 @@ namespace PastebookBusinessLogic
             return registerSuccess;
         }
 
-        public bool EditUserEmailPassword(USER user)
+        public bool EditUserEmail(USER user)
+        {
+            bool editSuccess = userDataAccess.Edit(user);
+            return editSuccess;
+        }
+
+        public bool EditUserPassword(USER user)
         {
             string salt = null;
             string passwordHash = passwordBL.GeneratePasswordHash(user.PASSWORD, out salt);
@@ -37,8 +43,16 @@ namespace PastebookBusinessLogic
         {
             USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);
             bool loginSucess = false;
-                loginSucess = passwordBL.IsPasswordMatch(password, user.SALT, user.PASSWORD);
+            loginSucess = passwordBL.IsPasswordMatch(password, user.SALT, user.PASSWORD);
             return loginSucess;
+        }
+
+        public bool CheckOldPassword(string username, string oldPassword)
+        {
+            USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
+            bool passwordCorrect = false;
+            passwordCorrect = passwordBL.IsPasswordMatch(oldPassword, user.SALT, user.PASSWORD);
+            return passwordCorrect;
         }
 
         public bool DoesUserExist(string email)
@@ -56,7 +70,9 @@ namespace PastebookBusinessLogic
 
         public List<USER> GetUserSearchResults(string searchQuery)
         {
-            List<USER> userResults = userDataAccess.GetSelected(u => u.FIRST_NAME.Contains(searchQuery) || u.LAST_NAME.Contains(searchQuery));
+            List<USER> userResults = userDataAccess.GetSelected(u => u.FIRST_NAME.ToUpper().Contains(searchQuery.ToUpper()) ||
+                                                                     u.LAST_NAME.ToUpper().Contains(searchQuery.ToUpper()) ||
+                                                                     (u.FIRST_NAME.ToUpper()+" "+u.LAST_NAME.ToUpper()).Contains(searchQuery.ToUpper()));
             return userResults;
         }
 
@@ -89,6 +105,11 @@ namespace PastebookBusinessLogic
             USER user = userDataAccess.GetSingle(u => u.ID == userID);
             string fullName = user.FIRST_NAME + " " + user.LAST_NAME;
             return fullName;
+        }
+
+        public byte[] GetUserProfilePicture(int userID)
+        {
+            return userDataAccess.GetSingle(u => u.ID == userID).PROFILE_PIC;
         }
     }
 }

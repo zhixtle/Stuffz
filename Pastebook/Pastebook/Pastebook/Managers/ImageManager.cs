@@ -24,5 +24,19 @@ namespace Pastebook.Managers
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
+
+        //http://stackoverflow.com/questions/12120135/mvc3-how-to-check-if-httppostedfilebase-is-an-image
+
+        public bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".jpeg" };
+            
+            return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

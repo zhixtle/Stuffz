@@ -29,6 +29,13 @@ namespace Pastebook
                       "~/Content/navbar.css",
                       "~/Content/comment.css",
                       "~/Content/post.css",
+                      "~/Content/like.css",
+                      "~/Content/profile.css",
+                      "~/Content/settings.css",
+                      "~/Content/notification.css",
+                      "~/Content/friends.css",
+                      "~/Content/search.css",
+                      "~/Content/login.css",
                       "~/Content/style.css"));
         }
     }

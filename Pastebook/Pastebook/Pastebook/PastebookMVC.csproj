@@ -156,7 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\LoginRegisterController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
@@ -186,9 +186,16 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\comment.css" />
+    <Content Include="Content\friends.css" />
     <Content Include="Content\images\diagmonds.png" />
+    <Content Include="Content\like.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\navbar.css" />
+    <Content Include="Content\notification.css" />
     <Content Include="Content\post.css" />
+    <Content Include="Content\profile.css" />
+    <Content Include="Content\search.css" />
+    <Content Include="Content\settings.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -209,9 +216,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\PastebookTest.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bs-tooltip-popover.js" />
     <Content Include="Scripts\confirmDeleteFriendRequest.js" />
-    <Content Include="Scripts\everywhere.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -221,13 +229,15 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\loginChecker.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\registerChecker.js" />
+    <Content Include="Scripts\refreshNewsFeed.js" />
+    <Content Include="Scripts\refreshNotifs.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\saveAboutMe.js" />
+    <Content Include="Scripts\saveEmailPassword.js" />
     <Content Include="Scripts\savePicture.js" />
     <Content Include="Scripts\searchUser.js" />
-    <Content Include="Scripts\seeNotifs.js" />
+    <Content Include="Scripts\seeNotif.js" />
     <Content Include="Scripts\sendFriendRequest.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -248,8 +258,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NavigationBar.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
-    <Content Include="Views\LoginRegister\Login.cshtml" />
-    <Content Include="Views\LoginRegister\ValidateRegistration.cshtml" />
     <Content Include="Views\UserProfile\ViewProfile.cshtml" />
     <Content Include="Views\Shared\PostsList.cshtml" />
     <Content Include="Views\Shared\AddPost.cshtml" />
@@ -261,6 +269,8 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Home\SearchResults.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ValidateRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

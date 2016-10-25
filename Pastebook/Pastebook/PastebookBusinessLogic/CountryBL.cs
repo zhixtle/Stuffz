@@ -19,7 +19,10 @@ namespace PastebookBusinessLogic
 
         public string GetCountryName(int? countryID)
         {
-            string country = countryDataAccess.GetSingle(c => c.ID == countryID).COUNTRY;
+            string country = "Unspecified";
+            if (countryID != null) {
+               country = countryDataAccess.GetSingle(c => c.ID == countryID).COUNTRY;
+            }
             return country;
         }
     }

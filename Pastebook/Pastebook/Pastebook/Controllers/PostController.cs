@@ -18,14 +18,15 @@ namespace Pastebook.Controllers
 
         public JsonResult AddPost(string content, string user)
         {
+            string parsedContent = HttpUtility.HtmlDecode(content);
             bool postSuccess = false;
             string userToPostTo = (user == null) ? Session["user"].ToString() : user;
-            if (String.IsNullOrEmpty(content) == false)
+            if (String.IsNullOrWhiteSpace(parsedContent) == false)
             {
                 Managers.PostManager postManager = new Managers.PostManager();
                 Models.PostModel model = new Models.PostModel()
                 {
-                    Content = content,
+                    Content = parsedContent,
                     PosterUsername = Session["user"].ToString(),
                     ProfileOwnerUsername = userToPostTo
                 };
@@ -51,14 +52,21 @@ namespace Pastebook.Controllers
             if (id != 0)
             {
                 Managers.LikesManager likesManager = new Managers.LikesManager();
-                Models.LikeModel model = new Models.LikeModel()
-                {
-                    PostID = id,
-                    LikedByUsername = Session["user"].ToString()
-                };
-                likeSuccess = likesManager.LikeStatus(model);
+                likeSuccess = likesManager.LikeStatus(Session["user"].ToString(), id);
             }
             return Json(new { Status = likeSuccess }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveLike(string postID)
+        {
+            int id = Int32.Parse(postID);
+            bool unlikeSuccess = false;
+            if (id != 0)
+            {
+                Managers.LikesManager likesManager = new Managers.LikesManager();
+                unlikeSuccess = likesManager.UnlikeStatus(Session["user"].ToString(), id);
+            }
+            return Json(new { Status = unlikeSuccess }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -75,15 +83,16 @@ namespace Pastebook.Controllers
 
         public JsonResult AddComment(string postID, string content)
         {
+            string parsedContent = HttpUtility.HtmlDecode(content);
             int id = Int32.Parse(postID);
             bool commentSuccess = false;
-            if (id != 0)
+            if (id != 0 && String.IsNullOrWhiteSpace(parsedContent) == false)
             {
                 Managers.CommentManager commentsManager = new Managers.CommentManager();
                 Models.CommentModel model = new Models.CommentModel()
                 {
                     PostID = id,
-                    Content = content,
+                    Content = parsedContent,
                     PosterUsername = Session["user"].ToString()
                 };
                 commentSuccess = commentsManager.CommentOnStatus(model);

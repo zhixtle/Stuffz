@@ -68,13 +68,20 @@ namespace Pastebook.Managers
             return editSuccess;
         }
 
-        public bool EditEmailPassword(Models.UserModel model, string username)
+        public bool EditEmail(string email, string username)
         {
             USER userResult = userBL.GetUserProfile(username);
-            userResult.EMAIL_ADDRESS = model.EmailAddress;
+            userResult.EMAIL_ADDRESS = email;
+            bool editSuccess = userBL.EditUserEmail(userResult);
+            return editSuccess;
+        }
+
+        public bool EditPassword(string password, string username)
+        {
+            USER userResult = userBL.GetUserProfile(username);
             userResult.SALT = null;
-            userResult.PASSWORD = model.Password;
-            bool editSuccess = userBL.EditUserEmailPassword(userResult);
+            userResult.PASSWORD = password;
+            bool editSuccess = userBL.EditUserPassword(userResult);
             return editSuccess;
         }
 

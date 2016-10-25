@@ -65,6 +65,26 @@ namespace Pastebook.Managers
             {
                 notifs.Add(new Models.NotificationModel()
                 {
+                    NotificationID = item.ID,
+                    DateCreated = item.CREATED_DATE,
+                    NotifType = item.NOTIF_TYPE,
+                    PostID = item.POST_ID,
+                    SenderName = userBL.GetUserByID(item.SENDER_ID),
+                    SenderUsername = userBL.GetUsernameByID(item.SENDER_ID)
+                });
+            }
+            return notifs;
+        }
+
+        public List<Models.NotificationModel> GetAllNotifications(string username)
+        {
+            List<NOTIFICATION> notificationsResults = notificationBL.GetAllNotifiations(username);
+            List<Models.NotificationModel> notifs = new List<Models.NotificationModel>();
+            foreach (var item in notificationsResults)
+            {
+                notifs.Add(new Models.NotificationModel()
+                {
+                    NotificationID = item.ID,
                     DateCreated = item.CREATED_DATE,
                     NotifType = item.NOTIF_TYPE,
                     PostID = item.POST_ID,
@@ -79,6 +99,13 @@ namespace Pastebook.Managers
         {
             List<NOTIFICATION> notificationsResults = notificationBL.GetNotifications(username);
             bool seeSuccess = notificationBL.SeeNotifications(notificationsResults);
+            return seeSuccess;
+        }
+
+        public bool SeeNotification(int notifID)
+        {
+            NOTIFICATION notification = notificationBL.GetNotification(notifID);
+            bool seeSuccess = notificationBL.SeeNotification(notification);
             return seeSuccess;
         }
     }

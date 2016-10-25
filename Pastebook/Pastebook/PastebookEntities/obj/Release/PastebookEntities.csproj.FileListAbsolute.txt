@@ -1,0 +1,10 @@
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\PastebookEntities.dll.config
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\EntityFramework.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\EntityFramework.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Release\PastebookEntities.csprojResolveAssemblyReference.cache
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Release\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Release\PastebookEntities.pdb

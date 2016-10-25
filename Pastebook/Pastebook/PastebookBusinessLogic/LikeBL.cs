@@ -18,6 +18,18 @@ namespace PastebookBusinessLogic
             return likeSuccess;
         }
 
+        public bool UnlikeStatus(LIKE like)
+        {
+            bool unlikeSuccess = likeDataAccess.Delete(like);
+            return unlikeSuccess;
+        }
+
+        public LIKE GetLike(int postID, int userID)
+        {
+            LIKE like = likeDataAccess.GetSingle(l => l.POST_ID == postID && l.LIKED_BY == userID);
+            return like;
+        }
+
         public List<LIKE> GetLikesOnPost(int postID)
         {
             List<LIKE> likes = likeDataAccess.GetSelected(l => l.POST_ID == postID);

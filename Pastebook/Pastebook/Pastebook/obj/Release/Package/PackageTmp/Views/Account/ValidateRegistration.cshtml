@@ -1,0 +1,14 @@
+﻿@model Pastebook.Models.UserModel
+
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-lg-push-2 col-md-push-2 col-sm-push-2">
+    <div class="content-item">
+        <div class="validation-heading">
+            <h1>Successfully Registered!</h1>
+            </div>
+        <div class="validation-body">
+            <p>A validation email was sent to @Html.DisplayFor(u => u.EmailAddress).</p>
+            <p>Kindly check your email to validate your account.</p>
+            <a href="@Url.Action("Login", "Account")" class="btn  validation-button">Back to Login</a>
+        </div>
+    </div>
+</div>

@@ -29,13 +29,13 @@ namespace Pastebook
             routes.MapRoute(
                 name: "LoginRegister",
                 url: "Pastebook/Login/",
-                defaults: new { controller = "LoginRegister", action = "Login"}
+                defaults: new { controller = "Account", action = "Login"}
                 );
 
             routes.MapRoute(
                 name: "RegisterValidation",
                 url: "Pastebook/ValidateRegistration/",
-                defaults: new { controller = "LoginRegister", action = "ValidateRegistration" }
+                defaults: new { controller = "Account", action = "ValidateRegistration" }
                 );
 
             routes.MapRoute(

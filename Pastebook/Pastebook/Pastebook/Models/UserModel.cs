@@ -10,6 +10,7 @@ namespace Pastebook.Models
     {
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(50, ErrorMessage = "Username can only have up to 50 characters.")]
+        [RegularExpression("^[a-zA-Z0-9._]+$", ErrorMessage = "Username can only contain letters, numbers, periods, and underscores.")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
@@ -25,25 +26,29 @@ namespace Pastebook.Models
 
         [Required(ErrorMessage = "First Name is required.")]
         [StringLength(50, ErrorMessage = "First Name can only have up to 50 characters.")]
+        [RegularExpression("^[a-zA-Z0-9'-]+$", ErrorMessage = "First Name can only contain letters, numbers, apostrophes and dashes.")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required.")]
         [StringLength(50, ErrorMessage = "Last Name can only have up to 50 characters.")]
+        [RegularExpression("^[a-zA-Z0-9'-]+$", ErrorMessage = "Username can only contain letters, numbers, apostrophes and dashes.")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Birthday is required.")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Birthday must be a valid date.")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
 
         public int? CountryID { get; set; }
 
         [StringLength(50, ErrorMessage = "Mobile Number can only have up to 50 characters.")]
-        [DataType(DataType.PhoneNumber)]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Mobile Number is invalid.")]
+        [Phone(ErrorMessage = "Mobile Number is invalid.")]
         public string MobileNumber { get; set; }
 
         public string Gender { get; set; }
 
-        [Required(ErrorMessage = "'Email Address is required.'")]
+        [Required(ErrorMessage = "Email Address is required.")]
         [StringLength(50, ErrorMessage = "Email Address can only have up to 50 characters.")]
         [DataType(DataType.EmailAddress)]
         [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Email Address must be a valid email.")]

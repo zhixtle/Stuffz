@@ -52,5 +52,12 @@ namespace Pastebook.Managers
         {
             return userBL.GetUsernameByEmail(email);
         }
+
+        public bool CheckOldPassword(string username, string oldPassword)
+        {
+            bool check = false;
+            check = userBL.CheckOldPassword(username, oldPassword);
+            return check;
+        }
     }
 }

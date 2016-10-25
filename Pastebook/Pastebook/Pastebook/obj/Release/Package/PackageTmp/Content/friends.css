@@ -1,0 +1,37 @@
+﻿.friends-head{
+    margin-left: 30px;
+    margin-top: 40px;
+}
+
+.friends-head h2{
+    color: #21839A;
+    font-weight: 600;
+}
+
+.friends-body{
+    margin-left: 40px;
+}
+
+.friends-item{
+    margin-bottom: 10px;
+}
+
+.friends-item:nth-child(4n+1) a{
+    color: #21839A;
+}
+
+.friends-item:nth-child(4n+2) a{
+    color: #F86330;
+}
+
+.friends-item:nth-child(4n+3) a{
+    color: #22AD6A;
+}
+
+.friends-item:nth-child(4n+4) a{
+    color: #F89330;
+}
+
+.friends-item:last-child{
+    padding-bottom: 30px;
+}

@@ -27,6 +27,20 @@ namespace PastebookBusinessLogic
             return notifications;
         }
 
+        public NOTIFICATION GetNotification(int notifID)
+        {
+            NOTIFICATION notification = notificationDataAccess.GetSingle(n => n.ID == notifID);
+            return notification;
+        }
+
+        public List<NOTIFICATION> GetAllNotifiations(string username)
+        {
+            int userID = userBL.GetIDByUsername(username);
+            List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.RECEIVER_ID == userID)
+                                                                     .ToList();
+            return notifications;
+        }
+
         public bool SeeNotifications(List<NOTIFICATION> notifications)
         {
             foreach (var item in notifications)
@@ -34,6 +48,13 @@ namespace PastebookBusinessLogic
                 item.SEEN = "Y";
             }
             bool seen = notificationDataAccess.EditMany(notifications);
+            return seen;
+        }
+
+        public bool SeeNotification(NOTIFICATION notification)
+        {
+            notification.SEEN = "Y";
+            bool seen = notificationDataAccess.Edit(notification);
             return seen;
         }
     }

@@ -18,3 +18,13 @@ C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\bin\Deb
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.csprojResolveAssemblyReference.cache
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.dll
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\PastebookEntities.dll.config
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\EntityFramework.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\EntityFramework.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.csprojResolveAssemblyReference.cache
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.pdb

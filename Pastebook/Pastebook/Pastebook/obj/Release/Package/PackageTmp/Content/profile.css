@@ -1,0 +1,94 @@
+﻿.profile-icon{
+    overflow: hidden;
+	width: 200px;
+	height: 200px;
+	background: white;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 3px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	border-radius: 100px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    text-align: center;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+}
+
+.profile-user{
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    color: #21839A;
+    margin-bottom: 0px;
+}
+
+p.profile-user{
+     margin-bottom: 0px;
+}
+
+.profile-button-area{
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 30px;
+    width: 80%;
+}
+
+.profile-button{
+    background-color: #21839A;
+    color: #FFF;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+textarea.profile-textarea{
+    border-width: 1px;
+    border-style:  solid;
+    border-color: #e1e2e3; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 5px;
+    resize: none;
+    overflow-y: auto;
+    border-radius: 5px;
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.profile-textarea-area{
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 200px;
+}
+
+.profile-picture-area{
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 150px;
+}
+
+.profile-button-about-me{
+    background-color: #21839A;
+    color: #FFF;
+    float: right;
+    width: 25%;
+}
+
+.profile-button-image{
+    background-color: #21839A;
+    color: #FFF;
+    float: right;
+    width: 25%;
+}
+
+.profile-about-me-content{
+    word-break: break-word;
+    width: 80%;
+}

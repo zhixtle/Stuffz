@@ -1,0 +1,12 @@
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\PastebookDataAccess.dll.config
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\PastebookDataAccess.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\PastebookDataAccess.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\EntityFramework.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\PastebookEntities.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\PastebookEntities.pdb
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\EntityFramework.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\obj\Release\PastebookDataAccess.csprojResolveAssemblyReference.cache
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\obj\Release\PastebookDataAccess.dll
+C:\Users\zhixt\Desktop\Pastebook\PastebookDataAccess\obj\Release\PastebookDataAccess.pdb
