@@ -11,7 +11,6 @@ namespace PastebookBusinessLogic
     public class NotificationBL
     {
         private static DataAccess<NOTIFICATION> notificationDataAccess = new DataAccess<NOTIFICATION>();
-        private static UserBL userBL = new UserBL();
 
         public bool AddNotification(NOTIFICATION notification)
         {
@@ -21,8 +20,7 @@ namespace PastebookBusinessLogic
 
         public List<NOTIFICATION> GetNotifications(string username)
         {
-            int userID = userBL.GetIDByUsername(username);
-            List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.RECEIVER_ID == userID && n.SEEN == "N")
+            List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.USER.USER_NAME == username && n.SEEN == "N", "USER1")
                                                                      .OrderByDescending(n => n.CREATED_DATE)
                                                                      .ToList();
             return notifications;
@@ -36,8 +34,7 @@ namespace PastebookBusinessLogic
 
         public List<NOTIFICATION> GetAllNotifiations(string username)
         {
-            int userID = userBL.GetIDByUsername(username);
-            List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.RECEIVER_ID == userID)
+            List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.USER.USER_NAME == username, "USER1")
                                                                      .OrderByDescending(n => n.CREATED_DATE)
                                                                      .ToList();
             return notifications;

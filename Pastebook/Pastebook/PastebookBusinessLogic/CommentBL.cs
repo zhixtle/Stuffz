@@ -20,7 +20,7 @@ namespace PastebookBusinessLogic
 
         public List<COMMENT> GetCommentsOnPost(int postID)
         {
-            List<COMMENT> comments = commentDataAccess.GetSelected(c => c.POST_ID == postID);
+            List<COMMENT> comments = commentDataAccess.GetSelected(c => c.POST_ID == postID, "USER");
             return comments;
         }
     }

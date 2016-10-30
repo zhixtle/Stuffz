@@ -12,13 +12,13 @@ namespace Pastebook.Managers
         private static NotificationBL notificationBL = new NotificationBL();
         private static UserBL userBL = new UserBL();
 
-        public bool FriendRequestNotification(string username, string profileUsername)
+        public bool FriendRequestNotification(string username, int profileID)
         {
             NOTIFICATION newnotif = new NOTIFICATION()
             {
                 NOTIF_TYPE = "F",
                 SENDER_ID = userBL.GetIDByUsername(username),
-                RECEIVER_ID = userBL.GetIDByUsername(profileUsername),
+                RECEIVER_ID = profileID,
                 CREATED_DATE = DateTime.Now,
                 SEEN = "N"
             };
@@ -69,8 +69,8 @@ namespace Pastebook.Managers
                     DateCreated = item.CREATED_DATE,
                     NotifType = item.NOTIF_TYPE,
                     PostID = item.POST_ID,
-                    SenderName = userBL.GetUserByID(item.SENDER_ID),
-                    SenderUsername = userBL.GetUsernameByID(item.SENDER_ID)
+                    SenderName = item.USER1.FIRST_NAME + " " + item.USER1.LAST_NAME,
+                    SenderUsername = item.USER1.USER_NAME
                 });
             }
             return notifs;
@@ -88,8 +88,8 @@ namespace Pastebook.Managers
                     DateCreated = item.CREATED_DATE,
                     NotifType = item.NOTIF_TYPE,
                     PostID = item.POST_ID,
-                    SenderName = userBL.GetUserByID(item.SENDER_ID),
-                    SenderUsername = userBL.GetUsernameByID(item.SENDER_ID)
+                    SenderName = item.USER1.FIRST_NAME + " " + item.USER1.LAST_NAME,
+                    SenderUsername = item.USER1.USER_NAME
                 });
             }
             return notifs;

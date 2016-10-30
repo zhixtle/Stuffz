@@ -3,7 +3,7 @@
     $('#btnFriendRequest').on('click', function () {
 
         var friendRequestData = {
-            profileUsername: $('#username').val()
+            profileID: userID
         }
 
         $.ajax({
@@ -19,7 +19,7 @@
     $('#btnFriendConfirm').on('click', function () {
 
         var friendConfirmData = {
-            profileUsername: $('#username').val()
+            profileID: userID
         }
 
         $.ajax({
@@ -35,7 +35,7 @@
     $('#btnFriendDelete').on('click', function () {
 
         var friendDeleteData = {
-            profileUsername: $('#username').val()
+            profileID: userID
         }
 
         $.ajax({

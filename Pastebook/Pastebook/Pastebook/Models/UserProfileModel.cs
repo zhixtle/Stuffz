@@ -8,6 +8,8 @@ namespace Pastebook.Models
 {
     public class UserProfileModel
     {
+        public int UserID { get; set; }
+
         [Display(Name = "Username")]
         public string Username { get; set; }
 

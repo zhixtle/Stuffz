@@ -27,7 +27,6 @@
                         <p class="profile-user">@Html.DisplayFor(model => model.Username)</p>
                     </div>
                     <hr />
-                    <input type="hidden" id="username" value="@Model.Username" />
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.FirstName)
@@ -225,6 +224,8 @@
         var AddCommentUrl = "@Url.Action("AddComment", "Post")";
         var AddLikeUrl = "@Url.Action("AddLike", "Post")";
         var RemoveLikeUrl = "@Url.Action("RemoveLike", "Post")";
+        var userID = "@Model.UserID";
+        var username = "@Model.Username"
     </script>
     <script src="@Url.Content("~/Scripts/profile-page-timeline-handling.js")"></script>
     <script src="@Url.Content("~/Scripts/profile-page-friend-handling.js")"></script>

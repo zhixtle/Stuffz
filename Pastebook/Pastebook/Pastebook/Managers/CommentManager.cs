@@ -49,8 +49,8 @@ namespace Pastebook.Managers
                 {
                     Content = item.CONTENT,
                     DateCreated = item.DATE_CREATED,
-                    PosterName = userBL.GetUserByID(item.POSTER_ID),
-                    PosterUsername  = userBL.GetUsernameByID(item.POSTER_ID),
+                    PosterName = item.USER.FIRST_NAME + " " + item.USER.LAST_NAME,
+                    PosterUsername  = item.USER.USER_NAME,
                     PostID = item.POST_ID
                 });
             }

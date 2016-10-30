@@ -24,15 +24,16 @@ namespace PastebookBusinessLogic
 
         public POST GetPost(int postID)
         {
-            POST post = postDataAccess.GetSingle(p => p.ID == postID);
+            POST post = postDataAccess.GetSingle(p => p.ID == postID, "USER", "USER1", "LIKEs", "LIKEs.USER");
             return post;
         }
 
         public List<POST> GetTimeline(string username)
         {
             int userID = userBL.GetIDByUsername(username);
-            List<POST> posts = postDataAccess.GetSelected(p => p.PROFILE_OWNER_ID == userID || p.POSTER_ID == userID)
+            List<POST> posts = postDataAccess.GetSelected(p => p.PROFILE_OWNER_ID == userID || p.POSTER_ID == userID, "USER", "USER1", "LIKEs", "LIKEs.USER")
                                              .OrderByDescending(p => p.CREATED_DATE)
+                                             .Take(100)
                                              .ToList();
             return posts;
         }
@@ -40,32 +41,14 @@ namespace PastebookBusinessLogic
         public List<POST> GetNewsFeed(string username)
         {
             int userID = userBL.GetIDByUsername(username);
-            List<FRIEND> userFriends = friendBL.GetFriends(username);
-            List<POST> posts = postDataAccess.GetAll();
-            List<POST> filteredPosts = new List<POST>();
-            foreach (var item in posts)
-            {
-                if(item.PROFILE_OWNER_ID == userID ||
-                   item.POSTER_ID == userID ||
-                   userFriends.Any(f => f.FRIEND_ID == item.PROFILE_OWNER_ID && f.FRIEND_ID == item.POSTER_ID))
-                {
-                    filteredPosts.Add(item);
-                }
-            }
-            return filteredPosts.OrderByDescending(p => p.CREATED_DATE).ToList();
-        }
-
-        public int GetLikesCountOnPost(int postID)
-        {
-            int likesCount = likeBL.GetLikesOnPost(postID).Count;
-            return likesCount;
-        }
-
-        public bool IsPostLikedByUser(int postID, string username)
-        {
-            int id = userBL.GetIDByUsername(username);
-            bool isLiked = likeBL.GetLikesOnPost(postID).Any(p => p.LIKED_BY == id);
-            return isLiked;
+            List<int> userFriends = friendBL.GetFriendIDs(username);
+            List<POST> friendsPosts = postDataAccess.GetSelected(p => userFriends.Any(f => f.Equals(p.PROFILE_OWNER_ID) && f.Equals(p.POSTER_ID)),
+                                                                "USER", "USER1", "LIKEs", "LIKEs.USER");
+            List<POST> userPosts = postDataAccess.GetSelected(p => p.PROFILE_OWNER_ID == userID || p.POSTER_ID == userID,
+                                                             "USER", "USER1", "LIKEs", "LIKEs.USER");
+            List<POST> posts = userPosts;
+            posts.AddRange(friendsPosts);
+            return posts.OrderByDescending(p => p.CREATED_DATE).ToList();
         }
 
         public int GetUserByPostID(int postID)

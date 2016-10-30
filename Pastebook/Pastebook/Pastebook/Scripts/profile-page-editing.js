@@ -6,7 +6,6 @@
         content = content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
         var aboutMeData = {
-            username: $('#username').val(),
             aboutMeContent: content
         }
 
@@ -46,8 +45,10 @@
         });
     });
 
-    var charCount = 2000 - $('#textAboutMe').val().length;
-    $('#aboutMeCount').text(charCount);
+    if ($('#textAboutMe').length) {
+        var charCount = 2000 - $('#textAboutMe').val().length;
+        $('#aboutMeCount').text(charCount);
+    }
 
     $('#textAboutMe').keyup(function () {
         charCount = 2000 - $('#textAboutMe').val().length;

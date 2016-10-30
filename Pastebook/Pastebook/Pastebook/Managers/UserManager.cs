@@ -10,7 +10,8 @@ namespace Pastebook.Managers
     public class UserManager
     {
         private static UserBL userBL = new UserBL();
-        
+        private static ImageManager imageManager = new ImageManager();
+
         public Models.UserProfileModel GetUserProfile (string username, string profileUsername)
         {
             USER userResult = userBL.GetUserProfile(profileUsername);
@@ -18,6 +19,7 @@ namespace Pastebook.Managers
             userFriends.AddRange(userResult.FRIENDs1.ToList());
             Models.UserProfileModel user = new Models.UserProfileModel()
             {
+                UserID = userResult.ID,
                 AboutMe = userResult.ABOUT_ME,
                 Birthday = userResult.BIRTHDAY,
                 Country = userResult.REF_COUNTRY.COUNTRY,
@@ -40,7 +42,7 @@ namespace Pastebook.Managers
             {
                 return "Y";
             }
-            else if (friends.Any(f => (f.FRIEND_ID == profileID || f.USER_ID == profileID) && f.REQUEST == "N"))
+            else if (friends.Any(f => (f.FRIEND_ID == userID || f.USER_ID == userID) && f.REQUEST == "N"))
             {
                 return "Y";
             }
@@ -125,15 +127,26 @@ namespace Pastebook.Managers
             }
         }
 
-        public bool EditProfilePicture(string username, byte[] profilePicture)
+        public bool EditProfilePicture(string username, HttpPostedFileBase file)
         {
+            byte[] profilePicture = ConvertProfilePicture(file);
             USER user = userBL.GetUser(username);
             user.PROFILE_PIC = profilePicture;
             bool editSuccess = userBL.EditUser(user);
             return editSuccess;
         }
 
-        public string GenderDisplay(string gender)
+        private byte[] ConvertProfilePicture(HttpPostedFileBase file)
+        {
+            byte[] picByteArray = null;
+            if (file != null && imageManager.IsImage(file))
+            {
+                picByteArray = imageManager.imageToByteArray(file);
+            }
+            return picByteArray;
+        }
+
+        private string GenderDisplay(string gender)
         {
             string genderDisplay;
             if(gender == "M")
@@ -162,8 +175,8 @@ namespace Pastebook.Managers
                 {
                     FirstName = item.FIRST_NAME,
                     LastName = item.LAST_NAME,
+                    Username = item.USER_NAME,
                     ProfilePic = item.PROFILE_PIC,
-                    Username = item.USER_NAME
                 });
             }
             return searchResults;

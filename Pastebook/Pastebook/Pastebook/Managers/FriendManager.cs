@@ -13,32 +13,32 @@ namespace Pastebook.Managers
         private static UserBL userBL = new UserBL();
         private static NotificationManager notifManager = new NotificationManager();
 
-        public bool SendFriendRequest(string username, string profileUsername)
+        public bool SendFriendRequest(string username, int profileID)
         {
             FRIEND friendToAdd = new FRIEND()
             {
                 USER_ID = userBL.GetIDByUsername(username),
-                FRIEND_ID = userBL.GetIDByUsername(profileUsername),
+                FRIEND_ID = profileID,
                 CREATED_DATE = DateTime.Now,
                 REQUEST = "Y",
                 BLOCKED = "N"
             };
             bool requestSent = friendBL.AddFriend(friendToAdd);
-            bool notifSent = notifManager.FriendRequestNotification(username, profileUsername);
+            bool notifSent = notifManager.FriendRequestNotification(username, profileID);
             return (requestSent && notifSent);
         }
 
-        public bool ConfirmFriendRequest(string username, string profileUsername)
+        public bool ConfirmFriendRequest(string username, int profileID)
         {
-            FRIEND friendToAdd = friendBL.GetFriendEntry(username, profileUsername);
+            FRIEND friendToAdd = friendBL.GetFriendEntry(username, profileID);
             friendToAdd.REQUEST = "N";
             bool requestSent = friendBL.EditFriend(friendToAdd);
             return requestSent;
         }
 
-        public bool  DeleteFriendRequest(string username, string profileUsername)
+        public bool  DeleteFriendRequest(string username, int profileID)
         {
-            FRIEND friendToDelete = friendBL.GetFriendEntry(username, profileUsername);
+            FRIEND friendToDelete = friendBL.GetFriendEntry(username, profileID);
             bool deleteSuccess = friendBL.DeleteFriend(friendToDelete);
             return deleteSuccess;
         }
@@ -53,7 +53,8 @@ namespace Pastebook.Managers
                 {
                     FirstName = item.FIRST_NAME,
                     LastName = item.LAST_NAME,
-                    Username = item.USER_NAME
+                    Username = item.USER_NAME,
+                    ProfilePicture = item.PROFILE_PIC
                 });
             }
             return friendsList;

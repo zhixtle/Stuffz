@@ -24,15 +24,15 @@ namespace PastebookBusinessLogic
             return unlikeSuccess;
         }
 
-        public LIKE GetLike(int postID, int userID)
+        public LIKE GetLike(int postID, string username)
         {
-            LIKE like = likeDataAccess.GetSingle(l => l.POST_ID == postID && l.LIKED_BY == userID);
+            LIKE like = likeDataAccess.GetSingle(l => l.POST_ID == postID && l.USER.USER_NAME == username);
             return like;
         }
 
         public List<LIKE> GetLikesOnPost(int postID)
         {
-            List<LIKE> likes = likeDataAccess.GetSelected(l => l.POST_ID == postID);
+            List<LIKE> likes = likeDataAccess.GetSelected(l => l.POST_ID == postID, "USER");
             return likes;
         }
     }

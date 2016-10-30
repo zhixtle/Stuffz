@@ -133,10 +133,5 @@ namespace PastebookBusinessLogic
             string fullName = user.FIRST_NAME + " " + user.LAST_NAME;
             return fullName;
         }
-
-        public byte[] GetUserProfilePicture(int userID)
-        {
-            return userDataAccess.GetSingle(u => u.ID == userID).PROFILE_PIC;
-        }
     }
 }

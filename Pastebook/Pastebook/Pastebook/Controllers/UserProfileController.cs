@@ -28,46 +28,39 @@ namespace Pastebook.Controllers
             return View(model);
         }
 
-        public JsonResult SaveAboutMe(string username, string aboutMeContent)
+        public JsonResult SaveAboutMe(string aboutMeContent)
         {
             Managers.UserManager userManager = new Managers.UserManager();
-            bool saveSuccess = userManager.EditAboutMe(username, aboutMeContent);
+            bool saveSuccess = userManager.EditAboutMe(Session["user"].ToString(), aboutMeContent);
             return Json(new { Status = saveSuccess }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SaveProfilePicture(HttpPostedFileBase file)
         {
             Managers.UserManager userManager = new Managers.UserManager();
-            Managers.ImageManager imageManager = new Managers.ImageManager();
-            byte[] picByteArray = null;
-            bool saveSuccess = false;
-            if (file != null && imageManager.IsImage(file))
-            {
-                picByteArray = imageManager.imageToByteArray(file);
-                saveSuccess = userManager.EditProfilePicture(Session["user"].ToString(), picByteArray);
-            }
+            bool saveSuccess = userManager.EditProfilePicture(Session["user"].ToString(), file);
             TempData["savePicture"] = saveSuccess;
             return RedirectToAction("ViewProfile", new { profileUsername = Session["user"].ToString() });
         }
 
-        public JsonResult SendFriendRequest(string profileUsername)
+        public JsonResult SendFriendRequest(int profileID)
         { 
             Managers.FriendManager friendManager = new Managers.FriendManager();
-            bool requestSent = friendManager.SendFriendRequest(Session["user"].ToString(), profileUsername);
+            bool requestSent = friendManager.SendFriendRequest(Session["user"].ToString(), profileID);
             return Json(new { Status = requestSent }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ConfirmFriendRequest(string profileUsername)
+        public JsonResult ConfirmFriendRequest(int profileID)
         {
             Managers.FriendManager friendManager = new Managers.FriendManager();
-            bool requestConfirmed = friendManager.ConfirmFriendRequest(Session["user"].ToString(), profileUsername);
+            bool requestConfirmed = friendManager.ConfirmFriendRequest(Session["user"].ToString(), profileID);
             return Json(new { Status = requestConfirmed }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DeleteFriendRequest(string profileUsername)
+        public JsonResult DeleteFriendRequest(int profileID)
         {
             Managers.FriendManager friendManager = new Managers.FriendManager();
-            bool requestDeleted = friendManager.DeleteFriendRequest(Session["user"].ToString(), profileUsername);
+            bool requestDeleted = friendManager.DeleteFriendRequest(Session["user"].ToString(), profileID);
             return Json(new { Status = requestDeleted }, JsonRequestBehavior.AllowGet);
         }
     }

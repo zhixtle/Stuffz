@@ -7,7 +7,7 @@
 
         var postData = {
             content: content,
-            user: $('#username').val()
+            user: username
         }
 
         $.ajax({
@@ -28,7 +28,7 @@
             }
             else {
                 $('#postValidation').text('Post successful!');
-                $('#userPosts').load(GetPostsUrl, { username: $('#username').val() });
+                $('#userPosts').load(GetPostsUrl, { username: username });
                 setTimeout(ClearText, 1000);
             }
         }
@@ -59,7 +59,7 @@
                     $(postContent).attr('placeholder', 'You haven\'t written anything!');
                 }
                 else {
-                    $('#userPosts').load(GetPostsUrl, { username: $('#username').val() });
+                    $('#userPosts').load(GetPostsUrl, { username: username });
                 }
             }
         });
@@ -80,7 +80,7 @@
         });
 
         function LikeSuccess(data) {
-            $('#userPosts').load(GetPostsUrl, { username: $('#username').val() });
+            $('#userPosts').load(GetPostsUrl, { username: username });
         }
     });
 
@@ -99,7 +99,7 @@
         });
 
         function UnlikeSuccess(data) {
-            $('#userPosts').load(GetPostsUrl, { username: $('#username').val() });
+            $('#userPosts').load(GetPostsUrl, { username: username });
         }
     });
 

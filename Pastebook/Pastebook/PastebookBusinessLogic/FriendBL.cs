@@ -30,10 +30,10 @@ namespace PastebookBusinessLogic
             return deleteSuccess;
         }
 
-        public FRIEND GetFriendEntry(string username, string profileUsername)
+        public FRIEND GetFriendEntry(string username, int profileID)
         {
             List<FRIEND> usersFriends = GetFriendsAndRequests(username);
-            FRIEND friend = usersFriends.Where(f => f.USER.USER_NAME == profileUsername || f.USER1.USER_NAME == profileUsername).SingleOrDefault();
+            FRIEND friend = usersFriends.Where(f => f.USER_ID == profileID || f.FRIEND_ID == profileID).SingleOrDefault();
             return friend;
         }
 
@@ -54,13 +54,24 @@ namespace PastebookBusinessLogic
             return friendsSwapped;
         }
 
+        public List<int> GetFriendIDs(string username)
+        {
+            List<FRIEND> friends = GetFriends(username);
+            List<int> friendIDs = new List<int>();
+            foreach (var item in friends)
+            {
+                friendIDs.Add(item.USER_ID);
+            }
+            return friendIDs;
+        }
+
         public List<USER> GetFriendsList(string username)
         {
             List<FRIEND> friends = GetFriends(username);
             List<USER> friendsList = new List<USER>();
             foreach (var item in friends)
             {
-                friendsList.Add(item.USER);
+                friendsList.Add(item.USER1);
             }
             return friendsList;
         }
@@ -84,8 +95,8 @@ namespace PastebookBusinessLogic
                         REQUEST = item.REQUEST,
                         BLOCKED = item.BLOCKED,
                         CREATED_DATE = item.CREATED_DATE,
-                        USER = item.USER,
-                        USER1 = item.USER1
+                        USER = item.USER1,
+                        USER1 = item.USER
                     });
                 }
             }

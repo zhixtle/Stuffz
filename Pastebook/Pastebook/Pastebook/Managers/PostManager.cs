@@ -41,13 +41,13 @@ namespace Pastebook.Managers
                 DateCreated = postResult.CREATED_DATE,
                 PostID = postResult.ID,
                 PosterID = postResult.POSTER_ID,
-                PosterName = userBL.GetUserByID(postResult.POSTER_ID),
-                PosterUsername = userBL.GetUsernameByID(postResult.POSTER_ID),
+                PosterName = postResult.USER.FIRST_NAME + " " + postResult.USER.LAST_NAME,
+                PosterUsername = postResult.USER.USER_NAME,
                 ProfileOwnerID = postResult.PROFILE_OWNER_ID,
-                ProfileOwnerName = userBL.GetUserByID(postResult.PROFILE_OWNER_ID),
-                ProfileOwnerUsername = userBL.GetUsernameByID(postResult.PROFILE_OWNER_ID),
-                LikesCount = postBL.GetLikesCountOnPost(postResult.ID),
-                IsLiked = IsPostLikedByUser(postResult.ID, currentUser)
+                ProfileOwnerName = postResult.USER1.FIRST_NAME + " " + postResult.USER1.LAST_NAME,
+                ProfileOwnerUsername = postResult.USER1.USER_NAME,
+                LikesCount = postResult.LIKEs.Count,
+                IsLiked = IsPostLikedByUser(currentUser, postResult.LIKEs.ToList())
             };
             return post;
         }
@@ -64,13 +64,13 @@ namespace Pastebook.Managers
                     DateCreated = item.CREATED_DATE,
                     PostID = item.ID,
                     PosterID = item.POSTER_ID,
-                    PosterName = userBL.GetUserByID(item.POSTER_ID),
-                    PosterUsername = userBL.GetUsernameByID(item.POSTER_ID),
+                    PosterName =  item.USER.FIRST_NAME + " "  + item.USER.LAST_NAME,
+                    PosterUsername = item.USER.USER_NAME,
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
-                    ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
-                    ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
-                    LikesCount = postBL.GetLikesCountOnPost(item.ID),
-                    IsLiked = IsPostLikedByUser(item.ID, currentUser)
+                    ProfileOwnerUsername = item.USER1.USER_NAME,
+                    ProfileOwnerName = item.USER1.FIRST_NAME + " " + item.USER1.LAST_NAME,
+                    LikesCount = item.LIKEs.Count,
+                    IsLiked = IsPostLikedByUser(currentUser, item.LIKEs.ToList())
                 });
             }
             return newsFeed;
@@ -88,21 +88,21 @@ namespace Pastebook.Managers
                     DateCreated = item.CREATED_DATE,
                     PostID = item.ID,
                     PosterID = item.POSTER_ID,
-                    PosterName = userBL.GetUserByID(item.POSTER_ID),
-                    PosterUsername = userBL.GetUsernameByID(item.POSTER_ID),
+                    PosterName = item.USER.FIRST_NAME + " " + item.USER.LAST_NAME,
+                    PosterUsername = item.USER.USER_NAME,
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
-                    ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
-                    ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
-                    LikesCount = postBL.GetLikesCountOnPost(item.ID),
-                    IsLiked = IsPostLikedByUser(item.ID, username)
+                    ProfileOwnerUsername = item.USER1.USER_NAME,
+                    ProfileOwnerName = item.USER1.FIRST_NAME + " " + item.USER1.LAST_NAME,
+                    LikesCount = item.LIKEs.Count,
+                    IsLiked = IsPostLikedByUser(username, item.LIKEs.ToList())
                 });
             }
             return newsFeed;
         }
 
-        public bool IsPostLikedByUser(int postID, string username)
+        private bool IsPostLikedByUser(string username, List<LIKE> postLikes)
         {
-            bool isLiked = postBL.IsPostLikedByUser(postID, username);
+            bool isLiked = postLikes.Any(p => p.USER.USER_NAME == username);
             return isLiked;
         }
     }

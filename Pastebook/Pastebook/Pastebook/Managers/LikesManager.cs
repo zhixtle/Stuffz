@@ -31,8 +31,8 @@ namespace Pastebook.Managers
         public bool UnlikeStatus(string username, string postID)
         {
             int id = Int32.Parse(postID);
-            LIKE newLike = likeBL.GetLike(id, userBL.GetIDByUsername(username));
-            bool unlikeSuccess = likeBL.UnlikeStatus(newLike);
+            LIKE like = likeBL.GetLike(id, username);
+            bool unlikeSuccess = likeBL.UnlikeStatus(like);
             return unlikeSuccess;
         }
 
@@ -45,7 +45,7 @@ namespace Pastebook.Managers
             {
                 likesOnPost.Add(new Models.LikeModel()
                 {
-                    LikedByName = userBL.GetUserByID(item.LIKED_BY)
+                    LikedByName = item.USER.FIRST_NAME + " " + item.USER.LAST_NAME
                 });
             }
             return likesOnPost;
