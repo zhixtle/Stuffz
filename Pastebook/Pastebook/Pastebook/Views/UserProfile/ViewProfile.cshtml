@@ -105,6 +105,9 @@
                             </div>
                             <div id="editingAboutMe" class="collapse">
                                 <div class="profile-textarea-area">
+                                    <div class="profile-about-me-count">
+                                        <span id="aboutMeCount"></span><span> characters left.</span>
+                                    </div>
                                     <textarea id="textAboutMe" class="profile-textarea" rows="5">@Html.DisplayFor(model => model.AboutMe)</textarea>
                                     <span id="aboutMeStatus" class="status"> </span>
                                     <button type="button" id="btnSaveAboutMe" class="btn profile-button-about-me">Save</button>
@@ -116,6 +119,7 @@
                                     {
                                         <label for="file">Upload Image:</label>
                                         <input type="file" name="file" id="file" accept="image/*" />
+                                        <p>GIF, PNG, JPG and JPEG files only. Maximum file size if 4MB.</p>
                                         if (ViewData["savePicture"] != null)
                                         {
                                             if (ViewData["savePicture"].Equals(true))
@@ -127,7 +131,9 @@
                                                 <span id="pictureStatus" class="status"> Error, picture could not be saved. </span>
                                             }
                                         }
+                                        <span id="pictureUploadStatus" class="status"> </span>
                                         <span id="pictureExtStatus" class="status"> </span>
+                                        <span id="pictureSizeStatus" class="status"> </span>
                                         <button type="submit" id="btnSavePicture" class="btn profile-button-image">Upload</button>
                                     }
                                 </div>

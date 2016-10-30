@@ -46,6 +46,14 @@
         });
     });
 
+    var charCount = 2000 - $('#textAboutMe').val().length;
+    $('#aboutMeCount').text(charCount);
+
+    $('#textAboutMe').keyup(function () {
+        charCount = 2000 - $('#textAboutMe').val().length;
+        $('#aboutMeCount').text(charCount);
+    });
+
     $('#textAboutMe').focusout(function () {
         if ($('#textAboutMe').val().length > 2000) {
             $('#aboutMeStatus').text('About me cannot be more than 2000 characters.');
@@ -59,11 +67,19 @@
 
     $('#file').change(function () {
         var ext = $('#file').val().split('.').pop().toLowerCase();
+        var size = $('#file').prop('files')[0].size;
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
             $('#pictureExtStatus').text('Invalid file. Only GIF, PNG, JPG, and JPEG formats are allowed.');
             $('#btnSavePicture').attr('disabled', true);
         } else {
             $('#pictureExtStatus').text('');
+            $('#btnSavePicture').attr('disabled', false);
+        }
+        if (size > 4194304) {
+            $('#pictureSizeStatus').text('Invalid file. Maximum file size is 4MB.');
+            $('#btnSavePicture').attr('disabled', true);
+        } else {
+            $('#pictureSizeStatus').text('');
             $('#btnSavePicture').attr('disabled', false);
         }
     });

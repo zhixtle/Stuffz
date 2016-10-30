@@ -78,15 +78,21 @@ namespace PastebookBusinessLogic
 
         public USER GetUserProfile(string username)
         {
+            USER user = userDataAccess.GetSingle(u => u.USER_NAME == username, "REF_COUNTRY", "FRIENDs", "FRIENDs1");
+            return user;
+        }
+
+        public USER GetUser(string username)
+        {
             USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
             return user;
         }
 
         public List<USER> GetUserSearchResults(string searchQuery)
         {
-            List<USER> userResults = userDataAccess.GetSelected(u => u.FIRST_NAME.ToUpper().Contains(searchQuery.ToUpper()) ||
-                                                                     u.LAST_NAME.ToUpper().Contains(searchQuery.ToUpper()) ||
-                                                                     (u.FIRST_NAME.ToUpper()+" "+u.LAST_NAME.ToUpper()).Contains(searchQuery.ToUpper()));
+            List<USER> userResults = userDataAccess.GetSelected(u => u.FIRST_NAME.ToUpper().Equals(searchQuery.ToUpper()) ||
+                                                                     u.LAST_NAME.ToUpper().Equals(searchQuery.ToUpper()) ||
+                                                                     (u.FIRST_NAME.ToUpper()+" "+u.LAST_NAME.ToUpper()).Equals(searchQuery.ToUpper()));
             return userResults;
         }
 

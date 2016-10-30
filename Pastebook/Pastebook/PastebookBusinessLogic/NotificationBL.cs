@@ -23,6 +23,7 @@ namespace PastebookBusinessLogic
         {
             int userID = userBL.GetIDByUsername(username);
             List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.RECEIVER_ID == userID && n.SEEN == "N")
+                                                                     .OrderByDescending(n => n.CREATED_DATE)
                                                                      .ToList();
             return notifications;
         }
@@ -37,6 +38,7 @@ namespace PastebookBusinessLogic
         {
             int userID = userBL.GetIDByUsername(username);
             List<NOTIFICATION> notifications = notificationDataAccess.GetSelected(n => n.RECEIVER_ID == userID)
+                                                                     .OrderByDescending(n => n.CREATED_DATE)
                                                                      .ToList();
             return notifications;
         }

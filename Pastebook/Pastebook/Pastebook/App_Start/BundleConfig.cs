@@ -21,7 +21,8 @@ namespace Pastebook
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bs-tooltip-popover.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datetime").Include(
                         "~/Scripts/moment*",

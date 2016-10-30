@@ -10,18 +10,17 @@ namespace Pastebook.Managers
     public class UserManager
     {
         private static UserBL userBL = new UserBL();
-        private static FriendBL friendBL = new FriendBL();
-        private static CountryBL countryBL = new CountryBL();
-
         
         public Models.UserProfileModel GetUserProfile (string username, string profileUsername)
         {
             USER userResult = userBL.GetUserProfile(profileUsername);
+            List<FRIEND> userFriends = userResult.FRIENDs.ToList();
+            userFriends.AddRange(userResult.FRIENDs1.ToList());
             Models.UserProfileModel user = new Models.UserProfileModel()
             {
                 AboutMe = userResult.ABOUT_ME,
                 Birthday = userResult.BIRTHDAY,
-                Country = countryBL.GetCountryName(userResult.COUNTRY_ID),
+                Country = userResult.REF_COUNTRY.COUNTRY,
                 EmailAddress = userResult.EMAIL_ADDRESS,
                 FirstName = userResult.FIRST_NAME,
                 Gender = GenderDisplay(userResult.GENDER),
@@ -29,14 +28,39 @@ namespace Pastebook.Managers
                 MobileNumber = userResult.MOBILE_NO,
                 ProfilePic = userResult.PROFILE_PIC,
                 Username = userResult.USER_NAME,
-                IsFriend = friendBL.IsUserAFriend(username, profileUsername)
+                IsFriend = IsUserAFriend(username, userResult.ID, userFriends)
             };
             return user;
         }
 
+        public string IsUserAFriend(string username, int profileID, List<FRIEND> friends)
+        {
+            int userID = userBL.GetIDByUsername(username);
+            if (userID == profileID)
+            {
+                return "Y";
+            }
+            else if (friends.Any(f => (f.FRIEND_ID == profileID || f.USER_ID == profileID) && f.REQUEST == "N"))
+            {
+                return "Y";
+            }
+            else if (friends.Any(f => (f.FRIEND_ID == userID && f.USER_ID == profileID) && f.REQUEST == "Y"))
+            {
+                return "C";
+            }
+            else if (friends.Any(f => (f.USER_ID == userID && f.FRIEND_ID == profileID) && f.REQUEST == "Y"))
+            {
+                return "R";
+            }
+            else
+            {
+                return "N";
+            }
+        }
+
         public Models.UserModel GetUser(string username)
         {
-            USER userResult = userBL.GetUserProfile(username);
+            USER userResult = userBL.GetUser(username);
             Models.UserModel user = new Models.UserModel()
             {
                 Username = userResult.USER_NAME,
@@ -54,7 +78,7 @@ namespace Pastebook.Managers
 
         public bool EditUser(Models.UserModel model, string username)
         {
-            USER userResult = userBL.GetUserProfile(username);
+            USER userResult = userBL.GetUser(username);
             userResult.USER_NAME = model.Username;
             userResult.FIRST_NAME = model.FirstName;
             userResult.LAST_NAME = model.LastName;
@@ -69,7 +93,7 @@ namespace Pastebook.Managers
         public bool EditEmail(string email, string username)
         {
             string parsedEmail = HttpUtility.HtmlDecode(email);
-            USER userResult = userBL.GetUserProfile(username);
+            USER userResult = userBL.GetUser(username);
             userResult.EMAIL_ADDRESS = parsedEmail;
             bool editSuccess = userBL.EditUserEmail(userResult);
             return editSuccess;
@@ -78,7 +102,7 @@ namespace Pastebook.Managers
         public bool EditPassword(string password, string username)
         {
             string parsedPassword = HttpUtility.HtmlDecode(password);
-            USER userResult = userBL.GetUserProfile(username);
+            USER userResult = userBL.GetUser(username);
             userResult.SALT = null;
             userResult.PASSWORD = parsedPassword;
             bool editSuccess = userBL.EditUserPassword(userResult);
@@ -94,7 +118,7 @@ namespace Pastebook.Managers
             }
             else
             {
-                USER user = userBL.GetUserProfile(username);
+                USER user = userBL.GetUser(username);
                 user.ABOUT_ME = parsedContent;
                 bool editSuccess = userBL.EditUser(user);
                 return editSuccess;
@@ -103,7 +127,7 @@ namespace Pastebook.Managers
 
         public bool EditProfilePicture(string username, byte[] profilePicture)
         {
-            USER user = userBL.GetUserProfile(username);
+            USER user = userBL.GetUser(username);
             user.PROFILE_PIC = profilePicture;
             bool editSuccess = userBL.EditUser(user);
             return editSuccess;

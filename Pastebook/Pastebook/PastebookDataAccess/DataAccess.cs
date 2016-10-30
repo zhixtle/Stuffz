@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PastebookEntities;
+using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace PastebookDataAccess
 {
@@ -18,7 +20,7 @@ namespace PastebookDataAccess
             {
                 using (var context = new PASTEBOOK_LIZBETHEntities())
                 {
-                    list = context.Set<T>().AsNoTracking().ToList<T>();
+                    list = context.Set<T>().ToList<T>();
                 }
             }
             catch (Exception ex)
@@ -28,14 +30,14 @@ namespace PastebookDataAccess
             return list;
         }
 
-        public List<T> GetSelected(Func<T, bool> where)
+        public List<T> GetSelected(Expression<Func<T, bool>> where)
         {
             List<T> list = new List<T>();
             try
             {
                 using (var context = new PASTEBOOK_LIZBETHEntities())
                 {
-                    list = context.Set<T>().AsNoTracking().Where(where).ToList<T>();
+                    list = context.Set<T>().Where(where).ToList<T>();
                 }
             }
             catch (Exception ex)
@@ -45,14 +47,58 @@ namespace PastebookDataAccess
             return list;
         }
 
-        public T GetSingle(Func<T, bool> where)
+        public List<T> GetSelected(Expression<Func<T, bool>> where, params string[] navigations)
+        {
+            List<T> list = new List<T>();
+            try
+            {
+                using (var context = new PASTEBOOK_LIZBETHEntities())
+                {
+                    var query = context.Set<T>().Where(where).AsQueryable();
+                    foreach(string navigation in navigations)
+                    {
+                        query = query.Include(navigation);
+                    }
+                    list = query.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfExceptions.Add(ex);
+            }
+            return list;
+        }
+
+        public T GetSingle(Expression<Func<T, bool>> where)
         {
             T item = null;
             try
             {
                 using (var context = new PASTEBOOK_LIZBETHEntities())
                 {
-                    item = context.Set<T>().AsNoTracking().FirstOrDefault(where);
+                    item = context.Set<T>().FirstOrDefault(where);
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfExceptions.Add(ex);
+            }
+            return item;
+        }
+
+        public T GetSingle(Expression<Func<T, bool>> where, params string[] navigations)
+        {
+            T item = null;
+            try
+            {
+                using (var context = new PASTEBOOK_LIZBETHEntities())
+                {
+                    var query = context.Set<T>().Where(where).AsQueryable();
+                    foreach (string navigation in navigations)
+                    {
+                        query = query.Include(navigation);
+                    }
+                    item = query.FirstOrDefault();
                 }
             }
             catch (Exception ex)

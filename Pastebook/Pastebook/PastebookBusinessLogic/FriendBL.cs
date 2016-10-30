@@ -11,8 +11,6 @@ namespace PastebookBusinessLogic
     public class FriendBL
     {
         private static DataAccess<FRIEND> friendDataAccess = new DataAccess<FRIEND>();
-        private static DataAccess<USER> userDataAccess = new DataAccess<USER>();
-        private static UserBL userBL = new UserBL();
 
         public bool AddFriend(FRIEND friend)
         {
@@ -34,80 +32,45 @@ namespace PastebookBusinessLogic
 
         public FRIEND GetFriendEntry(string username, string profileUsername)
         {
-            int userID = userBL.GetIDByUsername(username);
-            int profileID = userBL.GetIDByUsername(profileUsername);
             List<FRIEND> usersFriends = GetFriendsAndRequests(username);
-            FRIEND friend = usersFriends.Where(f => f.USER_ID == profileID || f.FRIEND_ID == profileID).SingleOrDefault();
+            FRIEND friend = usersFriends.Where(f => f.USER.USER_NAME == profileUsername || f.USER1.USER_NAME == profileUsername).SingleOrDefault();
             return friend;
         }
 
         public List<FRIEND> GetFriendsAndRequests(string username)
         {
-            int userID = userBL.GetIDByUsername(username);
-            List<FRIEND> friends = friendDataAccess.GetSelected(f => f.USER_ID == userID || f.FRIEND_ID == userID)
+            List<FRIEND> friends = friendDataAccess.GetSelected(f => f.USER.USER_NAME == username || f.USER1.USER_NAME == username)
                                                    .ToList();
             return friends;
         }
 
         public List<FRIEND> GetFriends(string username)
         {
-            int userID = userBL.GetIDByUsername(username);
-            List<FRIEND> friends = friendDataAccess.GetSelected(f => f.USER_ID == userID || f.FRIEND_ID == userID)
+            List<FRIEND> friends = friendDataAccess.GetSelected(f => f.USER.USER_NAME == username || f.USER1.USER_NAME == username, "USER", "USER1")
                                                          .Where(friend => friend.REQUEST == "N")
                                                          .ToList();
 
-            List<FRIEND> friendsSwapped = SwapFriends(friends, userID);
+            List<FRIEND> friendsSwapped = SwapFriends(friends, username);
             return friendsSwapped;
         }
 
         public List<USER> GetFriendsList(string username)
         {
-            int userID = userBL.GetIDByUsername(username);
             List<FRIEND> friends = GetFriends(username);
-
             List<USER> friendsList = new List<USER>();
-
             foreach (var item in friends)
             {
-                USER friend = userDataAccess.GetSingle(u => u.ID == item.FRIEND_ID);
-                friendsList.Add(friend);
+                friendsList.Add(item.USER);
             }
             return friendsList;
         }
 
-        public string IsUserAFriend(string username, string profileUsername)
-        {
-            int userID = userBL.GetIDByUsername(username);
-            int profileID = userBL.GetIDByUsername(profileUsername);
-            List<FRIEND> friendResults = GetFriendsAndRequests(username);
-            if (username == profileUsername)
-            {
-                return "Y";
-            }
-            else if (friendResults.Any(f => (f.FRIEND_ID == profileID || f.USER_ID == profileID) && f.REQUEST == "N"))
-            {
-                return "Y";
-            }
-            else if (friendResults.Any(f => (f.FRIEND_ID == userID && f.USER_ID == profileID) && f.REQUEST == "Y"))
-            {
-                return "C";
-            }
-            else if (friendResults.Any(f => (f.USER_ID == userID && f.FRIEND_ID == profileID) && f.REQUEST == "Y"))
-            {
-                return "R";
-            }
-            else
-            {
-                return "N";
-            }
-        }
-
-        public List<FRIEND> SwapFriends(List<FRIEND> friends, int userID)
+        public List<FRIEND> SwapFriends(List<FRIEND> friends, string username)
         {
             List<FRIEND> friendsSwapped = new List<FRIEND>();
             foreach (var item in friends)
             {
-                if (item.USER_ID == userID)
+                if (item.USER.USER_NAME == username)
                 {
                     friendsSwapped.Add(item);
                 }
@@ -120,7 +83,9 @@ namespace PastebookBusinessLogic
                         FRIEND_ID = item.USER_ID,
                         REQUEST = item.REQUEST,
                         BLOCKED = item.BLOCKED,
-                        CREATED_DATE = item.CREATED_DATE
+                        CREATED_DATE = item.CREATED_DATE,
+                        USER = item.USER,
+                        USER1 = item.USER1
                     });
                 }
             }

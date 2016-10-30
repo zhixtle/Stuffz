@@ -25,6 +25,5 @@ C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\bin\Deb
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\bin\Debug\EntityFramework.xml
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.csprojResolveAssemblyReference.cache
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.dll
 C:\Users\zhixt\Source\Repos\Stuffz\Pastebook\Pastebook\PastebookEntities\obj\Debug\PastebookEntities.pdb

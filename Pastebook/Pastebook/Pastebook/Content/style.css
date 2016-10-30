@@ -115,5 +115,6 @@ select.form-control{
 }
 
 span.status{
-    color: #22AD6A;
+    color: #aaa;
+    display: block;
 }

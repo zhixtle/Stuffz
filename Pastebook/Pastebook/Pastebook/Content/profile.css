@@ -92,3 +92,7 @@ textarea.profile-textarea{
     word-break: break-word;
     width: 80%;
 }
+
+.profile-about-me-count{
+    float: right;
+}

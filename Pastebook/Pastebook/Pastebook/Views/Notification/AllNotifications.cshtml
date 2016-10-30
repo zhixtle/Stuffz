@@ -17,7 +17,6 @@
                                 <span class="notif-content">@Html.DisplayFor(notif => item.SenderName) has liked your post.</span>
                                 <span class="notif-date-created">@Html.DisplayFor(notif => item.DateCreated)</span>
                             </a>
-                            <hr />
                             }
                             else if (item.NotifType == "C")
                             {
@@ -25,7 +24,6 @@
                                 <span class="notif-content">@Html.DisplayFor(notif => item.SenderName) has commented on your post.</span>
                                 <span class="notif-date-created">@Html.DisplayFor(notif => item.DateCreated)</span>
                             </a>
-                            <hr />
                             }
                             else if (item.NotifType == "F")
                             {
@@ -33,7 +31,6 @@
                                 <span class="notif-content">@Html.DisplayFor(notif => item.SenderName) has sent you a friend request.</span>
                                 <span class="notif-date-created">@Html.DisplayFor(notif => item.DateCreated)</span>
                             </a>
-                            <hr />
                             }
                         </div>
                     }
