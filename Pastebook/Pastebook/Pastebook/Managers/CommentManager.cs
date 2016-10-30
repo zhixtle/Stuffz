@@ -14,33 +14,41 @@ namespace Pastebook.Managers
         private static PostBL postBL = new PostBL();
         private static NotificationManager notifManager = new NotificationManager();
 
-        public bool CommentOnStatus(Models.CommentModel comment)
+        public bool CommentOnStatus(string postID, string content, string user)
         {
-            COMMENT newComment = new COMMENT()
+            string parsedContent = HttpUtility.HtmlDecode(content);
+            int id = Int32.Parse(postID);
+            if (parsedContent.Length > 1000 || id == 0)
             {
-                CONTENT = comment.Content,
-                DATE_CREATED = DateTime.Now,
-                POSTER_ID = userBL.GetIDByUsername(comment.PosterUsername),
-                POST_ID = comment.PostID
-            };
-            int commentSuccess = commentBL.CommentOnStatus(newComment);
-            int profileOwnerID = postBL.GetUserByPostID(comment.PostID);
-            bool notifSent = notifManager.CommentNotification(newComment.POSTER_ID, profileOwnerID, comment.PostID, commentSuccess);
-            return ((commentSuccess != 0) && notifSent);
+                return false;
+            }
+            else
+            {
+                COMMENT newComment = new COMMENT()
+                {
+                    CONTENT = parsedContent,
+                    DATE_CREATED = DateTime.Now,
+                    POSTER_ID = userBL.GetIDByUsername(user),
+                    POST_ID = id
+                };
+                int commentSuccess = commentBL.CommentOnStatus(newComment);
+                int profileOwnerID = postBL.GetUserByPostID(id);
+                bool notifSent = notifManager.CommentNotification(newComment.POSTER_ID, profileOwnerID, id, commentSuccess);
+                return ((commentSuccess != 0) && notifSent);
+            }
         }
 
-        public List<Models.CommentModel> GetCommentsOnPost(int postID)
+        public List<Models.CommentModel> GetCommentsOnPost(string postID)
         {
-            List<COMMENT> commentsResults = commentBL.GetCommentsOnPost(postID);
+            int id = Int32.Parse(postID);
+            List<COMMENT> commentsResults = commentBL.GetCommentsOnPost(id);
             List<Models.CommentModel> commentsOnPost = new List<Models.CommentModel>();
             foreach (var item in commentsResults)
             {
                 commentsOnPost.Add(new Models.CommentModel()
                 {
-                    CommentID = item.ID,
                     Content = item.CONTENT,
                     DateCreated = item.DATE_CREATED,
-                    PosterID = item.POSTER_ID,
                     PosterName = userBL.GetUserByID(item.POSTER_ID),
                     PosterUsername  = userBL.GetUsernameByID(item.POSTER_ID),
                     PostID = item.POST_ID

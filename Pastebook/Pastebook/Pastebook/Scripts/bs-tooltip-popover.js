@@ -1,6 +1,4 @@
-﻿var NotifsUrl = '/Home/NotificationsButton/';
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
     var $popover = $('[data-toggle="popover"]').popover({
@@ -11,7 +9,7 @@ $(document).ready(function () {
     });;
 
     $popover.on('hidden.bs.popover', function (e) {
-        $('#menu-notifs').load(NotifsUrl);
+        $('.notif-badge').hide();
     });;
 
     $(document).ajaxComplete(function () {
@@ -25,7 +23,7 @@ $(document).ready(function () {
         });;
 
         $popover.on('hidden.bs.popover', function (e) {
-            $('#menu-notifs').load(NotifsUrl);
+                $('.notif-badge').hide();
         });
     });
 });

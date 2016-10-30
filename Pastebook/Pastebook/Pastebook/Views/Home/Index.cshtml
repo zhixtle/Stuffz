@@ -1,10 +1,14 @@
 ﻿@Html.Partial("AddPost")
 @Html.Action("NewsFeedPosts", "Home")
-
+<img src="@Url.Content("~/Content/images/home-1-colored.png")" class="icon-current-page" width="100" height="100" />
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/addPost.js")"></script>
-    <script src="@Url.Content("~/Scripts/addLikeToNewsFeed.js")"></script>
-    <script src="@Url.Content("~/Scripts/addCommentToNewsFeed.js")"></script>
-<script src="@Url.Content("~/Scripts/refreshNewsFeed.js")"></script>
+    <script>
+        var GetPostsUrl = "@Url.Action("NewsFeedPosts", "Home")";
+        var AddPostUrl = "@Url.Action("AddPost", "Post")";
+        var AddCommentUrl = "@Url.Action("AddComment", "Post")";
+        var AddLikeUrl = "@Url.Action("AddLike", "Post")";
+        var RemoveLikeUrl = "@Url.Action("RemoveLike", "Post")";
+    </script>
+    <script src="@Url.Content("~/Scripts/home-newsfeed-handling.js")"></script>
 }

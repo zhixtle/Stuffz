@@ -4,7 +4,7 @@
             <div class="block-keep-ratio block-keep-ratio-2-1 block-width-full home">
                 <a href="@Url.Action("Index", "Home")" class="block-keep-ratio-content main-menu-link">
                     <span class="main-menu-link-text">
-                        HOME
+                        Home
                     </span>
                 </a>
             </div>
@@ -13,54 +13,47 @@
             <div class="block-keep-ratio block-keep-ratio-2-1 block-width-full profile" id="blockProfile">
                 <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = @Session["user"]})" class="block-keep-ratio-content main-menu-link">
                     <span class="main-menu-link-text">
-                        PROFILE - @Session["user"]
+                        Profile - @Session["user"]
                     </span>
                 </a>
             </div>
         </div>
-
         <div class="menu-container">
             <div class="block-keep-ratio  block-keep-ratio-1-1  block-width-half  pull-left  friends">
                 <a href="@Url.Action("Friends", "Home")" class="main-menu-link block-keep-ratio-content">
                     <span class="main-menu-link-text">
-                        FRIENDS
+                        Friends
                     </span>
                 </a>
             </div>
-
             <div id="menu-notifs">
-                @Html.Action("NotificationsButton", "Home");
+                @Html.Action("NotificationsButton", "Notification");
             </div>
-
         </div>
-
         <div class="menu-container">
             <div class="block-keep-ratio block-keep-ratio-2-1 block-width-full search">
-                <a href="@Url.Action("Search", "Home")" class="main-menu-link  block-keep-ratio-content">
+                <a href="@Url.Action("Search", "Search")" class="main-menu-link  block-keep-ratio-content">
                     <span class="main-menu-link-text">
-                        SEARCH
+                        Search
                     </span>
                 </a>
             </div>
         </div>
-
         <div class="menu-container">
             <div class="block-keep-ratio  block-keep-ratio-1-1  block-width-half  pull-left  settings">
-                <a href="@Url.Action("Settings", "Home")" class="main-menu-link block-keep-ratio-content">
+                <a href="@Url.Action("Settings", "Account")" class="main-menu-link block-keep-ratio-content">
                     <span class="main-menu-link-text">
-                        SETTINGS
+                        Settings
                     </span>
                 </a>
             </div>
-
             <div class="block-keep-ratio  block-keep-ratio-1-1  block-width-half  pull-right  logout" id="blockLogout">
-                <a href="@Url.Action("UserLogout", "Home")" class="main-menu-link block-keep-ratio-content text-center">
+                <a href="@Url.Action("UserLogout", "Account")" class="main-menu-link block-keep-ratio-content text-center">
                     <span class="main-menu-link-text">
-                        LOGOUT
+                        Logout
                     </span>
                 </a>
             </div>
         </div>
-
     </div>
 </div>

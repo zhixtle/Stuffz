@@ -14,37 +14,37 @@ namespace Pastebook.Managers
         private static PostBL postBL = new PostBL();
         private static NotificationManager notifManager = new NotificationManager();
 
-        public bool LikeStatus(string username, int postID)
+        public bool LikeStatus(string username, string postID)
         {
+            int id = Int32.Parse(postID);
             LIKE newLike = new LIKE()
             {
-                POST_ID = postID,
+                POST_ID = id,
                 LIKED_BY = userBL.GetIDByUsername(username)
             };
             bool likeSuccess = likeBL.LikeStatus(newLike);
-            int postOwnerID = postBL.GetUserByPostID(postID);
+            int postOwnerID = postBL.GetUserByPostID(id);
             bool notifSent = notifManager.LikeNotification(newLike.LIKED_BY, postOwnerID, newLike.POST_ID);
             return (likeSuccess && notifSent);
         }
 
-        public bool UnlikeStatus(string username, int postID)
+        public bool UnlikeStatus(string username, string postID)
         {
-            LIKE newLike = likeBL.GetLike(postID, userBL.GetIDByUsername(username));
+            int id = Int32.Parse(postID);
+            LIKE newLike = likeBL.GetLike(id, userBL.GetIDByUsername(username));
             bool unlikeSuccess = likeBL.UnlikeStatus(newLike);
             return unlikeSuccess;
         }
 
-        public List<Models.LikeModel> GetLikesOnPost(int postID)
+        public List<Models.LikeModel> GetLikesOnPost(string postID)
         {
-            List<LIKE> likesResults = likeBL.GetLikesOnPost(postID);
+            int id = Int32.Parse(postID);
+            List<LIKE> likesResults = likeBL.GetLikesOnPost(id);
             List<Models.LikeModel> likesOnPost = new List<Models.LikeModel>();
             foreach(var item in likesResults)
             {
                 likesOnPost.Add(new Models.LikeModel()
                 {
-                    LikeID = item.ID,
-                    PostID = item.POST_ID,
-                    LikedByID = item.LIKED_BY,
                     LikedByName = userBL.GetUserByID(item.LIKED_BY)
                 });
             }

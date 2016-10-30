@@ -12,21 +12,28 @@ namespace Pastebook.Managers
         private static PostBL postBL = new PostBL();
         private static UserBL userBL = new UserBL();
 
-        public bool PostStatus(Models.PostModel post)
+        public bool PostStatus(string content, string user, string poster)
         {
-            POST newPost = new POST()
+            string parsedContent = HttpUtility.HtmlDecode(content);
+            if (parsedContent.Length > 1000)
             {
-                CONTENT = post.Content,
-                CREATED_DATE = DateTime.Now,
-                POSTER_ID = userBL.GetIDByUsername(post.PosterUsername),
-                PROFILE_OWNER_ID = userBL.GetIDByUsername(post.ProfileOwnerUsername)
-            };
-
-            bool postSuccess = postBL.PostStatus(newPost);
-            return postSuccess;
+                return false;
+            }
+            else
+            {
+                POST newPost = new POST()
+                {
+                    CONTENT = parsedContent,
+                    CREATED_DATE = DateTime.Now,
+                    POSTER_ID = userBL.GetIDByUsername(poster),
+                    PROFILE_OWNER_ID = userBL.GetIDByUsername(user)
+                };
+                bool postSuccess = postBL.PostStatus(newPost);
+                return postSuccess;
+            }
         }
 
-        public Models.PostModel GetPost(int postID)
+        public Models.PostModel GetPost(int postID, string currentUser)
         {
             POST postResult = postBL.GetPost(postID);
             Models.PostModel post = new Models.PostModel() {
@@ -39,12 +46,13 @@ namespace Pastebook.Managers
                 ProfileOwnerID = postResult.PROFILE_OWNER_ID,
                 ProfileOwnerName = userBL.GetUserByID(postResult.PROFILE_OWNER_ID),
                 ProfileOwnerUsername = userBL.GetUsernameByID(postResult.PROFILE_OWNER_ID),
-                LikesCount = postBL.GetLikesCountOnPost(postResult.ID)
+                LikesCount = postBL.GetLikesCountOnPost(postResult.ID),
+                IsLiked = IsPostLikedByUser(postResult.ID, currentUser)
             };
             return post;
         }
 
-        public List<Models.PostModel> GetTimeline(string username)
+        public List<Models.PostModel> GetTimeline(string username, string currentUser)
         {
             List<POST> postsResults = postBL.GetTimeline(username);
             List<Models.PostModel> newsFeed = new List<Models.PostModel>();
@@ -61,7 +69,8 @@ namespace Pastebook.Managers
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
                     ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
                     ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
-                    LikesCount = postBL.GetLikesCountOnPost(item.ID)
+                    LikesCount = postBL.GetLikesCountOnPost(item.ID),
+                    IsLiked = IsPostLikedByUser(item.ID, currentUser)
                 });
             }
             return newsFeed;
@@ -84,7 +93,8 @@ namespace Pastebook.Managers
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
                     ProfileOwnerName = userBL.GetUserByID(item.PROFILE_OWNER_ID),
                     ProfileOwnerUsername = userBL.GetUsernameByID(item.PROFILE_OWNER_ID),
-                    LikesCount = postBL.GetLikesCountOnPost(item.ID)
+                    LikesCount = postBL.GetLikesCountOnPost(item.ID),
+                    IsLiked = IsPostLikedByUser(item.ID, username)
                 });
             }
             return newsFeed;

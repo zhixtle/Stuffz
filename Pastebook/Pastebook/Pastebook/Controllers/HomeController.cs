@@ -8,9 +8,7 @@ namespace Pastebook.Controllers
 {
     public class HomeController : Controller
     {
-        private static Managers.CountryManager countryManager = new Managers.CountryManager();
-        private static List<Models.CountryModel> countriesList = countryManager.GetCountriesList();
-
+        [Route("")]
         public ActionResult Index()
         {
             if (Session["user" ] == null)
@@ -22,93 +20,25 @@ namespace Pastebook.Controllers
 
         public ActionResult NewsFeedPosts()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Managers.PostManager postManager = new Managers.PostManager();
             List<Models.PostModel> newsFeed = postManager.GetNewsFeed(Session["user"].ToString());
-            foreach (var item in newsFeed)
-            {
-                item.IsLiked = postManager.IsPostLikedByUser(item.PostID, Session["user"].ToString());
-            }
             return PartialView("PostsList", newsFeed);
         }
 
-        public ActionResult UserLogout()
-        {
-            Session.Clear();
-            return RedirectToAction("Login");
-        }
-
-
-        public ActionResult Settings()
-        {
-            Managers.UserManager userManager = new Managers.UserManager();
-            Models.UserModel model = userManager.GetUser(Session["user"].ToString());
-            ViewData["Countries"] = countriesList;
-            return View(model);
-        }
-
-        public ActionResult Search()
-        {
-            return View();
-        }
-
-        public JsonResult GetSearchResults(string searchQuery)
-        {
-            return Json(new { results = searchQuery }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult SearchResults(string searchQuery)
-        {
-            string parsedQuery = HttpUtility.HtmlDecode(searchQuery);
-            Managers.UserManager userManager = new Managers.UserManager();
-            List<Models.UserProfileModel> model = userManager.GetUsersSearchResults(parsedQuery);
-            return PartialView("SearchResults", model);
-        }
-
+        [Route("friends")]
         public ActionResult Friends()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Managers.FriendManager friendManager = new Managers.FriendManager();
             List<Models.FriendModel> friendsList = friendManager.GetFriendsList(Session["user"].ToString());
             return View(friendsList);
-        }
-
-        public ActionResult Notifications()
-        {
-            Managers.NotificationManager notifManager = new Managers.NotificationManager();
-            List<Models.NotificationModel> notifsList = notifManager.GetUnreadNotifications(Session["user"].ToString());
-            if (notifsList == null)
-            {
-                return null;
-            }
-            return PartialView("Notifications", notifsList);
-        }
-
-        public ActionResult AllNotifications()
-        {
-            Managers.NotificationManager notifManager = new Managers.NotificationManager();
-            List<Models.NotificationModel> notifsList = notifManager.GetAllNotifications(Session["user"].ToString());
-            if (notifsList == null)
-            {
-                return null;
-            }
-            return View("AllNotifications", notifsList);
-        }
-
-        public ActionResult NotificationsButton()
-        {
-            Managers.NotificationManager notifManager = new Managers.NotificationManager();
-            List<Models.NotificationModel> notifsList = notifManager.GetUnreadNotifications(Session["user"].ToString());
-            if (notifsList == null)
-            {
-                return null;
-            }
-            return PartialView("NotificationsButton", notifsList);
-        }
-
-        public JsonResult SeeNotification(int notifID)
-        {
-            Managers.NotificationManager notifManager = new Managers.NotificationManager();
-            bool seenNotifs = notifManager.SeeNotification(notifID);
-            return Json(new { Status = seenNotifs }, JsonRequestBehavior.AllowGet);
         }
     }
 }

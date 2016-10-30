@@ -9,7 +9,7 @@
     }
     @foreach (var item in Model)
     {
-        var viewPostID = Html.DisplayFor(comment => item.PostID);
+        var viewPostID = item.PostID;
         <div class="comment-item">
             <div class="comment-date">
                 <p class="text-uppercase">@Html.DisplayFor(comment => item.DateCreated)</p>

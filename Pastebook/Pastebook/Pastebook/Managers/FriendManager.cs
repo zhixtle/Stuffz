@@ -51,7 +51,6 @@ namespace Pastebook.Managers
             {
                 friendsList.Add(new Models.FriendModel()
                 {
-                    UserID = item.ID,
                     FirstName = item.FIRST_NAME,
                     LastName = item.LAST_NAME,
                     Username = item.USER_NAME

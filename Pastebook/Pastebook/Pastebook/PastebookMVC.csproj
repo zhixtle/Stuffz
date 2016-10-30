@@ -157,8 +157,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,11 +186,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\comment.css" />
     <Content Include="Content\friends.css" />
+    <Content Include="Content\images\default-user.png" />
     <Content Include="Content\images\diagmonds.png" />
+    <Content Include="Content\images\exit-2.png" />
+    <Content Include="Content\images\home-1-colored.png" />
+    <Content Include="Content\images\home-1.png" />
+    <Content Include="Content\images\notification-colored.png" />
+    <Content Include="Content\images\notification.png" />
+    <Content Include="Content\images\pastebook-icon.png" />
+    <Content Include="Content\images\search-colored.png" />
+    <Content Include="Content\images\search.png" />
+    <Content Include="Content\images\settings-5-colored.png" />
+    <Content Include="Content\images\settings-5.png" />
+    <Content Include="Content\images\user-colored.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\users-1-colored.png" />
+    <Content Include="Content\images\users-1.png" />
     <Content Include="Content\like.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\navbar.css" />
@@ -201,25 +220,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\addComment.js" />
-    <Content Include="Scripts\addCommentToNewsFeed.js" />
-    <Content Include="Scripts\addCommentToTimeline.js" />
-    <Content Include="Scripts\addLike.js" />
-    <Content Include="Scripts\addLikeToNewsFeed.js" />
-    <Content Include="Scripts\addLikeToTimeline.js" />
-    <Content Include="Scripts\addPostToTimeline.js" />
-    <Content Include="Scripts\addPost.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\PastebookTest.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bs-datepicker.js" />
     <Content Include="Scripts\bs-tooltip-popover.js" />
-    <Content Include="Scripts\confirmDeleteFriendRequest.js" />
+    <Content Include="Scripts\home-newsfeed-handling.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -227,18 +244,24 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\loginChecker.js" />
+    <Content Include="Scripts\login-checker.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\refreshNewsFeed.js" />
-    <Content Include="Scripts\refreshNotifs.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\notification-see.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\post-page-handling.js" />
+    <Content Include="Scripts\profile-page-editing.js" />
+    <Content Include="Scripts\profile-page-friend-handling.js" />
+    <Content Include="Scripts\profile-page-timeline-handling.js" />
+    <Content Include="Scripts\register-checker.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\saveAboutMe.js" />
-    <Content Include="Scripts\saveEmailPassword.js" />
-    <Content Include="Scripts\savePicture.js" />
-    <Content Include="Scripts\searchUser.js" />
-    <Content Include="Scripts\seeNotif.js" />
-    <Content Include="Scripts\sendFriendRequest.js" />
+    <Content Include="Scripts\search-user.js" />
+    <Content Include="Scripts\settings-credentials-editing.js" />
+    <Content Include="Scripts\settings-existing-user-checker.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -265,20 +288,20 @@
     <Content Include="Views\Post\Likes.cshtml" />
     <Content Include="Views\Post\Comments.cshtml" />
     <Content Include="Views\Home\Friends.cshtml" />
-    <Content Include="Views\Shared\Notifications.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\Settings.cshtml" />
-    <Content Include="Views\Home\SearchResults.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ValidateRegistration.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
+    <Content Include="Views\Error\Oops.cshtml" />
+    <Content Include="Views\Notification\AllNotifications.cshtml" />
+    <Content Include="Views\Notification\Notifications.cshtml" />
+    <Content Include="Views\Notification\NotificationsButton.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Search\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

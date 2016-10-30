@@ -62,6 +62,20 @@ namespace PastebookBusinessLogic
             return userExists;
         }
 
+        public bool DoesEmailExist(string email)
+        {
+            bool userExists = false;
+            userExists = userDataAccess.GetAll().Any(u => u.EMAIL_ADDRESS == email);
+            return userExists;
+        }
+
+        public bool DoesUsernameExist(string username)
+        {
+            bool userExists = false;
+            userExists = userDataAccess.GetAll().Any(u => u.USER_NAME == username);
+            return userExists;
+        }
+
         public USER GetUserProfile(string username)
         {
             USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
@@ -85,7 +99,14 @@ namespace PastebookBusinessLogic
         public string GetUsernameByEmail(string email)
         {
             USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);
-            return user.USER_NAME;
+            if (user != null)
+            {
+                return user.USER_NAME;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string GetUsernameByID(int id)

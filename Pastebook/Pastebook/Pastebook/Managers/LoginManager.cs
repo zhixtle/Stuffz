@@ -36,28 +36,32 @@ namespace Pastebook.Managers
         public bool[] CheckUserAccount(string emailAddress, string password)
         {
             bool[] userAccountResult = new bool[] { false, false };
-            userAccountResult[0] = userBL.DoesUserExist(emailAddress);
-            if (userAccountResult[0] == true)
+            string parsedEmailAddress = HttpUtility.HtmlDecode(emailAddress);
+            string parsedPassword = HttpUtility.HtmlDecode(password);
+            if (String.IsNullOrEmpty(parsedEmailAddress) == false && String.IsNullOrEmpty(parsedPassword) == false)
             {
-                userAccountResult[1] = userBL.LoginUser(emailAddress, password);
-            }
-            else
-            {
-                userAccountResult[1] = false;
+                userAccountResult[0] = userBL.DoesUserExist(parsedEmailAddress);
+                if (userAccountResult[0] == true)
+                {
+                    userAccountResult[1] = userBL.LoginUser(parsedEmailAddress, parsedPassword);
+                }
+                else
+                {
+                    userAccountResult[1] = false;
+                }
             }
             return userAccountResult;
+        }
+
+        public bool CheckLoginFailed(bool[] checkResult)
+        {
+            bool userCheckResult = checkResult.Any(stat => stat == false);
+            return userCheckResult;
         }
 
         public string GetUsername(string email)
         {
             return userBL.GetUsernameByEmail(email);
-        }
-
-        public bool CheckOldPassword(string username, string oldPassword)
-        {
-            bool check = false;
-            check = userBL.CheckOldPassword(username, oldPassword);
-            return check;
-        }
+        }        
     }
 }

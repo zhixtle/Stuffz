@@ -17,5 +17,20 @@ namespace Pastebook
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+
+            HttpException httpException = exception as HttpException;
+            int exceptionCode = httpException.GetHttpCode();
+
+            Response.Clear();
+
+            if (httpException != null)
+            {
+                Response.Redirect(String.Format("~/oops/{0}", exceptionCode));
+            }
+        }
     }
 }

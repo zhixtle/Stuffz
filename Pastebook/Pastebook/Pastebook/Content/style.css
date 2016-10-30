@@ -31,15 +31,6 @@ body {
     padding-left: 340px;
 }
 
-.copyright {
-	color: #fff;
-	font-size: 12px;
-    margin-top: 20px;
-	margin-bottom: 20px;
-    margin-right: 15px;
-	text-align: right;
-}
-
 
 
 @media (max-width:1000px) {
@@ -54,27 +45,29 @@ body {
     	max-width: 100%;
 	}
 
-	.content-main { padding-left: 0; }
+	.content-main { 
+        padding-left: 0; 
+	}
 }
 
 
 
-.form-group { margin-bottom: 25px; }
+.form-group { 
+    margin-bottom: 25px; 
+}
 
 .form-control {
 	border-radius: 5px;
-	height:43px;
 }
+
 .form-control:focus {
     border-color: rgb(25, 192, 200);
     outline: 0;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(25,192,200,.6);
 }
 
-
-
 .tooltip-inner {
-    white-space:pre-wrap;
+    white-space: pre-wrap;
 }
 
 .popover{
@@ -87,7 +80,40 @@ body {
     word-break: break-word;
 }
 
+.field-validation-valid{
+    color: #F86330;
+    word-break: break-word;
+}
+
 input.form-control{
     width: 100%;
     max-width: 100%;
+}
+
+select.form-control{
+    width: 100%;
+    max-width: 100%;
+}
+
+.nav-pills li a{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.footer{
+    margin-top: 50px;
+	color: #fff;
+	font-size: 10px;
+	text-align: right;
+    margin-bottom: 20px;
+}
+
+.icon-current-page{
+    position: absolute;
+    top: -40px;
+    right: -40px;
+}
+
+span.status{
+    color: #22AD6A;
 }

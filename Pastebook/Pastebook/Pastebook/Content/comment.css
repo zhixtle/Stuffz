@@ -88,14 +88,10 @@ input.comment-add-content{
     max-width: 100%;
 }
 
-.comment-add-content-area{
-}
-
 .comment-none{
     text-align: center;
 }
 
 p.comment-none{
-    
     margin-bottom: 0px;
 }

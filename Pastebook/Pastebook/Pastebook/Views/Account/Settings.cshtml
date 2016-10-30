@@ -1,0 +1,239 @@
+﻿@model Pastebook.Models.UserModel
+<div class="content-main">
+    <div class="row margin-b-30">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="content-item">
+                <div id="settings-page">
+                    <div class="settings-head">
+                        <h2>Edit Account Info</h2>
+                    </div>
+                    <div class="settings-pills-area">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="pill" href="#detailsMenu">User Details</a></li>
+                            <li><a data-toggle="pill" href="#emailMenu">Change Email</a></li>
+                            <li><a data-toggle="pill" href="#passwordMenu">Change Password</a></li>
+                        </ul>
+                    </div>
+                    <div class="settings-tabs-area">
+                        <div class="tab-content">
+                            <div id="detailsMenu" class="tab-pane fade in active">
+                                @using (Html.BeginForm("EditDetails", "Account", FormMethod.Post, new { id = "editDetailsForm", name = "editDetailsForm" }))
+                                {
+                                    <div class="settings-tab-head">
+                                        <h3>Edit User Details</h3>
+                                    </div>
+                                    <div class="settings-tab-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Username, "Username:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.Username, new { id = "txtUsername", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Username, "", new { id = "validationUsername" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.FirstName, "First Name:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstName", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { id = "validationFirstName" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.LastName, "Last Name:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.LastName, new { id = "txtLastName", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.LastName, "", new { id = "validationLastName" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Birthday, "Birthday (mm/dd/yyyy):", new { @class = "desc" })
+                                                    @Html.EditorFor(m => m.Birthday, "{0:MM/dd/yyyy}", new { htmlAttributes = new { id = "txtBirthday", type = "text", @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(m => m.Birthday, "", new { id = "validationBirthday" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Gender, "Gender:", new { @class = "desc", name = "gender" })
+                                                    @if (Model.Gender == "Male")
+                                                    {
+                                                        <div class="form-inline">
+                                                            @Html.RadioButtonFor(m => m.Gender, "M", new { @checked = "checked", name = "gender" }) Male
+                                                        </div>
+                                                        <div class="form-inline">
+                                                            @Html.RadioButtonFor(m => m.Gender, "F", new { name = "gender" }) Female
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="form-inline">
+                                                            @Html.RadioButtonFor(m => m.Gender, "M", new { name = "gender" }) Male
+                                                        </div>
+                                                        <div class="form-inline">
+                                                            @Html.RadioButtonFor(m => m.Gender, "F", new { @checked = "checked", name = "gender" }) Female
+                                                        </div>
+                                                    }
+                                                    @Html.ValidationMessageFor(m => m.Gender)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.CountryID, "Country:", new { @class = "desc" })
+                                                    @Html.DropDownListFor(m => m.CountryID, new SelectList((System.Collections.IEnumerable)ViewData["Countries"], "CountryID", "CountryName"), "Select Country", new { id = "selCountry", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.CountryID)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.MobileNumber, "Mobile Number:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.MobileNumber, new { id = "txtNumber", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { id = "validationNumber" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                @if (ViewData["saveDetails"] != null)
+                                                {
+                                                    if (ViewData["saveDetails"].Equals(true))
+                                                    {
+                                                        <span id="detailsStatus" class="status"> User details successfully changed. </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span id="detailsStatus" class="status"> Error, details could not be changed. </span>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn settings-button" id="btnSaveProfile">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div id="emailMenu" class="tab-pane fade">
+                                <div class="settings-tab-head">
+                                    <h3>
+                                        Change Email Address
+                                    </h3>
+                                    <p>Changing your email address requires your current password.</p>
+                                </div>
+                                <div class="settings-tab-body">
+                                    @{
+                                        Model.Password = "";
+                                    }
+                                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "editEmailForm", name = "editEmailForm" }))
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Password, "Current Password:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.Password, new { id = "txtOldPasswordEmail", type = "password", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Password, "", new { id = "validationOldPasswordEmail" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.EmailAddress, "Email Address:", new { @class = "desc" })
+                                                    @Html.TextBoxFor(m => m.EmailAddress, new { id = "txtEmail", type = "email", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.EmailAddress, "", new { id = "validationEmail" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <span id="emailStatus" class="status"> </span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn settings-button" id="btnSaveEmail">Save</button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div id="passwordMenu" class="tab-pane fade">
+                                <div class="settings-tab-head">
+                                    <h3>
+                                        Change Password
+                                    </h3>
+                                    <p>Changing your password requires your current password.</p>
+                                </div>
+                                <div class="settings-tab-body">
+                                    @{
+                                        Model.Password = "";
+                                    }
+                                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "editPassForm", name = "editPassForm" }))
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("", "Current Password:", new { @class = "" })
+                                                    @Html.TextBox("txtboxOldPass", "", new { id = "txtOldPasswordPass", type = "password", @class = "form-control" })
+                                                    @Html.ValidationMessage("", new { id = "validationOldPasswordPass" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Password, "New Password:", new { @class = "" })
+                                                    @Html.TextBoxFor(m => m.Password, new { id = "txtNewPassword", type = "password", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Password, "", new { id = "validationNewPassword" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.ConfirmPassword, "Confirm New Password:", new { @class = "" })
+                                                    @Html.TextBoxFor(m => m.ConfirmPassword, new { id = "txtConfirmPassword", type = "password", @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { id = "validationConfirmPassword" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <span id="passwordStatus" class="status"> </span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn settings-button" id="btnSavePassword">Save</button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<img src="@Url.Content("~/Content/images/settings-5-colored.png")" class="icon-current-page" width="100" height="100" />
+@section scripts{
+    <script>
+        var CheckOldPasswordUrl = "@Url.Action("CheckOldPassword", "Account")";
+        var SaveEmailUrl = "@Url.Action("EditEmail", "Account")";
+        var SavePassUrl = "@Url.Action("EditPassword", "Account")";
+        var CheckEmailUrl = "@Url.Action("CheckExistingEmail", "Account")";
+        var CheckUsernameUrl = "@Url.Action("CheckExistingUsername", "Account")";
+    </script>
+    <script src="@Url.Content("~/Scripts/bs-datepicker.js")"></script>
+    <script src="@Url.Content("~/Scripts/settings-credentials-editing.js")"></script>
+    <script src="@Url.Content("~/Scripts/settings-existing-user-checker.js")"></script>
+    <script>
+        $(document).ready(function () {
+            $('#txtBirthday').val('@Model.Birthday.ToShortDateString()');
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

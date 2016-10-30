@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Pastebook.Models.NotificationModel>
+
+<div class='notif-list-area'>
+    @foreach (var item in Model)
+    {
+        <div class='btnNotif notif-item' id='@item.NotificationID'>
+            @if (item.NotifType == "L")
+            {
+                <a href='@Url.Action("Posts", "Post", new { id = item.PostID })'>
+                    <span class='notif-content'>@Html.DisplayFor(notif => item.SenderName) has liked your post.</span>
+                    <span class='notif-date-created'>@Html.DisplayFor(notif => item.DateCreated)</span>
+                </a>
+
+            }
+            else if (item.NotifType == "C")
+            {
+                <a href='@Url.Action("Posts", "Post", new { id = item.PostID })'>
+                    <span class='notif-content'>@Html.DisplayFor(notif => item.SenderName) has commented on your post.</span>
+                    <span class='notif-date-created'>@Html.DisplayFor(notif => item.DateCreated)</span>
+                </a>
+            }
+            else if (item.NotifType == "F")
+            {
+                <a href='@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.SenderUsername })'>
+                    <span class='notif-content'>@Html.DisplayFor(notif => item.SenderName) has sent you a friend request.</span>
+                    <span class='notif-date-created'>@Html.DisplayFor(notif => item.DateCreated)</span>
+                </a>
+            }
+        </div>
+    }
+</div>
+<div class='notif-bottom-area'>
+    <a href='@Url.Action("AllNotifications", "Notification")'>
+        <span class='notif-bottom'>See All Notifications</span>
+    </a>
+</div>
+

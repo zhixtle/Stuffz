@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Pastebook.Models.UserProfileModel>
+
+@if(Model.Count() == 0)
+{
+    <div class="search-item">
+        <span> No results found.</span>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    string imgSrc = null;
+    if (item.ProfilePic != null)
+    {
+        var base64 = Convert.ToBase64String(item.ProfilePic);
+        imgSrc = String.Format("data:image/png;base64,{0}", base64);
+    }
+    else
+    {
+        imgSrc = Href("~/Content/images/default-user.png");
+    }
+    <div class="search-item">
+        <img src="@imgSrc" height="50" width="50" />
+        <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.Username })">
+            @Html.DisplayFor(friend => item.FirstName) @Html.DisplayFor(friend => item.LastName)
+        </a>
+    </div>
+}
+

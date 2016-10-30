@@ -1,249 +1,226 @@
 ﻿@model Pastebook.Models.UserProfileModel
-
 @{
-    var viewUsername = Html.DisplayFor(model => model.Username);
+    var viewUsername = Model.Username;
 }
-
 @if (Model.IsFriend == "Y")
 {
     <div class="content-main">
         <div class="row margin-b-30">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="content-item">
-                    <div>
-
-                        <div class="profile-icon">
-                            @{
-                                string imgSrc = null;
-                                if (Model.ProfilePic != null)
+                    <div class="profile-icon">
+                        @{
+                            string imgSrc = null;
+                            if (Model.ProfilePic != null)
+                            {
+                                var base64 = Convert.ToBase64String(Model.ProfilePic);
+                                imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                            }
+                            else
+                            {
+                                imgSrc = Href("~/Content/images/default-user.png");
+                            }
+                        }
+                        <img src="@imgSrc" height="200" width="200" />
+                    </div>
+                    <div class="profile-user">
+                        <p class="profile-user">@Html.DisplayFor(model => model.Username)</p>
+                    </div>
+                    <hr />
+                    <input type="hidden" id="username" value="@Model.Username" />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FirstName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.LastName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmailAddress)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.EmailAddress)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Birthday)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Birthday)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Gender)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Country)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Country)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MobileNumber)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.MobileNumber)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AboutMe)
+                        </dt>
+                        <dd>
+                            <div class="profile-about-me-content">
+                                @Html.DisplayFor(model => model.AboutMe)
+                            </div>
+                        </dd>
+                    </dl>
+                    <div class="row profile-button-area">
+                        @if (Model.Username == Session["user"].ToString())
+                        {
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                @if (Model.AboutMe == null)
                                 {
-                                    var base64 = Convert.ToBase64String(Model.ProfilePic);
-                                    imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                    <button type="button" id="btnAddAboutMe" class="btn profile-button" data-toggle="collapse" data-target="#editingAboutMe">Add About Me</button>
                                 }
                                 else
                                 {
-                                    imgSrc = Href("~/Content/images/default-user.png");
+                                    <button type="button" id="btnEditAboutMe" class="btn profile-button" data-toggle="collapse" data-target="#editingAboutMe">Edit About Me</button>
                                 }
-                            }
-
-                            <img src="@imgSrc" height="200" width="200" />
-                        </div>
-
-                        <div class="profile-user">
-                            <p class="profile-user">@Html.DisplayFor(model => model.Username)</p>
-                        </div>
-                        <hr />
-                        <input type="hidden" id="username" value="@Model.Username" />
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.FirstName)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.FirstName)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.LastName)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.LastName)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.EmailAddress)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.EmailAddress)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Birthday)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Birthday)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Gender)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Gender)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Country)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Country)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.MobileNumber)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.MobileNumber)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.AboutMe)
-                            </dt>
-
-                            <dd>
-                                <div class="profile-about-me-content">
-                                    @Html.DisplayFor(model => model.AboutMe)
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                @if (Model.ProfilePic == null)
+                                {
+                                    <button type="button" id="btnAddPicture" class="btn profile-button" data-toggle="collapse" data-target="#editingProfile">Add Profile Picture</button>
+                                }
+                                else
+                                {
+                                    <button type="button" id="btnEditPicture" class="btn profile-button" data-toggle="collapse" data-target="#editingProfile">Edit Profile Picture</button>
+                                }
+                            </div>
+                            <div id="editingAboutMe" class="collapse">
+                                <div class="profile-textarea-area">
+                                    <textarea id="textAboutMe" class="profile-textarea" rows="5">@Html.DisplayFor(model => model.AboutMe)</textarea>
+                                    <span id="aboutMeStatus" class="status"> </span>
+                                    <button type="button" id="btnSaveAboutMe" class="btn profile-button-about-me">Save</button>
                                 </div>
-                            </dd>
-                        </dl>
-
-                        <div class="row profile-button-area">
-                            @if (Model.Username == Session["user"].ToString())
-                            {
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    @if (Model.AboutMe == null)
+                            </div>
+                            <div id="editingProfile" class="collapse">
+                                <div class="profile-picture-area">
+                                    @using (Html.BeginForm("SaveProfilePicture", "UserProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                     {
-                                        <button type="button" id="btnAddAboutMe" class="btn profile-button" data-toggle="collapse" data-target="#editingAboutMe">Add About Me</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="button" id="btnEditAboutMe" class="btn profile-button" data-toggle="collapse" data-target="#editingAboutMe">Edit About Me</button>
-                                    }
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    @if (Model.ProfilePic == null)
-                                    {
-                                        <button type="button" id="btnAddPicture" class="btn profile-button" data-toggle="collapse" data-target="#editingProfile">Add Profile Picture</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="button" id="btnEditPicture" class="btn profile-button" data-toggle="collapse" data-target="#editingProfile">Edit Profile Picture</button>
-                                    }
-                                </div>
-
-                                <div id="editingAboutMe" class="collapse">
-                                    <div class="profile-textarea-area">
-                                        <textarea id="textAboutMe" class="profile-textarea" rows="5">@Html.DisplayFor(model => model.AboutMe)</textarea>
-
-                                        <button type="button" id="btnSaveAboutMe" class="btn profile-button-about-me">Save</button>
-                                    </div>
-                                </div>
-
-                                    <div id="editingProfile" class="collapse">
-                                        <div class="profile-picture-area">
-                                            @using (Html.BeginForm("SaveProfilePicture", "UserProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        <label for="file">Upload Image:</label>
+                                        <input type="file" name="file" id="file" accept="image/*" />
+                                        if (ViewData["savePicture"] != null)
+                                        {
+                                            if (ViewData["savePicture"].Equals(true))
                                             {
-                                                <label for="file">Upload Image:</label>
-                                                <input type="file" name="file" id="file" />
-                                                <button type="submit" class="btn profile-button-image">Upload</button>
+                                                <span id="pictureStatus" class="status"> Profile picture successfully saved. </span>
                                             }
-                                        </div>
-                                    </div>
-                            }
-                        </div>
+                                            else
+                                            {
+                                                <span id="pictureStatus" class="status"> Error, picture could not be saved. </span>
+                                            }
+                                        }
+                                        <span id="pictureExtStatus" class="status"> </span>
+                                        <button type="submit" id="btnSavePicture" class="btn profile-button-image">Upload</button>
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div>
         @Html.Partial("AddPost")
         @Html.Action("TimelinePosts", "UserProfile", new { username = viewUsername })
     </div>
-                                }
-
-                                else
-                                {
-
-                                    <div class="content-main">
-                                        <div class="row margin-b-30">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="content-item">
-                                                    <div>
-
-                                                        <div class="profile-icon">
-                                                            @{
-                                                                string imgSrc = null;
-                                                                if (Model.ProfilePic != null)
-                                                                {
-                                                                    var base64 = Convert.ToBase64String(Model.ProfilePic);
-                                                                    imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                }
-                                                                else
-                                                                {
-                                                                    imgSrc = Href("~/Content/images/default-user.png");
-                                                                }
-                                                            }
-
-                                                            <img src="@imgSrc" height="200" width="200" />
+                            }
+                            else
+                            {
+                                <div class="content-main">
+                                    <div class="row margin-b-30">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="content-item">
+                                                <div class="profile-icon">
+                                                    @{
+                                                        string imgSrc = null;
+                                                        if (Model.ProfilePic != null)
+                                                        {
+                                                            var base64 = Convert.ToBase64String(Model.ProfilePic);
+                                                            imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                        }
+                                                        else
+                                                        {
+                                                            imgSrc = Href("~/Content/images/default-user.png");
+                                                        }
+                                                    }
+                                                    <img src="@imgSrc" height="200" width="200" />
+                                                </div>
+                                                <div class="profile-user">
+                                                    <p class="profile-user">@Html.DisplayFor(model => model.Username)</p>
+                                                </div>
+                                                <hr />
+                                                <input type="hidden" id="username" value="@Model.Username" />
+                                                <dl class="dl-horizontal">
+                                                    <dt>
+                                                        @Html.DisplayNameFor(model => model.FirstName)
+                                                    </dt>
+                                                    <dd>
+                                                        @Html.DisplayFor(model => model.FirstName)
+                                                    </dd>
+                                                    <dt>
+                                                        @Html.DisplayNameFor(model => model.LastName)
+                                                    </dt>
+                                                    <dd>
+                                                        @Html.DisplayFor(model => model.LastName)
+                                                    </dd>
+                                                </dl>
+                                                <div class="row profile-button-area">
+                                                    @if (Model.IsFriend == "N")
+                                                    {
+                                                        <button type="button" id="btnFriendRequest" class="btn profile-button">Add Friend</button>
+                                                    }
+                                                    else if (Model.IsFriend == "R")
+                                                    {
+                                                        <button type="button" id="btnFriendRequest" class="btn profile-button" disabled>Friend Request Sent</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <button type="button" id="btnFriendConfirm" class="btn profile-button">Confirm Friend Request</button>
                                                         </div>
-
-                                                        <div class="profile-user">
-                                                            <p class="profile-user">@Html.DisplayFor(model => model.Username)</p>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <button type="button" id="btnFriendDelete" class="btn profile-button">Delete Friend Request</button>
                                                         </div>
-                                                        <hr />
-                                                        <input type="hidden" id="username" value="@Model.Username" />
-
-                                                        <dl class="dl-horizontal">
-                                                            <dt>
-                                                                @Html.DisplayNameFor(model => model.FirstName)
-                                                            </dt>
-
-                                                            <dd>
-                                                                @Html.DisplayFor(model => model.FirstName)
-                                                            </dd>
-
-                                                            <dt>
-                                                                @Html.DisplayNameFor(model => model.LastName)
-                                                            </dt>
-
-                                                            <dd>
-                                                                @Html.DisplayFor(model => model.LastName)
-                                                            </dd>
-
-                                                        </dl>
-
-                                                        <div class="row profile-button-area">
-                                                            @if (Model.IsFriend == "N")
-                                                            {
-                                                                <button type="button" id="btnFriendRequest" class="btn profile-button">Add Friend</button>
-                                                            }
-                                                            else if (Model.IsFriend == "R")
-                                                            {
-                                                                <button type="button" id="btnFriendRequest" class="btn profile-button" disabled>Friend Request Sent</button>
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                                    <button type="button" id="btnFriendConfirm" class="btn profile-button">Confirm Friend Request</button>
-                                                                </div>
-                                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                                    <button type="button" id="btnFriendDelete" class="btn profile-button">Delete Friend Request</button>
-                                                                </div>
-                                                            }
-                                                        </div>
-                                                    </div>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                                                }
-
+                                </div>
+                                                        }
 @section scripts{
-    <script src="@Url.Content("~/Scripts/addPostToTimeline.js")"></script>
-    <script src="@Url.Content("~/Scripts/addLikeToTimeline.js")"></script>
-    <script src="@Url.Content("~/Scripts/addCommentToTimeline.js")"></script>
-    <script src="@Url.Content("~/Scripts/sendFriendRequest.js")"></script>
-    <script src="@Url.Content("~/Scripts/confirmDeleteFriendRequest.js")"></script>
-    <script src="@Url.Content("~/Scripts/saveAboutMe.js")"></script>
-    <script src="@Url.Content("~/Scripts/savePicture.js")"></script>
+    <script>
+        var SaveAboutMeUrl = "@Url.Action("SaveAboutMe", "UserProfile")";
+        var SavePictureUrl = "@Url.Action("SaveProfilePicture", "UserProfile")";
+        var FriendRequestUrl = "@Url.Action("SendFriendRequest", "UserProfile")";
+        var ConfirmFriendRequestUrl = "@Url.Action("ConfirmFriendRequest", "UserProfile")";
+        var DeleteFriendRequestUrl = "@Url.Action("DeleteFriendRequest", "UserProfile")";
+        var GetPostsUrl = "@Url.Action("TimelinePosts", "UserProfile")";
+        var AddPostUrl = "@Url.Action("AddPost", "Post")";
+        var AddCommentUrl = "@Url.Action("AddComment", "Post")";
+        var AddLikeUrl = "@Url.Action("AddLike", "Post")";
+        var RemoveLikeUrl = "@Url.Action("RemoveLike", "Post")";
+    </script>
+    <script src="@Url.Content("~/Scripts/profile-page-timeline-handling.js")"></script>
+    <script src="@Url.Content("~/Scripts/profile-page-friend-handling.js")"></script>
+    <script src="@Url.Content("~/Scripts/profile-page-editing.js")"></script>
 }
-

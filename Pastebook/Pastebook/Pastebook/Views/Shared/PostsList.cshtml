@@ -3,7 +3,7 @@
 <div id="userPosts">
     @foreach (var item in Model)
     {
-        var viewPostID = Html.DisplayFor(post => item.PostID);
+        var viewPostID = item.PostID;
         <div class="content-main">
             <div class="row margin-b-30">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -11,55 +11,47 @@
                         <div class="post-poster">
                             @if (item.PosterID == item.ProfileOwnerID)
                             {
-                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = Html.DisplayFor(friend => item.PosterUsername)})">
+                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.PosterUsername })">
                                     <span>@Html.DisplayFor(post => item.PosterName)</span>
                                 </a>
                             }
                             else
                             {
-                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = Html.DisplayFor(friend => item.PosterUsername)})">
-                                    <span>@Html.DisplayFor(post => item.PosterName) </span>
+                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.PosterUsername })">
+                                    <span>@Html.DisplayFor(post => item.PosterName)</span>
                                 </a>
                                 <span class="glyphicon glyphicon-chevron-right"></span>
-                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = Html.DisplayFor(friend => item.ProfileOwnerUsername)})">
-                                    @Html.DisplayFor(post => item.ProfileOwnerName)
+                                <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.ProfileOwnerUsername })">
+                                    <span>@Html.DisplayFor(post => item.ProfileOwnerName)</span>
                                 </a>
                             }
                             <span class="text-uppercase post-date">@Html.DisplayFor(post => item.DateCreated)</span>
                         </div>
-
-
                         <div class="post-content">
                             <p>@Html.DisplayFor(post => item.Content)</p>
                         </div>
-
-
                         @{
                             string tooltipText = item.LikesCount.ToString();
                             string toolTipContent = Html.Action("Likes", "Post", new { postID = viewPostID }).ToString();
                         }
-
                         <div>
                             <button type="button" class="like-count" data-toggle="tooltip" data-placement="left" title="@toolTipContent">
                                 @tooltipText
                             </button>
                         </div>
-
                         @if (item.IsLiked == true)
                         {
                             <button type="button" class="btnUnlike btn like-button-unlike" id="@viewPostID">
-                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
                             </button>
                         }
                         else
                         {
                             <button type="button" class="btnLike  btn like-button-like" id="@viewPostID">
-                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
                             </button>
                         }
-
                         @Html.Action("PostComments", "Post", new { postID = viewPostID })
-
                         <div class="row comment-add">
                             <div class="col-sm-9 comment-add-content-area">
                                 <input type="text" class="comment-add-content form-control" placeholder="Write a comment..." />
@@ -72,6 +64,6 @@
                 </div>
             </div>
         </div>
-                            }
+    }
 </div>
 

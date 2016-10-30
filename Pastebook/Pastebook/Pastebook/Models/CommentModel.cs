@@ -8,9 +8,7 @@ namespace Pastebook.Models
 {
     public class CommentModel
     {
-        public int CommentID { get; set; }
         public int PostID { get; set; }
-        public int PosterID { get; set; }
         public string PosterName { get; set; }
         public string PosterUsername { get; set; }
         public string Content { get; set; }

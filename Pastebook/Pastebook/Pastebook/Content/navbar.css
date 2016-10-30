@@ -52,44 +52,81 @@
 	content: '';
 }
 
-.block-width-full {	width: 100%; }
-.block-width-half { width: 150px; }
-
-.block-keep-ratio-1-1:after {	padding-top: 80%;
+.block-width-full {	
+    width: 100%; 
 }
-.block-keep-ratio-2-1:after {	padding-top: 40%; }
+.block-width-half { 
+    width: 150px; 
+}
+
+.block-keep-ratio-1-1:after {	
+    padding-top: 80%;
+}
+
+.block-keep-ratio-2-1:after {	
+    padding-top: 40%; 
+}
 
 .home {
 	background-color: #21839A;
-}
-
-span.main-menu-link-text{
-    opacity: 1;
+    background-image: url(images/home-1.png);
+    background-repeat: no-repeat;
+    background-size: 7vh;
+    background-position: center;
 }
 
 .profile{
     background-color: #F86330;
+    background-image: url(images/user.png);
+    background-repeat: no-repeat;
+    background-size: 6vh;
+    background-position: center;
 }
 
 .friends{
     background-color: #22AD6A;
+    background-image: url(images/users-1.png);
+    background-repeat: no-repeat;
+    background-size: 6vh;
+    background-position: center;
 }
 
 .notifications{
     background-color: #F89330;
+    background-image: url(images/notification.png);
+    background-repeat: no-repeat;
+    background-size: 5vh;
+    background-position: center;
 }
 
 .search{
     background-color: #21839A;
+    background-image: url(images/search.png);
+    background-repeat: no-repeat;
+    background-size: 7vh;
+    background-position: center;
 }
 
 .settings{
     background-color: #F86330;
+    background-image: url(images/settings-5.png);
+    background-repeat: no-repeat;
+    background-size: 6vh;
+    background-position: center;
 }
 
 .logout{
     background-color: #22AD6A;
+    background-image: url(images/exit-2.png);
+    background-repeat: no-repeat;
+    background-size: 6vh;
+    background-position: center;
 }
 
-.main-menu-link:hover {	color: #66FFFF; }
-.main-menu-link:focus {	color: #fff; }
+.main-menu-link:hover {	
+    color: #66FFFF; 
+}
+
+.main-menu-link:focus {	
+    color: #fff; 
+}

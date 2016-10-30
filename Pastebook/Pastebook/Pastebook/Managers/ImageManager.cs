@@ -11,10 +11,11 @@ namespace Pastebook.Managers
     {
         //http://www.codeproject.com/Articles/15460/C-Image-to-Byte-Array-and-Byte-Array-to-Image-Conv
 
-        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        public byte[] imageToByteArray(HttpPostedFileBase file)
         {
+            System.Drawing.Image picImage = System.Drawing.Image.FromStream(file.InputStream);
             MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            picImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
             return ms.ToArray();
         }
 

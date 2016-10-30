@@ -14,23 +14,22 @@ namespace Pastebook.Controllers
         private static Managers.CountryManager countryManager = new Managers.CountryManager();
         private static List<Models.CountryModel> countriesList = countryManager.GetCountriesList();
 
+        [Route("login")]
         public ActionResult Login()
         {
+            if (Session["user"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewData["Countries"] = countriesList;
             return View();
         }
 
-        //PREVENT HTML INJECTION
-
         public JsonResult UserLogin(string email, string password)
         {
             Managers.LoginManager loginManager = new Managers.LoginManager();
-            bool[] userLoginStatus = { false, false };
-            if (String.IsNullOrEmpty(email) == false && String.IsNullOrEmpty(password) == false)
-            {
-                userLoginStatus = loginManager.CheckUserAccount(email, password);
-            }
-            bool loginFailed = userLoginStatus.Any(stat => stat == false);
+            bool[] userLoginStatus = loginManager.CheckUserAccount(email, password);
+            bool loginFailed = loginManager.CheckLoginFailed(userLoginStatus);
             if (loginFailed == false)
             {
                 Session["user"] = loginManager.GetUsername(email);
@@ -38,70 +37,111 @@ namespace Pastebook.Controllers
             return Json(new { UserExists = userLoginStatus[0], PasswordMatch = userLoginStatus[1] }, JsonRequestBehavior.AllowGet);
         }
 
-        //CHECK IF USERNAME OR EMAIL ALREADY EXISTS
-
-        public async Task<ActionResult> ValidateRegistration([Bind(Include = "Username, FirstName, LastName, EmailAddress, Password, ConfirmPassword, Birthday, CountryID, MobileNumber, Gender")]Models.UserModel model)
+        [Route("validate")]
+        public ActionResult ValidateRegistration([Bind(Include = "Username, FirstName, LastName, EmailAddress, Password, ConfirmPassword, Birthday, CountryID, MobileNumber, Gender")]Models.UserModel model)
         {
             if (ModelState.IsValid)
             {
                 Managers.LoginManager loginManager = new Managers.LoginManager();
                 bool registerSuccess = loginManager.RegisterUser(model);
 
-                //mail sending tutorial source: http://www.mikesdotnetting.com/article/268/how-to-send-email-in-asp-net-mvc
+                //var message = new MailMessage()
+                //{
+                //    From = new MailAddress("lizbeth.oliman.pastebook@gmail.com"),
+                //    Subject = "Pastebook Validation",
+                //    Body = "This is your validation message from Pastebook. Welcome to Pastebook!",
+                //    IsBodyHtml = true
+                //};
+                //message.To.Add(new MailAddress(model.EmailAddress));
 
-                var message = new MailMessage()
-                {
-                    From = new MailAddress("lizbeth.oliman.pastebook@gmail.com"),
-                    Subject = "Pastebook Validation",
-                    Body = "This is your validation message from Pastebook. Welcome to Pastebook!",
-                    IsBodyHtml = true
-                };
-                message.To.Add(new MailAddress(model.EmailAddress));
-                
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(message);
-                }
+                //using (var smtp = new SmtpClient())
+                //{
+                //    await smtp.SendMailAsync(message);
+                //}
+
                 return View(model);
             }
             else
             {
-                ViewData["Countries"] = countriesList;
                 return RedirectToAction("Login", model);
             }
         }
 
         public JsonResult CheckOldPassword(string oldPassword)
         {
-            Managers.LoginManager loginManager = new Managers.LoginManager();
-            bool correctOldPassword = loginManager.CheckOldPassword(Session["user"].ToString(), oldPassword);
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool correctOldPassword = userManager.CheckOldPassword(Session["user"].ToString(), oldPassword);
             return Json(new { Status = correctOldPassword }, JsonRequestBehavior.AllowGet);
         }
 
-        //MAKE THESE INTO JSON RESULTS AND DISPLAY SUCCESS OR FAIL
-
-        public ActionResult EditDetails(Models.UserModel model)
+        public ActionResult EditDetails([Bind(Include = "Username, FirstName, LastName, Birthday, CountryID, MobileNumber, Gender")]
+                                         Models.UserModel model)
         {
             Managers.UserManager userManager = new Managers.UserManager();
             bool editSuccess = userManager.EditUser(model, Session["user"].ToString());
-            ViewData["Countries"] = countriesList;
-            return RedirectToAction("Settings");
+            TempData["saveDetails"] = editSuccess;
+            if (editSuccess)
+            {
+                Session["user"] = model.Username;
+            }
+            return RedirectToAction("Settings", "Account");
         }
 
-        public ActionResult EditEmail(string email)
+        public JsonResult EditEmail(string email)
         {
             Managers.UserManager userManager = new Managers.UserManager();
             bool editSuccess = userManager.EditEmail(email, Session["user"].ToString());
-            ViewData["Countries"] = countriesList;
-            return PartialView("Settings", "Home");
+            return Json(new { Status = editSuccess }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EditPassword(string password)
+        public JsonResult EditPassword(string password)
         {
             Managers.UserManager userManager = new Managers.UserManager();
             bool editSuccess = userManager.EditPassword(password, Session["user"].ToString());
+            return Json(new { Status = editSuccess }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckExistingEmail(string email)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool isExisting = userManager.IsExistingEmail(email, Session["user"].ToString());
+            return Json(new { Status = isExisting }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckExistingUsername(string username)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool isExisting = userManager.IsExistingUsername(username, Session["user"].ToString());
+            return Json(new { Status = isExisting }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckExistingUsernameEmail(string username, string email)
+        {
+            Managers.UserManager userManager = new Managers.UserManager();
+            bool isExistingUsername = userManager.IsExistingUsername(username);
+            bool isExistingEmail = userManager.IsExistingEmail(email);
+            return Json(new { UserExists = isExistingUsername, EmailExists = isExistingEmail }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("settings")]
+        public ActionResult Settings()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            Managers.UserManager userManager = new Managers.UserManager();
+            Models.UserModel model = userManager.GetUser(Session["user"].ToString());
             ViewData["Countries"] = countriesList;
-            return PartialView("Settings", "Home");
+            ViewData["saveDetails"] = TempData["saveDetails"];
+            return View(model);
+        }
+
+        [Route("logout")]
+        public ActionResult UserLogout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }

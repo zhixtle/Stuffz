@@ -21,7 +21,6 @@ namespace Pastebook.Managers
             {
                 AboutMe = userResult.ABOUT_ME,
                 Birthday = userResult.BIRTHDAY,
-                CountryID = userResult.COUNTRY_ID,
                 Country = countryBL.GetCountryName(userResult.COUNTRY_ID),
                 EmailAddress = userResult.EMAIL_ADDRESS,
                 FirstName = userResult.FIRST_NAME,
@@ -47,7 +46,6 @@ namespace Pastebook.Managers
                 CountryID = userResult.COUNTRY_ID,
                 MobileNumber = userResult.MOBILE_NO,
                 Gender = GenderDisplay(userResult.GENDER),
-
                 Password = userResult.PASSWORD,
                 EmailAddress = userResult.EMAIL_ADDRESS
             };
@@ -70,27 +68,37 @@ namespace Pastebook.Managers
 
         public bool EditEmail(string email, string username)
         {
+            string parsedEmail = HttpUtility.HtmlDecode(email);
             USER userResult = userBL.GetUserProfile(username);
-            userResult.EMAIL_ADDRESS = email;
+            userResult.EMAIL_ADDRESS = parsedEmail;
             bool editSuccess = userBL.EditUserEmail(userResult);
             return editSuccess;
         }
 
         public bool EditPassword(string password, string username)
         {
+            string parsedPassword = HttpUtility.HtmlDecode(password);
             USER userResult = userBL.GetUserProfile(username);
             userResult.SALT = null;
-            userResult.PASSWORD = password;
+            userResult.PASSWORD = parsedPassword;
             bool editSuccess = userBL.EditUserPassword(userResult);
             return editSuccess;
         }
 
         public bool EditAboutMe(string username, string aboutMeContent)
         {
-            USER user = userBL.GetUserProfile(username);
-            user.ABOUT_ME = aboutMeContent;
-            bool editSuccess = userBL.EditUser(user);
-            return editSuccess;
+            string parsedContent = HttpUtility.HtmlDecode(aboutMeContent);
+            if (parsedContent.Length > 2000)
+            {
+                return false;
+            }
+            else
+            {
+                USER user = userBL.GetUserProfile(username);
+                user.ABOUT_ME = parsedContent;
+                bool editSuccess = userBL.EditUser(user);
+                return editSuccess;
+            }
         }
 
         public bool EditProfilePicture(string username, byte[] profilePicture)
@@ -121,8 +129,9 @@ namespace Pastebook.Managers
 
         public List<Models.UserProfileModel> GetUsersSearchResults(string searchQuery)
         {
+            string parsedQuery = HttpUtility.HtmlDecode(searchQuery);
             List<Models.UserProfileModel> searchResults = new List<Models.UserProfileModel>();
-            List<USER> searchUsers = userBL.GetUserSearchResults(searchQuery);
+            List<USER> searchUsers = userBL.GetUserSearchResults(parsedQuery);
             foreach (var item in searchUsers)
             {
                 searchResults.Add(new Models.UserProfileModel()
@@ -134,6 +143,50 @@ namespace Pastebook.Managers
                 });
             }
             return searchResults;
+        }
+
+        public bool IsExistingEmail(string email)
+        {
+            bool isExisting = false;
+            string parsedEmail = HttpUtility.HtmlDecode(email);
+            isExisting = userBL.DoesEmailExist(parsedEmail);
+            return isExisting;
+        }
+
+        public bool IsExistingEmail(string email, string user)
+        {
+            bool isExisting = false;
+            string parsedEmail = HttpUtility.HtmlDecode(email);
+            string parsedUser = HttpUtility.HtmlDecode(user);
+            isExisting = userBL.DoesEmailExist(parsedEmail);
+            bool isUser = userBL.GetUsernameByEmail(parsedEmail) == parsedUser;
+            return isExisting && !isUser;
+        }
+
+        public bool IsExistingUsername(string username)
+        {
+            bool isExisting = false;
+            string parsedUsername = HttpUtility.HtmlDecode(username);
+            isExisting = userBL.DoesUsernameExist(parsedUsername);
+            return isExisting;
+        }
+
+        public bool IsExistingUsername(string username, string user)
+        {
+            bool isExisting = false;
+            string parsedUsername = HttpUtility.HtmlDecode(username);
+            string parsedUser = HttpUtility.HtmlDecode(user);
+            isExisting = userBL.DoesUsernameExist(parsedUsername);
+            bool isUser = parsedUsername == parsedUser;
+            return isExisting && !isUser;
+        }
+
+        public bool CheckOldPassword(string username, string oldPassword)
+        {
+            string parsedOldPassword = HttpUtility.HtmlDecode(oldPassword);
+            bool check = false;
+            check = userBL.CheckOldPassword(username, parsedOldPassword);
+            return check;
         }
     }
 }

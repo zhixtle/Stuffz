@@ -13,36 +13,7 @@ namespace Pastebook
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "ViewProfile",
-                url: "Pastebook/ViewProfile/{profileUsername}",
-                defaults: new { controller = "UserProfile", action = "ViewProfile"}
-            );
-
-
-            routes.MapRoute(
-                name: "ViewPost",
-                url: "Pastebook/Posts/{id}",
-                defaults: new { controller = "Post", action = "Posts" }
-            );
-
-            routes.MapRoute(
-                name: "LoginRegister",
-                url: "Pastebook/Login/",
-                defaults: new { controller = "Account", action = "Login"}
-                );
-
-            routes.MapRoute(
-                name: "RegisterValidation",
-                url: "Pastebook/ValidateRegistration/",
-                defaults: new { controller = "Account", action = "ValidateRegistration" }
-                );
-
-            routes.MapRoute(
-                name: "Home",
-                url: "Pastebook/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",

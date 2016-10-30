@@ -21,8 +21,6 @@ namespace Pastebook.Models
         [DisplayFormat(DataFormatString = "{0: MMMM d, yyyy}")]
         public DateTime Birthday { get; set; }
 
-        public int? CountryID { get; set; }
-
         [Display(Name = "Country")]
         public string Country { get; set; }
 
