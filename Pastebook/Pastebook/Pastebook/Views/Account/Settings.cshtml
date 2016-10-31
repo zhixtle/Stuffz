@@ -29,6 +29,7 @@
                                                     @Html.LabelFor(m => m.Username, "Username:", new { @class = "desc" })
                                                     @Html.TextBoxFor(m => m.Username, new { id = "txtUsername", @class = "form-control" })
                                                     @Html.ValidationMessageFor(m => m.Username, "", new { id = "validationUsername" })
+                                                    @Html.ValidationMessage("", new { id = "validationUsernameExists" })
                                                 </div>
                                             </div>
                                         </div>
@@ -103,11 +104,17 @@
                                                 {
                                                     if (ViewData["saveDetails"].Equals(true))
                                                     {
-                                                        <span id="detailsStatus" class="status"> User details successfully changed. </span>
+                                                        <div id="detailsStatus" class="status-good">
+                                                            <span class="glyphicon glyphicon-ok"> </span>
+                                                            <span>User details successfully changed.</span> 
+                                                        </div>
                                                     }
                                                     else
                                                     {
-                                                        <span id="detailsStatus" class="status"> Error, details could not be changed. </span>
+                                                        <div id="detailsStatus" class="status-bad"> 
+                                                            <span class="glyphicon glyphicon-remove"> </span>
+                                                            <span>Error, details could not be changed.</span>
+                                                        </div>
                                                     }
                                                 }
                                             </div>
@@ -127,7 +134,9 @@
                                 </div>
                                 <div class="settings-tab-body">
                                     @{
+                                        var emailPlaceholder = Model.EmailAddress;
                                         Model.Password = "";
+                                        Model.EmailAddress = "";
                                     }
                                     @using (Html.BeginForm("", "", FormMethod.Post, new { id = "editEmailForm", name = "editEmailForm" }))
                                     {
@@ -144,17 +153,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @Html.LabelFor(m => m.EmailAddress, "Email Address:", new { @class = "desc" })
-                                                    @Html.TextBoxFor(m => m.EmailAddress, new { id = "txtEmail", type = "email", @class = "form-control" })
+                                                    @Html.TextBoxFor(m => m.EmailAddress, new { id = "txtEmail", type = "email", @class = "form-control", placeholder = @emailPlaceholder })
                                                     @Html.ValidationMessageFor(m => m.EmailAddress, "", new { id = "validationEmail" })
+                                                    @Html.ValidationMessage("", new { id = "validationEmailExists" })
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <span id="emailStatus" class="status"> </span>
+                                                <span id="emailStatusGood" class="status-good"> </span>
+                                                <span id="emailStatusBad" class="status-bad"> </span>
                                             </div>
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn settings-button" id="btnSaveEmail">Save</button>
+                                                <button type="submit" class="btn settings-button" id="btnSaveEmail" disabled>Save</button>
                                             </div>
                                         </div>
                                     }
@@ -202,10 +213,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <span id="passwordStatus" class="status"> </span>
+                                                <span id="passwordStatusGood" class="status-good"> </span>
+                                                <span id="passwordStatusBad" class="status-bad"> </span>
                                             </div>
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn settings-button" id="btnSavePassword">Save</button>
+                                                <button type="submit" class="btn settings-button" id="btnSavePassword" disabled>Save</button>
                                             </div>
                                         </div>
                                     }

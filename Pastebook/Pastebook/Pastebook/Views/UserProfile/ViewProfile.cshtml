@@ -108,7 +108,15 @@
                                         <span id="aboutMeCount"></span><span> characters left.</span>
                                     </div>
                                     <textarea id="textAboutMe" class="profile-textarea" rows="5">@Html.DisplayFor(model => model.AboutMe)</textarea>
-                                    <span id="aboutMeStatus" class="status"> </span>
+                                    <div id="aboutMeStatusGood" class="status-good"> 
+                                        <span class="glyphicon glyphicon-ok"> </span> 
+                                        <span> About me saved successfully. </span> 
+                                    </div>
+                                    <div id="aboutMeStatusBad" class="status-bad"> 
+                                        <span class="glyphicon glyphicon-remove"> </span> 
+                                        <span> Unable to save about me. </span> 
+                                    </div>
+                                    <span id="aboutMeStatus" class="status-bad"> </span>
                                     <button type="button" id="btnSaveAboutMe" class="btn profile-button-about-me">Save</button>
                                 </div>
                             </div>
@@ -123,16 +131,21 @@
                                         {
                                             if (ViewData["savePicture"].Equals(true))
                                             {
-                                                <span id="pictureStatus" class="status"> Profile picture successfully saved. </span>
+                                                <div id="pictureStatus" class="status-good"> 
+                                                    <span class="glyphicon glyphicon-ok"> </span> 
+                                                    <span> Profile picture successfully saved. </span> 
+                                                </div>
                                             }
                                             else
                                             {
-                                                <span id="pictureStatus" class="status"> Error, picture could not be saved. </span>
+                                                <div id="pictureStatus" class="status-bad"> 
+                                                    <span class="glyphicon glyphicon-remove"> </span> 
+                                                    <span> Unable to save profile picture. </span> 
+                                                </div>
                                             }
                                         }
-                                        <span id="pictureUploadStatus" class="status"> </span>
-                                        <span id="pictureExtStatus" class="status"> </span>
-                                        <span id="pictureSizeStatus" class="status"> </span>
+                                        <span id="pictureExtStatus" class="status-bad"> </span>
+                                        <span id="pictureSizeStatus" class="status-bad"> </span>
                                         <button type="submit" id="btnSavePicture" class="btn profile-button-image">Upload</button>
                                     }
                                 </div>

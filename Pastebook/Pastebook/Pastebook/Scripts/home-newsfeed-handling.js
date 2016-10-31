@@ -32,18 +32,20 @@
                 $('#postValidation').text('You haven\'t written anything!');
             }
             else if (data.Status == false) {
-                $('#postValidation').text('Post unsuccessful.');
+                $('#postValidationBad').text('Post unsuccessful.');
             }
             else {
-                $('#postValidation').text('Post successful!');
+                $('#postValidationGood').text('Post successful!');
                 $('#userPosts').load(GetPostsUrl);
                 setTimeout(ClearText, 1000);
             }
         }
 
         function ClearText() {
+            $('#postValidationGood').text('');
+            $('#postValidationBad').text('');
             $('#postValidation').text('');
-            $('#txtPostContent').val('')
+            $('#txtPostContent').val('');
         }
     });
 
@@ -108,7 +110,6 @@
     }
 
     $('.comment-add-content').on('focusout',function () {
-        alert('HERE');
         if ($('.comment-add-content').val().length > 1000) {
             $(this).val('');
             $(this).attr('placeholder', 'Can\'t comment anything longer than 1000 characters!');

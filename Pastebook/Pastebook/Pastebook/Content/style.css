@@ -118,3 +118,21 @@ span.status{
     color: #aaa;
     display: block;
 }
+
+.status-good span{
+    color: #22AD6A;
+}
+
+span.status-good{
+    color: #22AD6A;
+    display: block;
+}
+
+.status-bad span{
+    color: #F86330;
+}
+
+span.status-bad{
+    color: #F86330;
+    display: block;
+}

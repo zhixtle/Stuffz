@@ -36,12 +36,6 @@ textarea.add-post-textarea{
     text-align: center;
 }
 
-span.add-post-validation{
-    display: block;
-    padding-top: 5px;
-    padding-bottom: 8px;
-}
-
 .post-icon{
     overflow: hidden;
 	width: 80px;
