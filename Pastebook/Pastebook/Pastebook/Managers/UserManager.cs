@@ -196,7 +196,7 @@ namespace Pastebook.Managers
             string parsedEmail = HttpUtility.HtmlDecode(email);
             string parsedUser = HttpUtility.HtmlDecode(user);
             isExisting = userBL.DoesEmailExist(parsedEmail);
-            bool isUser = userBL.GetUsernameByEmail(parsedEmail) == parsedUser;
+            bool isUser = userBL.GetUsernameByEmail(parsedEmail).ToUpper() == parsedUser.ToUpper();
             return isExisting && !isUser;
         }
 
@@ -214,7 +214,7 @@ namespace Pastebook.Managers
             string parsedUsername = HttpUtility.HtmlDecode(username);
             string parsedUser = HttpUtility.HtmlDecode(user);
             isExisting = userBL.DoesUsernameExist(parsedUsername);
-            bool isUser = parsedUsername == parsedUser;
+            bool isUser = parsedUsername.ToUpper() == parsedUser.ToUpper();
             return isExisting && !isUser;
         }
 

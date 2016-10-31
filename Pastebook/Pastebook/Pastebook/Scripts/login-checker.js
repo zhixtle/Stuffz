@@ -20,20 +20,25 @@
         });
 
         function LoginSuccess(data) {
-            $('#loginStatus').text(' ');
+            $('#loginStatusGood').text(' ');
+            $('#loginStatusBad').text(' ');
             if (loginData.email == '' || loginData.password == '') {
-                $('#loginStatus').text('Please input username and password.');
+                $('#loginStatusGood').text('');
+                $('#loginStatusBad').text('Please input username and password.');
             }
             else {
                 if (data.UserExists == true && data.PasswordMatch == true) {
-                    $('#loginStatus').text('Login Successful.');
+                    $('#loginStatusGood').text('Login successful.');
+                    $('#loginStatusBad').text(' ');
                     setTimeout(ToIndex, 1000);
                 }
                 else if (data.UserExists == false) {
-                    $('#loginStatus').text('Login unsuccessful.\nUser does not exist.');
+                    $('#loginStatusGood').text('');
+                    $('#loginStatusBad').text('Login unsuccessful.\nUser does not exist.');
                 }
                 else if (data.PasswordMatch == false) {
-                    $('#loginStatus').text('Login unsuccessful.\nIncorrect password.');
+                    $('#loginStatusGood').text('');
+                    $('#loginStatusBad').text('Login unsuccessful.\nIncorrect password.');
                 }
             }
         }

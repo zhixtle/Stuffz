@@ -26,16 +26,17 @@
                             <div class="form-group">
                                 @Html.Label("Email Address:", new { @class = "desc" })
                                 @Html.TextBox("txtboxLoginEmail", "", new { id = "txtLoginEmail", @class = "form-control" })
-                                @Html.ValidationMessage("", new { id = "validationLoginEmail", @class = "" })
+                                @Html.ValidationMessage("", new { id = "validationLoginEmail" })
                             </div>
                             <div class="form-group">
                                 @Html.Label("Password:", new { @class = "desc" })
                                 @Html.TextBox("txtboxloginPassword", "", new { id = "txtLoginPassword", type = "password", @class = "form-control" })
-                                @Html.ValidationMessage("", new { id = "validationLoginPassword", @class = "" })
+                                @Html.ValidationMessage("", new { id = "validationLoginPassword" })
                             </div>
                             <div class="login-button-area row">
                                 <div class="col-md-8">
-                                    <span id="loginStatus" class="status"> </span>
+                                    <span id="loginStatusGood" class="status-good"> </span>
+                                    <span id="loginStatusBad" class="status-bad"> </span>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class="btn login-button" id="btnLogin">Login</button>

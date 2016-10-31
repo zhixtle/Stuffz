@@ -14,24 +14,24 @@ namespace Pastebook.Models
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
-        [StringLength(50, ErrorMessage = "Password can only have up to 50 characters.")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Password must have at least 4 to 50 characters.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Confirm Password is required.")]
-        [StringLength(50, ErrorMessage = "Confirm Password can only have up to 50 characters.")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Confirm Password must have at least 4 to 50 characters.")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "First Name is required.")]
         [StringLength(50, ErrorMessage = "First Name can only have up to 50 characters.")]
-        [RegularExpression("^(([a-zA-Z0-9]+[ -.']?[a-zA-Z0-9]+)*['.]?)$", ErrorMessage = "First Name can only contain letters, numbers, dashes, periods, and apostrophes.")]
+        [RegularExpression("^(([a-zA-Z0-9]+[ -.']?[a-zA-Z0-9]+)*['.]?)$", ErrorMessage = "First Name can only contain letters, numbers, and no two or more consecutive spaces, dashes, periods, or apostrophes.")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required.")]
         [StringLength(50, ErrorMessage = "Last Name can only have up to 50 characters.")]
-        [RegularExpression("^(([a-zA-Z0-9]+[ -.']?[a-zA-Z0-9]+)*['.]?)$", ErrorMessage = "Last Name can only contain letters, numbers, dashes, periods, and apostrophes.")]
+        [RegularExpression("^(([a-zA-Z0-9]+[ -.']?[a-zA-Z0-9]+)*['.]?)$", ErrorMessage = "Last Name can only contain letters, numbers, and no two or more consecutive spaces, dashes, periods, or apostrophes.")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Birthday is required.")]

@@ -41,7 +41,7 @@ namespace PastebookBusinessLogic
 
         public bool LoginUser(string email, string password)
         {
-            USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);
+            USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS.ToUpper() == email.ToUpper());
             bool loginSucess = false;
             loginSucess = passwordBL.IsPasswordMatch(password, user.SALT, user.PASSWORD);
             return loginSucess;
@@ -49,7 +49,7 @@ namespace PastebookBusinessLogic
 
         public bool CheckOldPassword(string username, string oldPassword)
         {
-            USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
+            USER user = userDataAccess.GetSingle(u => u.USER_NAME.ToUpper() == username.ToUpper());
             bool passwordCorrect = false;
             passwordCorrect = passwordBL.IsPasswordMatch(oldPassword, user.SALT, user.PASSWORD);
             return passwordCorrect;
@@ -58,33 +58,33 @@ namespace PastebookBusinessLogic
         public bool DoesUserExist(string email)
         {
             bool userExists = false;
-            userExists = userDataAccess.GetAll().Any(u => u.EMAIL_ADDRESS == email);
+            userExists = userDataAccess.GetAll().Any(u => u.EMAIL_ADDRESS.ToUpper() == email.ToUpper());
             return userExists;
         }
 
         public bool DoesEmailExist(string email)
         {
             bool userExists = false;
-            userExists = userDataAccess.GetAll().Any(u => u.EMAIL_ADDRESS == email);
+            userExists = userDataAccess.GetAll().Any(u => u.EMAIL_ADDRESS.ToUpper() == email.ToUpper());
             return userExists;
         }
 
         public bool DoesUsernameExist(string username)
         {
             bool userExists = false;
-            userExists = userDataAccess.GetAll().Any(u => u.USER_NAME == username);
+            userExists = userDataAccess.GetAll().Any(u => u.USER_NAME.ToUpper() == username.ToUpper());
             return userExists;
         }
 
         public USER GetUserProfile(string username)
         {
-            USER user = userDataAccess.GetSingle(u => u.USER_NAME == username, "REF_COUNTRY", "FRIENDs", "FRIENDs1");
+            USER user = userDataAccess.GetSingle(u => u.USER_NAME.ToUpper() == username.ToUpper(), "REF_COUNTRY", "FRIENDs", "FRIENDs1");
             return user;
         }
 
         public USER GetUser(string username)
         {
-            USER user = userDataAccess.GetSingle(u => u.USER_NAME == username);
+            USER user = userDataAccess.GetSingle(u => u.USER_NAME.ToUpper() == username.ToUpper());
             return user;
         }
 
@@ -104,7 +104,7 @@ namespace PastebookBusinessLogic
 
         public string GetUsernameByEmail(string email)
         {
-            USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS == email);
+            USER user = userDataAccess.GetSingle(u => u.EMAIL_ADDRESS.ToUpper() == email.ToUpper());
             if (user != null)
             {
                 return user.USER_NAME;
@@ -123,7 +123,7 @@ namespace PastebookBusinessLogic
 
         public int GetIDByUsername(string username)
         {
-            int id = userDataAccess.GetSingle(u => u.USER_NAME == username).ID;
+            int id = userDataAccess.GetSingle(u => u.USER_NAME.ToUpper() == username.ToUpper()).ID;
             return id;
         }
 
