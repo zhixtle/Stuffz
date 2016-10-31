@@ -28,17 +28,5 @@ namespace Pastebook.Controllers
             List<Models.PostModel> newsFeed = postManager.GetNewsFeed(Session["user"].ToString());
             return PartialView("PostsList", newsFeed);
         }
-
-        [Route("friends")]
-        public ActionResult Friends()
-        {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            Managers.FriendManager friendManager = new Managers.FriendManager();
-            List<Models.FriendModel> friendsList = friendManager.GetFriendsList(Session["user"].ToString());
-            return View(friendsList);
-        }
     }
 }

@@ -15,6 +15,11 @@ namespace Pastebook.Managers
 
         public bool SendFriendRequest(string username, int profileID)
         {
+            if (String.IsNullOrWhiteSpace(username) || profileID == 0)
+            {
+                return false;
+            }
+
             FRIEND friendToAdd = new FRIEND()
             {
                 USER_ID = userBL.GetIDByUsername(username),
@@ -24,26 +29,42 @@ namespace Pastebook.Managers
                 BLOCKED = "N"
             };
             bool requestSent = friendBL.AddFriend(friendToAdd);
+
+            if(requestSent == false)
+            {
+                return false;
+            }
+
             bool notifSent = notifManager.FriendRequestNotification(username, profileID);
             return (requestSent && notifSent);
         }
 
         public bool ConfirmFriendRequest(string username, int profileID)
         {
+            if (String.IsNullOrWhiteSpace(username) || profileID == 0)
+            {
+                return false;
+            }
+
             FRIEND friendToAdd = friendBL.GetFriendEntry(username, profileID);
             friendToAdd.REQUEST = "N";
             bool requestSent = friendBL.EditFriend(friendToAdd);
             return requestSent;
         }
 
-        public bool  DeleteFriendRequest(string username, int profileID)
+        public bool DeleteFriendRequest(string username, int profileID)
         {
+            if (String.IsNullOrWhiteSpace(username) || profileID == 0)
+            {
+                return false;
+            }
+
             FRIEND friendToDelete = friendBL.GetFriendEntry(username, profileID);
             bool deleteSuccess = friendBL.DeleteFriend(friendToDelete);
             return deleteSuccess;
         }
 
-        public  List<Models.FriendModel> GetFriendsList(string username)
+        public List<Models.FriendModel> GetFriendsList(string username)
         {
             List<USER> friendsResults = friendBL.GetFriendsList(username);
             List<Models.FriendModel> friendsList = new List<Models.FriendModel>();

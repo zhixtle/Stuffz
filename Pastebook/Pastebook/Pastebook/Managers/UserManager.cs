@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using PastebookEntities;
 using PastebookBusinessLogic;
+using System.Text.RegularExpressions;
 
 namespace Pastebook.Managers
 {
@@ -12,7 +13,7 @@ namespace Pastebook.Managers
         private static UserBL userBL = new UserBL();
         private static ImageManager imageManager = new ImageManager();
 
-        public Models.UserProfileModel GetUserProfile (string username, string profileUsername)
+        public Models.UserProfileModel GetUserProfile(string username, string profileUsername)
         {
             USER userResult = userBL.GetUserProfile(profileUsername);
             List<FRIEND> userFriends = userResult.FRIENDs.ToList();
@@ -80,6 +81,23 @@ namespace Pastebook.Managers
 
         public bool EditUser(Models.UserModel model, string username)
         {
+            if (model == null || String.IsNullOrWhiteSpace(username) ||
+                String.IsNullOrWhiteSpace(model.Username) || model.Username.Length > 50 || !IsValidUsername(model.Username) ||
+                String.IsNullOrWhiteSpace(model.FirstName) || model.FirstName.Length > 50 || !IsValidName(model.FirstName) ||
+                String.IsNullOrWhiteSpace(model.LastName) || model.LastName.Length > 50 || !IsValidName(model.LastName) ||
+                model.Birthday == null || model.Birthday.ToShortDateString() == "1/1/0001")
+            {
+                return false;
+            }
+
+            if (model.MobileNumber != null)
+            {
+                if (model.MobileNumber.Length > 50)
+                {
+                    return false;
+                }
+            }
+
             USER userResult = userBL.GetUser(username);
             userResult.USER_NAME = model.Username;
             userResult.FIRST_NAME = model.FirstName;
@@ -92,18 +110,49 @@ namespace Pastebook.Managers
             return editSuccess;
         }
 
+        private bool IsValidUsername(string username)
+        {
+            Regex rgx = new Regex("^((([_.]?)[a-zA-Z0-9]+([_.])?[a-zA-Z0-9]+)*([_.]?))$");
+            bool isValid = rgx.IsMatch(username);
+            return isValid;
+        }
+
+        private bool IsValidName(string name)
+        {
+            Regex rgx = new Regex("^(([a-zA-Z0-9]+[ -.']?[a-zA-Z0-9]+)*['.]?)$");
+            bool isValid = rgx.IsMatch(name);
+            return isValid;
+        }
+
         public bool EditEmail(string email, string username)
         {
             string parsedEmail = HttpUtility.HtmlDecode(email);
+            if (String.IsNullOrWhiteSpace(parsedEmail) || String.IsNullOrWhiteSpace(username) || parsedEmail.Length > 50 || !IsValidEmail(parsedEmail))
+            {
+                return false;
+            }
+
             USER userResult = userBL.GetUser(username);
             userResult.EMAIL_ADDRESS = parsedEmail;
             bool editSuccess = userBL.EditUserEmail(userResult);
             return editSuccess;
         }
 
+        private bool IsValidEmail(string email)
+        {
+            Regex rgx = new Regex("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+            bool isValid = rgx.IsMatch(email);
+            return isValid;
+        }
+
         public bool EditPassword(string password, string username)
         {
             string parsedPassword = HttpUtility.HtmlDecode(password);
+            if (String.IsNullOrWhiteSpace(parsedPassword) || String.IsNullOrWhiteSpace(username) || parsedPassword.Length > 50)
+            {
+                return false;
+            }
+
             USER userResult = userBL.GetUser(username);
             userResult.SALT = null;
             userResult.PASSWORD = parsedPassword;
@@ -114,7 +163,7 @@ namespace Pastebook.Managers
         public bool EditAboutMe(string username, string aboutMeContent)
         {
             string parsedContent = HttpUtility.HtmlDecode(aboutMeContent);
-            if (parsedContent.Length > 2000)
+            if (String.IsNullOrWhiteSpace(username) || parsedContent.Length > 2000)
             {
                 return false;
             }
@@ -129,6 +178,11 @@ namespace Pastebook.Managers
 
         public bool EditProfilePicture(string username, HttpPostedFileBase file)
         {
+            if (String.IsNullOrWhiteSpace(username) || file == null)
+            {
+                return false;
+            }
+
             byte[] profilePicture = ConvertProfilePicture(file);
             USER user = userBL.GetUser(username);
             user.PROFILE_PIC = profilePicture;
@@ -139,7 +193,7 @@ namespace Pastebook.Managers
         private byte[] ConvertProfilePicture(HttpPostedFileBase file)
         {
             byte[] picByteArray = null;
-            if (file != null && imageManager.IsImage(file))
+            if (file != null && imageManager.IsImage(file) && imageManager.IsValidSize(file))
             {
                 picByteArray = imageManager.imageToByteArray(file);
             }
@@ -149,11 +203,11 @@ namespace Pastebook.Managers
         private string GenderDisplay(string gender)
         {
             string genderDisplay;
-            if(gender == "M")
+            if (gender == "M")
             {
                 genderDisplay = "Male";
             }
-            else if(gender == "F")
+            else if (gender == "F")
             {
                 genderDisplay = "Female";
             }
@@ -196,7 +250,11 @@ namespace Pastebook.Managers
             string parsedEmail = HttpUtility.HtmlDecode(email);
             string parsedUser = HttpUtility.HtmlDecode(user);
             isExisting = userBL.DoesEmailExist(parsedEmail);
-            bool isUser = userBL.GetUsernameByEmail(parsedEmail).ToUpper() == parsedUser.ToUpper();
+            bool isUser = true;
+            if (isExisting == true)
+            {
+                isUser = userBL.GetUsernameByEmail(parsedEmail).ToUpper() == parsedUser.ToUpper();
+            }            
             return isExisting && !isUser;
         }
 

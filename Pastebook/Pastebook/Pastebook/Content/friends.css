@@ -9,12 +9,20 @@
 }
 
 .friends-body{
-    margin-left: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
 }
 
 .friends-item{
-    margin-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    word-break: break-word;
+}
+
+.friends-item:nth-child(2n-1){
+    background-color: #f6f7f9;
 }
 
 .friends-item:nth-child(4n+1) a{
@@ -31,8 +39,4 @@
 
 .friends-item:nth-child(4n+4) a{
     color: #F89330;
-}
-
-.friends-item:last-child{
-    padding-bottom: 30px;
 }

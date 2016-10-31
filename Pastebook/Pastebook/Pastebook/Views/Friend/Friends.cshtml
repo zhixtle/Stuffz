@@ -11,7 +11,18 @@
                     <div class="friends-body">
                         @foreach (var item in Model)
                         {
+                            string imgSrc = null;
+                            if (item.ProfilePicture != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.ProfilePicture);
+                                imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                            }
+                            else
+                            {
+                                imgSrc = Href("~/Content/images/default-user.png");
+                            }
                             <div class="friends-item">
+                                <img src="@imgSrc" height="50" width="50" />
                                 <a href="@Url.Action("ViewProfile", "UserProfile", new { profileUsername = item.Username })">
                                     @Html.DisplayFor(friend => item.FirstName) @Html.DisplayFor(friend => item.LastName)
                                 </a>

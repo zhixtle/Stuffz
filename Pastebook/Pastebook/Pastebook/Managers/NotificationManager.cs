@@ -14,6 +14,11 @@ namespace Pastebook.Managers
 
         public bool FriendRequestNotification(string username, int profileID)
         {
+            if (String.IsNullOrWhiteSpace(username) || profileID == 0)
+            {
+                return false;
+            }
+
             NOTIFICATION newnotif = new NOTIFICATION()
             {
                 NOTIF_TYPE = "F",
@@ -28,6 +33,11 @@ namespace Pastebook.Managers
 
         public bool LikeNotification(int userID, int postOwnerID, int postID)
         {
+            if (userID == 0 || postOwnerID == 0 || postID == 0)
+            {
+                return false;
+            }
+
             NOTIFICATION newnotif = new NOTIFICATION()
             {
                 NOTIF_TYPE = "L",
@@ -43,6 +53,11 @@ namespace Pastebook.Managers
 
         public bool CommentNotification(int userID, int profileOwnerID, int postID, int commentID)
         {
+            if (userID == 0 || profileOwnerID == 0 || postID == 0 || commentID == 0)
+            {
+                return false;
+            }
+
             NOTIFICATION newnotif = new NOTIFICATION()
             {
                 NOTIF_TYPE = "C",
@@ -97,6 +112,11 @@ namespace Pastebook.Managers
 
         public bool SeeNotifications(string username)
         {
+            if (String.IsNullOrWhiteSpace(username))
+            {
+                return false;
+            }
+
             List<NOTIFICATION> notificationsResults = notificationBL.GetNotifications(username);
             bool seeSuccess = notificationBL.SeeNotifications(notificationsResults);
             return seeSuccess;
@@ -104,6 +124,11 @@ namespace Pastebook.Managers
 
         public bool SeeNotification(int notifID)
         {
+            if (notifID == 0)
+            {
+                return false;
+            }
+
             NOTIFICATION notification = notificationBL.GetNotification(notifID);
             bool seeSuccess = notificationBL.SeeNotification(notification);
             return seeSuccess;

@@ -29,8 +29,8 @@ namespace Pastebook.Controllers
         {
             Managers.LoginManager loginManager = new Managers.LoginManager();
             bool[] userLoginStatus = loginManager.CheckUserAccount(email, password);
-            bool loginFailed = loginManager.CheckLoginFailed(userLoginStatus);
-            if (loginFailed == false)
+            bool loginSuccess = loginManager.CheckLoginSuccess(userLoginStatus);
+            if (loginSuccess == true)
             {
                 Session["user"] = loginManager.GetUsername(email);
             }
@@ -38,7 +38,7 @@ namespace Pastebook.Controllers
         }
 
         [Route("validate")]
-        public ActionResult ValidateRegistration([Bind(Include = "Username, FirstName, LastName, EmailAddress, Password, ConfirmPassword, Birthday, CountryID, MobileNumber, Gender")]Models.UserModel model)
+        public ActionResult ValidateRegistration(Models.UserModel model)
         {
             if (ModelState.IsValid)
             {

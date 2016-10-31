@@ -17,12 +17,23 @@ namespace Pastebook.Managers
         public bool LikeStatus(string username, string postID)
         {
             int id = Int32.Parse(postID);
+            if (id == 0 || String.IsNullOrWhiteSpace(username))
+            {
+                return false;
+            }
+
             LIKE newLike = new LIKE()
             {
                 POST_ID = id,
                 LIKED_BY = userBL.GetIDByUsername(username)
             };
             bool likeSuccess = likeBL.LikeStatus(newLike);
+
+            if (likeSuccess == false)
+            {
+                return false;
+            }
+
             int postOwnerID = postBL.GetUserByPostID(id);
             bool notifSent = notifManager.LikeNotification(newLike.LIKED_BY, postOwnerID, newLike.POST_ID);
             return (likeSuccess && notifSent);
@@ -31,6 +42,11 @@ namespace Pastebook.Managers
         public bool UnlikeStatus(string username, string postID)
         {
             int id = Int32.Parse(postID);
+            if (id == 0 || String.IsNullOrWhiteSpace(username))
+            {
+                return false;
+            }
+
             LIKE like = likeBL.GetLike(id, username);
             bool unlikeSuccess = likeBL.UnlikeStatus(like);
             return unlikeSuccess;
@@ -41,7 +57,7 @@ namespace Pastebook.Managers
             int id = Int32.Parse(postID);
             List<LIKE> likesResults = likeBL.GetLikesOnPost(id);
             List<Models.LikeModel> likesOnPost = new List<Models.LikeModel>();
-            foreach(var item in likesResults)
+            foreach (var item in likesResults)
             {
                 likesOnPost.Add(new Models.LikeModel()
                 {

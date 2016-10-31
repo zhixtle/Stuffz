@@ -13,6 +13,11 @@ namespace Pastebook.Managers
 
         public bool RegisterUser(Models.UserModel user)
         {
+            if (user == null)
+            {
+                return false;
+            }
+
             USER newUser = new USER()
             {
                 USER_NAME = user.Username,
@@ -38,6 +43,7 @@ namespace Pastebook.Managers
             bool[] userAccountResult = new bool[] { false, false };
             string parsedEmailAddress = HttpUtility.HtmlDecode(emailAddress);
             string parsedPassword = HttpUtility.HtmlDecode(password);
+
             if (String.IsNullOrEmpty(parsedEmailAddress) == false && String.IsNullOrEmpty(parsedPassword) == false)
             {
                 userAccountResult[0] = userBL.DoesUserExist(parsedEmailAddress);
@@ -50,12 +56,14 @@ namespace Pastebook.Managers
                     userAccountResult[1] = false;
                 }
             }
+
             return userAccountResult;
         }
 
-        public bool CheckLoginFailed(bool[] checkResult)
+        public bool CheckLoginSuccess(bool[] checkResult)
         {
             bool userCheckResult = checkResult.Any(stat => stat == false);
+            userCheckResult = (!userCheckResult);
             return userCheckResult;
         }
 

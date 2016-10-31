@@ -15,28 +15,27 @@ namespace Pastebook.Managers
         public bool PostStatus(string content, string user, string poster)
         {
             string parsedContent = HttpUtility.HtmlDecode(content);
-            if (parsedContent.Length > 1000)
+            if (parsedContent.Length > 1000 || String.IsNullOrWhiteSpace(user) || String.IsNullOrWhiteSpace(poster))
             {
                 return false;
             }
-            else
+
+            POST newPost = new POST()
             {
-                POST newPost = new POST()
-                {
-                    CONTENT = parsedContent,
-                    CREATED_DATE = DateTime.Now,
-                    POSTER_ID = userBL.GetIDByUsername(poster),
-                    PROFILE_OWNER_ID = userBL.GetIDByUsername(user)
-                };
-                bool postSuccess = postBL.PostStatus(newPost);
-                return postSuccess;
-            }
+                CONTENT = parsedContent,
+                CREATED_DATE = DateTime.Now,
+                POSTER_ID = userBL.GetIDByUsername(poster),
+                PROFILE_OWNER_ID = userBL.GetIDByUsername(user)
+            };
+            bool postSuccess = postBL.PostStatus(newPost);
+            return postSuccess;
         }
 
         public Models.PostModel GetPost(int postID, string currentUser)
         {
             POST postResult = postBL.GetPost(postID);
-            Models.PostModel post = new Models.PostModel() {
+            Models.PostModel post = new Models.PostModel()
+            {
                 Content = postResult.CONTENT,
                 DateCreated = postResult.CREATED_DATE,
                 PostID = postResult.ID,
@@ -64,7 +63,7 @@ namespace Pastebook.Managers
                     DateCreated = item.CREATED_DATE,
                     PostID = item.ID,
                     PosterID = item.POSTER_ID,
-                    PosterName =  item.USER.FIRST_NAME + " "  + item.USER.LAST_NAME,
+                    PosterName = item.USER.FIRST_NAME + " " + item.USER.LAST_NAME,
                     PosterUsername = item.USER.USER_NAME,
                     ProfileOwnerID = item.PROFILE_OWNER_ID,
                     ProfileOwnerUsername = item.USER1.USER_NAME,

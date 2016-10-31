@@ -10,6 +10,7 @@
     padding-right: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
+    word-break: break-word;
 }
 
 .search-item:nth-child(2n-1){
