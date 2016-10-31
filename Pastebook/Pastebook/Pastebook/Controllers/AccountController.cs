@@ -124,6 +124,7 @@ namespace Pastebook.Controllers
         }
 
         [Route("settings")]
+        [CustomAuthorize]
         public ActionResult Settings()
         {
             if (Session["user"] == null)
@@ -140,7 +141,7 @@ namespace Pastebook.Controllers
         [Route("logout")]
         public ActionResult UserLogout()
         {
-            Session.Clear();
+            Session["user"] = null;
             return RedirectToAction("Login");
         }
     }

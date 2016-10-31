@@ -9,12 +9,9 @@ namespace Pastebook.Controllers
     public class SearchController : Controller
     {
         [Route("search")]
+        [CustomAuthorize]
         public ActionResult Search()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             return View();
         }
 

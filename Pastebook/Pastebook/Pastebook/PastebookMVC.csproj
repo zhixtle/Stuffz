@@ -169,6 +169,7 @@
     </Compile>
     <Compile Include="Managers\CommentManager.cs" />
     <Compile Include="Managers\CountryManager.cs" />
+    <Compile Include="Managers\CustomAuthentication.cs" />
     <Compile Include="Managers\FriendManager.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\LikesManager.cs" />

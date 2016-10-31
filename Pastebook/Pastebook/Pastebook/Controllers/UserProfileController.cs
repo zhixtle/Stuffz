@@ -16,12 +16,9 @@ namespace Pastebook.Controllers
         }
 
         [Route("user/{profileUsername}")]
+        [CustomAuthorize]
         public ActionResult ViewProfile(string profileUsername)
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             Managers.UserManager userManager = new Managers.UserManager();
             Models.UserProfileModel model = userManager.GetUserProfile(Session["user"].ToString(), profileUsername);
             ViewData["savePicture"] = TempData["savePicture"];

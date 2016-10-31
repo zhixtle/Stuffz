@@ -9,12 +9,9 @@ namespace Pastebook.Controllers
     public class PostController : Controller
     {
         [Route("posts/{id:int}")]
+        [CustomAuthorize]
         public ActionResult Posts(int id)
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             Managers.PostManager postManager = new Managers.PostManager();
             Models.PostModel model = postManager.GetPost(id, Session["user"].ToString());
             return View(model);

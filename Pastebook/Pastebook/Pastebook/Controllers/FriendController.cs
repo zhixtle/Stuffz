@@ -9,12 +9,9 @@ namespace Pastebook.Controllers
     public class FriendController : Controller
     {
         [Route("friends")]
+        [CustomAuthorize]
         public ActionResult Friends()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             Managers.FriendManager friendManager = new Managers.FriendManager();
             List<Models.FriendModel> friendsList = friendManager.GetFriendsList(Session["user"].ToString());
             return View(friendsList);

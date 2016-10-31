@@ -20,12 +20,9 @@ namespace Pastebook.Controllers
         }
 
         [Route("notifications")]
+        [CustomAuthorize]
         public ActionResult AllNotifications()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             Managers.NotificationManager notifManager = new Managers.NotificationManager();
             List<Models.NotificationModel> notifsList = notifManager.GetAllNotifications(Session["user"].ToString());
             if (notifsList == null)
